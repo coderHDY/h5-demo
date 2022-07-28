@@ -1,9 +1,13 @@
 const path = require("path");
 
-const rootPath = path.join(__dirname, "..");
+const IS_SERVER = process.argv.includes("IS_SERVER");
+const rootPath = IS_SERVER ? "/h5-demo/" : path.join(__dirname, "../");
+console.log(IS_SERVER);
 
 function pathToUrl(filePath) {
-    return encodeURIComponent(path.relative(rootPath.slice(0, -2), filePath)).replace(/%2F/g, "/").slice(2);
+    const url = encodeURIComponent(path.relative(rootPath, filePath)).replace(/%2F/g, "/");
+    console.log(url);
+    return url;
 }
 
 function url2Path(url) {
@@ -14,4 +18,5 @@ module.exports = {
     rootPath,
     pathToUrl,
     url2Path,
+    IS_SERVER,
 }
