@@ -1,7 +1,7 @@
 const path = require("path");
 
 const IS_SERVER = process.argv.includes("IS_SERVER");
-const rootPath = IS_SERVER ? "/h5-demo/" : path.join(__dirname, "../src/");
+const rootPath = IS_SERVER ? path.join(__dirname, "../src/") : path.join(__dirname, "../src/");
 
 // 解决中文路径问题
 function pathToUrl(filePath) {

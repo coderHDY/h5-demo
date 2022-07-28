@@ -28,7 +28,7 @@ function generate() {
     const paths = getAllFile(path.join(__dirname, "../src"), "index.html");
 
     // 服务器和开发环境跟路径设置不同，待优化代码
-    const idx = IS_SERVER ? 2 : 0;
+    const idx = 0;
     const linksEl = "\n" + paths.map(src => `<div class="side-bar-item" data-src="${src}">${decodeURIComponent(src.split("/")[idx])}</div>`).join("\n") + "\n";
     writePublic(linksEl);
 }
