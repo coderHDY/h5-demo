@@ -15,9 +15,7 @@ content.addEventListener('mousemove', (e) => {
     const src = e.target.getAttribute("data-src");
     setSrc(src);
 });
-
 window.addEventListener("load", () => {
-    console.log('load');
     const firstSideBar = content?.children[0];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
