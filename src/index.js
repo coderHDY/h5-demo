@@ -24,7 +24,7 @@ function getAllFile(dir, fileName) {
 
 function generate() {
     const paths = getAllFile(rootPath, "index.html");
-    const links = "\n" + paths.map(src => `<div class="side-bar-item" data-src="../${src}">${decodeURIComponent(src.split("/")[0])}</div>`).join("\n") + "\n";
+    const links = "\n" + paths.map(src => `<div class="side-bar-item" data-src="${src}">${decodeURIComponent(src.split("/")[0])}</div>`).join("\n") + "\n";
     writePublic(links);
 }
 
