@@ -4,3 +4,5 @@ npm i
 
 npm run serve
 ```
+
+* src目录下放demo文件夹即可
