@@ -1,12 +1,9 @@
 const path = require("path");
-
-const IS_SERVER = process.argv.includes("IS_SERVER");
-const rootPath = IS_SERVER ? path.join(__dirname, "../src/") : path.join(__dirname, "../src/");
+const rootPath = path.join(__dirname, "../src/");
 
 // 解决中文路径问题
 function pathToUrl(filePath) {
-    const url = encodeURIComponent(path.relative(rootPath, filePath)).replace(/%2F/g, "/");
-    return url;
+    return encodeURIComponent(path.relative(rootPath, filePath)).replace(/%2F/g, "/");
 }
 
 // 解决服务器路径寻找问题
@@ -16,7 +13,6 @@ function url2Path(url) {
 
 module.exports = {
     rootPath,
-    IS_SERVER,
     pathToUrl,
     url2Path,
 }

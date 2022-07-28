@@ -1,5 +1,4 @@
 const {
-    IS_SERVER,
     rootPath,
     pathToUrl,
 } = require("./handler");

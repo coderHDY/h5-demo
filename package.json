@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "node index.js && cd ./src && vite",
-    "build": "node --harmony index.js IS_SERVER"
+    "build": "node index.js"
   },
   "author": "",
   "license": "ISC",
