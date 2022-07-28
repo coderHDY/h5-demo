@@ -1,4 +1,4 @@
-const generate = require("./src/index");
+const generate = require("./tools/index");
 (function () {
     generate();
 })()

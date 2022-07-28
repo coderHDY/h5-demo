@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node index.js && vite",
+    "serve": "node index.js && cd ./src && vite",
     "build": "node --harmony index.js IS_SERVER"
   },
   "author": "",
