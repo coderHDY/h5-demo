@@ -1,10 +1,20 @@
 "use strict";
 const content = document.querySelector(".side-bar");
 const iframe = document.querySelector(".content>iframe");
+const loadingEl = document.querySelector(".layout>.loading");
 
+// 代理loading动画
+let isLoading = new Proxy({ val: true }, {
+    set(target, key, val) {
+        loadingEl.style.display = val ? "block" : "none";
+        Reflect.set(target, key, val);
+        return true;
+    }
+});
 
 const setSrc = (src) => {
     if (!src || decodeURIComponent(src) === iframe.getAttribute("src")) return;
+    isLoading.val = true;
     iframe.setAttribute("src", decodeURIComponent(src));
 }
 content.addEventListener('click', (e) => {
@@ -21,4 +31,8 @@ window.addEventListener("load", () => {
         const src = firstSideBar.getAttribute("data-src");
         setSrc(src);
     }
+})
+
+iframe.addEventListener('load', () => {
+    isLoading.val = false;
 })
