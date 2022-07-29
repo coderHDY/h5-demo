@@ -1,5 +1,5 @@
 "use strict";
-const content = document.querySelector(".side-bar");
+const sideBar = document.querySelector(".side-bar");
 const iframe = document.querySelector(".content>iframe");
 const loadingEl = document.querySelector(".layout>.loading");
 
@@ -17,16 +17,16 @@ const setSrc = (src) => {
     isLoading.val = true;
     iframe.setAttribute("src", decodeURIComponent(src));
 }
-content.addEventListener('click', (e) => {
+sideBar.addEventListener('click', (e) => {
     const src = e.target.getAttribute("data-src");
     setSrc(src);
 });
-content.addEventListener('mousemove', (e) => {
+sideBar.addEventListener('mousemove', (e) => {
     const src = e.target.getAttribute("data-src");
     setSrc(src);
 });
 window.addEventListener("load", () => {
-    const firstSideBar = content?.children[0];
+    const firstSideBar = sideBar?.children[0];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
         setSrc(src);
