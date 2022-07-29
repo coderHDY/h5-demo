@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <canvas width="1000px" height="500px" id="canvas"></canvas>
+  <img src="./bg.jpeg" alt="" id="img" style="width: 0;"/>
+  <h2>移动取色，点击固定色：<span id="span"></span></h2>
+
+    <script>
+      const ctx = canvas.getContext("2d");
+      const setColor = (e) => {
+          const {x, y} = e;
+          const {data: rgba} = ctx.getImageData(x, y, 1, 1);
+          if (rgba) {
+            const color = `rgba(${rgba[0]}, ${rgba[1]}, ${rgba[2]}, ${rgba[3]})`
+            canvas.style.backgroundColor = color;
+            span.innerText = color;
+          }
+      };
+      canvas.addEventListener("mousemove", setColor);
+      canvas.addEventListener("click", () => canvas.removeEventListener("mousemove", setColor));
+      img.onload = () => ctx.drawImage(img, 100, 100, 600, 200);
+    </script>
+</body>
+</html>
