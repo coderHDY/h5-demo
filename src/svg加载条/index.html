@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <svg width="1000" height="1000">
+        <circle cx="200" cy="200" r="90px" fill="none" stroke="#333" stroke-width="2"></circle>
+        <circle cx="200" cy="200" r="100px" fill="none" stroke="#bababa" stroke-width="20"></circle>
+        <circle cx="200" cy="200" r="110px" fill="none" stroke="#333"></circle>
+        <circle class="svg-process" cx="200" cy="200" r="100px" fill="none" stroke="#ee33ee" stroke-width="20"
+            stroke-linecap="round" stroke-dasharray="0,100000" transform="rotate(-90, 200, 200)">
+        </circle>
+        <text class="svg-text" x="170" y="205" font-size="30">10%</text>
+
+    </svg>
+    <script>
+        function setProgress(persent) {
+            const svgProcess = document.querySelector(".svg-process");
+            const svgText = document.querySelector(".svg-text");
+            const circleLength = parseInt(svgProcess.getAttribute("r")) * Math.PI * 2;
+            persent = persent < 0 ? 0 : (persent > 100 ? 100 : persent);
+            const len = circleLength * persent / 100;
+            svgProcess.setAttribute("stroke-dasharray", `${len}, 100000`);
+            svgText.innerHTML = `${persent}%`;
+        }
+
+        // test
+        let persent = 0;
+        let timer = setInterval(() => {
+            persent++;
+            setProgress(persent)
+            if (persent === 100) {
+                clearInterval(timer);
+                tiemr = null;
+            }
+        }, 100);
+    </script>
+</body>
+
+</html>
