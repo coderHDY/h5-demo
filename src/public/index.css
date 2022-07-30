@@ -78,6 +78,23 @@ body {
     left: 0rem;
     background-color: rgba(136, 166, 202, 0.3);
 }
+.side-bar-close {
+	position: fixed;
+    font-size: 3rem;
+    display: block;
+    width: 2rem;
+    height: 2rem;
+	line-height: 2rem;
+    left: -2rem;
+    top: calc(50% - 1rem);
+    color: rgb(93, 59, 189, 0.5);
+    z-index: 999;
+	transition: all .3s 0s ease-in;
+}
+.side-bar:hover+.side-bar-close {
+	left: 10rem;
+}
+
 .side-bar:hover::before {
     content: "";
 }
