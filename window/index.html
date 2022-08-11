@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 可以添加类 small -->
+    <div class="window-wrapper small">
+        <div class="window-outer">
+            <div class="window-inner"></div>
+            <div class="controller">亖</div>
+        </div>
+        <div class="window-content">
+            <img src="https://coderhdy.com/assets/img/bg.svg" />
+        </div>
+    </div>
+
+    <script>
+        const controller = document.querySelector(".controller");
+        const windowOuter = document.querySelector(".window-outer");
+        controller.addEventListener("click", () => {
+            windowOuter.classList.toggle("hidden");
+        })
+    </script>
+</body>
+
+</html>
