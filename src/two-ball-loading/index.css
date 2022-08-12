@@ -1,0 +1,68 @@
+.loading-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+}
+.loading-red, .loading-blue {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+}
+.loading-red {
+  background-color: red;
+  animation: red 1.5s 0s ease-in-out reverse infinite running;
+}
+.loading-blue {
+  background-color: blue;
+  animation: blue 1.5s 0s ease-in-out reverse infinite running;
+}
+
+@keyframes red {
+  0% {
+    transform: translate(-100%, -50%);
+    box-shadow: none;
+    z-index: 0;
+  }
+  25% {
+    /* 重点：shadow并不会跟着球跑，所以放在路径前方等球来，才能做出残影效果 */
+    box-shadow: 10px 0 3px rgb(255 163 163);
+  }
+  50% {
+    transform: translate(100%, -50%);
+    box-shadow: none;
+    z-index: 10;
+  }
+  75% {
+    box-shadow: -10px 0 3px rgb(240, 138, 138);
+  }
+  100% {
+    transform: translate(-100%, -50%);
+    box-shadow: none;
+    z-index: 0;
+  }
+}
+@keyframes blue {
+  0% {
+    transform: translate(100%, -50%);
+    z-index: 0;
+  }
+  25% {
+    box-shadow: -10px 0 3px rgb(163, 197, 255);
+  }
+  50% {
+    transform: translate(-100%, -50%);
+    z-index: 5;
+  }
+  75% {
+    box-shadow: 10px 0 3px rgb(163, 197, 255);
+  }
+  100% {
+    transform: translate(100%, -50%);
+    z-index: 100;
+  }
+}
