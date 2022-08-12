@@ -9,14 +9,22 @@
 </head>
 
 <body>
-    <svg width="1000" height="1000">
-        <circle cx="200" cy="200" r="90px" fill="none" stroke="#333" stroke-width="2"></circle>
-        <circle cx="200" cy="200" r="100px" fill="none" stroke="#bababa" stroke-width="20"></circle>
-        <circle cx="200" cy="200" r="110px" fill="none" stroke="#333"></circle>
-        <circle class="svg-process" cx="200" cy="200" r="100px" fill="none" stroke="#ee33ee" stroke-width="20"
-            stroke-linecap="round" stroke-dasharray="0,100000" transform="rotate(-90, 200, 200)">
+    <style>
+        .svg {
+            position: absolute;
+            left: 50vw;
+            top: 50vh;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <svg width="240" height="240" class="svg">
+        <circle cx="120" cy="120" r="90px" fill="none" stroke="#333" stroke-width="2"></circle>
+        <circle cx="120" cy="120" r="100px" fill="none" stroke="#bababa" stroke-width="20"></circle>
+        <circle cx="120" cy="120" r="110px" fill="none" stroke="#333"></circle>
+        <circle class="svg-process" cx="120" cy="120" r="100px" fill="none" stroke="#ee33ee" stroke-width="20"
+            stroke-linecap="round" stroke-dasharray="0,100000" transform="rotate(-90, 120, 120)">
         </circle>
-        <text class="svg-text" x="170" y="205" font-size="30">10%</text>
+        <text class="svg-text" x="95" y="130" font-size="30">10%</text>
 
     </svg>
     <script>
