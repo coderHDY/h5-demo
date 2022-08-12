@@ -6,3 +6,4 @@ npm run serve
 ```
 
 * src目录下放demo文件夹即可
+* 每个子文件夹下必须`index.html`为入口
