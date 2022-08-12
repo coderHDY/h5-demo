@@ -1,0 +1,71 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-items: center;
+}
+.box-wrapper {
+  width: 100px;
+  height: 100px;
+  /* background-color: rgb(255, 178, 178); */
+  animation: roll 2s 0s linear infinite running normal;
+}
+.loading-ball {
+  --color: hsl(calc(var(--i) * 50deg) calc(var(--i) * 15%) calc(var(--i) * 15%) / calc(var(--i) / 5));
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--color);
+}
+
+.loading-ball:nth-child(1) {
+  top: 0;
+  left: 0;
+}
+.loading-ball:nth-child(2) {
+  top: 0;
+  right: 0;
+}
+.loading-ball:nth-child(3) {
+  bottom: 0;
+  left: 0;
+}
+.loading-ball:nth-child(4) {
+  bottom: 0;
+  right: 0;
+}
+
+
+@keyframes roll {
+  0% {
+    transform: rotate(0);
+    width: 100px;
+    height: 100px;
+  }
+  30% {
+    transform: rotate(90deg);
+    width: 100px;
+    height: 100px;
+  }
+  45% {
+    transform: rotate(180deg);
+    width: 30px;
+    height: 30px;
+  }
+  70% {
+    transform: rotate(216deg);
+    width: 30px;
+    height: 30px;
+  }
+  80% {
+    transform: rotate(270deg);
+    width: 100px;
+    height: 100px;
+  }
+  100% {
+    transform: rotate(360deg);
+    width: 100px;
+    height: 100px;
+  }
+}
