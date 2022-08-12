@@ -14,11 +14,11 @@
 }
 .loading-red {
   background-color: red;
-  animation: red 1.5s 0s ease-in-out normal infinite running;
+  animation: red 1.5s 0s linear normal infinite running;
 }
 .loading-blue {
   background-color: blue;
-  animation: blue 1.5s 0s ease-in-out normal infinite running;
+  animation: blue 1.5s 0s linear normal infinite running;
 }
 
 @keyframes red {
@@ -28,13 +28,15 @@
     z-index: 100;
   }
   25% {
+    transform: translate(-50%, -50%) scale(1.05);
     box-shadow: -10px 0 3px rgb(250, 212, 212);
   }
   50% {
-    transform: translate(20%, -50%);
+    transform: translate(20%, -50%) scale(1) ;
     box-shadow: none;
   }
   75% {
+    transform: translate(-50%, -50%) scale(0.95);
     box-shadow: 10px 0 3px rgb(250, 212, 212);
   }
   100% {
@@ -49,12 +51,14 @@
     z-index: 0;
   }
   25% {
+    transform: translate(-50%, -50%) scale(0.95);
     box-shadow: 10px 0 3px rgb(205, 223, 254);
   }
   50% {
     transform: translate(-120%, -50%);
   }
   75% {
+    transform: translate(-50%, -50%) scale(1.05);
     box-shadow: -10px 0 3px rgb(205, 223, 254);
   }
   100% {
