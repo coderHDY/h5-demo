@@ -1,0 +1,34 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+}
+.roll-wrapper {
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+.roll-outer, .roll-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+.roll-outer {
+  border: 10px solid rgb(246, 246, 246);
+}
+.roll-inner {
+  border: 10px solid rgba(255, 255, 255, 0);
+  border-top-color: rgba(255, 206, 206, 0.7);
+  animation: roll .3s 0s linear infinite running;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
