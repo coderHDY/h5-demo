@@ -1,0 +1,44 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    background-color: rgb(234, 234, 234);
+    padding: 15px;
+    box-shadow: 0 0 5px #333;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+.card div {
+    height: 2rem;
+    line-height: 2rem;
+    z-index: 3;
+}
+.card::before {
+    content: "";
+    position: absolute;
+    left: -380px;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    border-top: 0;
+    border-left: 200px solid rgba(92, 155, 255, 0.7);
+    border-right: 200px solid transparent;
+    border-bottom:  300px solid rgba(92, 155, 255, 0.7);
+    z-index: 2;
+    transition: all .3s 0s linear;
+}
+.card:hover::before {
+    left: 0;
+}

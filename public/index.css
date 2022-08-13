@@ -62,7 +62,7 @@ body {
     z-index: 1000;
 }
 .side-bar::-webkit-scrollbar {
-	display: none
+	display: none;
 }
 .side-bar::before {
     position: fixed;
@@ -112,7 +112,8 @@ body {
     line-height: 3rem;
     margin-bottom: 10px;
     background-color: rgba(163, 183, 215, 0.8);
-    text-align: center;
+	padding-left: 10px;
+    text-align: left;
 }
 .content {
     flex: 1;
