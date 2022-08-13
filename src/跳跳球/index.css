@@ -22,7 +22,7 @@ body {
   height: 50px;
   background-color: rgb(255, 0, 0);
   border-radius: 50%;
-  animation: ball .8s 0s ease-in infinite alternate-reverse running;
+  animation: ball .8s 0s ease-in infinite alternate running;
   z-index: 1;
 }
 .ball-shadow {
@@ -35,7 +35,7 @@ body {
   background-color: rgb(196, 196, 196);
   border-radius: 50%;
   z-index: 0;
-  animation: shadow .8s 0s ease-in infinite alternate-reverse running;
+  animation: shadow .8s 0s ease-in infinite alternate running;
 }
 
 .loading-wrapper .ball-wrapper:nth-child(1) .ball, 
@@ -53,7 +53,7 @@ body {
 
 @keyframes ball {
   0% {
-    top: 0
+    top: 0;
   }
   95% {
     top: calc(100% - 10px - 60px);
