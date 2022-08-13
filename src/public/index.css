@@ -57,7 +57,8 @@ body {
     height: 100vh;
     background-color: rgba(255, 255, 255, 0);
     user-select: none;
-    overflow: scroll;
+    overflow-y: scroll;
+	overflow-x: hidden;
     transition: all .3s 0s ease-in;
     z-index: 1000;
 }
@@ -113,7 +114,12 @@ body {
     margin-bottom: 10px;
     background-color: rgba(163, 183, 215, 0.8);
 	padding-left: 10px;
+	user-select: none;
+	cursor: default;
     text-align: left;
+}
+.side-bar-item::selection {
+	cursor: default;
 }
 .content {
     flex: 1;
