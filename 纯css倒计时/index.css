@@ -1,0 +1,105 @@
+body {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+.counter-wrapper {
+    width: 200px;
+    height: 100px;
+}
+.counter-wrapper::before {
+    content: "5";
+    display: block;
+    font-size: 4rem;
+    line-height: 100px;
+    width: 200px;
+    text-align: center;
+    font-weight: 600;
+    transition: all .1s 0s linear;
+    animation: count 5s 1s linear 1 running forwards;
+}
+@keyframes count {
+    0% {
+        content: "5"
+    }
+    10% {
+        content: "5";
+        transform: scale(1);
+    }
+    15% {
+        content: "5";
+        transform: scale(0);
+    }
+    16% {
+        content: "4";
+        transform: scale(0);
+    }
+    20% {
+        content: "4";
+        transform: scale(1);
+    }
+    30% {
+        content: "4";
+        transform: scale(1);
+    }
+    35% {
+        content: "4";
+        transform: scale(0);
+    }
+    36% {
+        content: "3";
+        transform: scale(0);
+    }
+    40% {
+        content: "3";
+        transform: scale(1);
+    }
+    50% {
+        content: "3";
+        transform: scale(1);
+    }
+    55% {
+        content: "3";
+        transform: scale(0);
+    }
+    56% {
+        content: "2";
+        transform: scale(0);
+    }
+    60% {
+        content: "2";
+        transform: scale(1);
+    }
+    70% {
+        content: "2";
+        transform: scale(1);
+    }
+    75% {
+        content: "2";
+        transform: scale(0);
+    }
+    76% {
+        content: "1";
+        transform: scale(0);
+    }
+    80% {
+        content: "1";
+        transform: scale(1);
+    }
+    90% {
+        content: "1";
+        transform: scale(1);
+    }
+    95% {
+        content: "1";
+        transform: scale(0);
+    }
+    96% {
+        content: "GO!";
+        transform: scale(0);
+    }
+    100% {
+        content: "GO!";
+        transform: scale(1);
+    }
+}
