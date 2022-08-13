@@ -21,9 +21,14 @@ body {
     overflow: hidden;
 }
 .card div {
-    height: 2rem;
-    line-height: 2rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    margin-top: 1rem;
     z-index: 3;
+}
+.card div::first-letter {
+    font-size: 2rem;
+    color: rgb(255, 135, 135);
 }
 .card::before {
     content: "";
@@ -36,9 +41,9 @@ body {
     border-left: 200px solid rgba(92, 155, 255, 0.7);
     border-right: 200px solid transparent;
     border-bottom:  300px solid rgba(92, 155, 255, 0.7);
-    z-index: 2;
+    z-index: 1000;
     transition: all .3s 0s linear;
 }
-.card:hover::before {
+.card:hover::before, .card:active::before {
     left: 0;
 }

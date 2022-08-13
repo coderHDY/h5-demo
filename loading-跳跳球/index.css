@@ -15,14 +15,14 @@ body {
 }
 .ball {
   position: absolute;
-  top: 0;
+  top: calc(0% - 10px - 60px);
   left: 50%;
   transform: translate(-50%);
   width: 50px;
   height: 50px;
   background-color: rgb(255, 0, 0);
   border-radius: 50%;
-  animation: ball .8s 0s ease-in infinite alternate running;
+  animation: ball .7s 0s ease-in infinite alternate running;
   z-index: 1;
 }
 .ball-shadow {
@@ -35,7 +35,7 @@ body {
   background-color: rgb(196, 196, 196);
   border-radius: 50%;
   z-index: 0;
-  animation: shadow .8s 0s ease-in infinite alternate running;
+  animation: shadow .7s 0s ease-in infinite alternate running;
 }
 
 .loading-wrapper .ball-wrapper:nth-child(1) .ball, 
@@ -44,16 +44,16 @@ body {
 }
 .loading-wrapper .ball-wrapper:nth-child(2) .ball, 
 .loading-wrapper .ball-wrapper:nth-child(2) .ball-shadow {
-  animation-delay: .2s;
+  animation-delay: .3s;
 }
 .loading-wrapper .ball-wrapper:nth-child(3) .ball, 
 .loading-wrapper .ball-wrapper:nth-child(3) .ball-shadow {
-  animation-delay: .4s;
+  animation-delay: .6s;
 }
 
 @keyframes ball {
   0% {
-    top: 0;
+    top: calc(0% - 10px - 60px);
   }
   95% {
     top: calc(100% - 10px - 60px);
