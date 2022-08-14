@@ -38,9 +38,9 @@ body {
     width: 0;
     height: 0;
     border-top: 0;
-    border-left: 200px solid rgba(92, 155, 255, 0.7);
+    border-left: 200px solid rgba(92, 155, 255, 0.3);
     border-right: 200px solid transparent;
-    border-bottom:  300px solid rgba(92, 155, 255, 0.7);
+    border-bottom:  300px solid rgba(92, 155, 255, 0.3);
     z-index: 1000;
     transition: all .3s 0s linear;
 }
