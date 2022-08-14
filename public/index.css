@@ -54,11 +54,11 @@ body {
     flex-direction: column;
     left: -10rem;
     width: 10rem;
-    height: 100vh;
+    height: 100%;
     background-color: rgba(255, 255, 255, 0);
     user-select: none;
     overflow-y: scroll;
-	overflow-x: hidden;
+		overflow-x: hidden;
     transition: all .3s 0s ease-in;
     z-index: 1000;
 }
@@ -67,6 +67,7 @@ body {
 }
 .side-bar::before {
     position: fixed;
+		display: block;
     content: ">";
     font-size: 3rem;
     display: grid;
@@ -77,6 +78,16 @@ body {
     top: 0;
     color: rgb(93, 59, 189, 0.5);
     z-index: 999;
+}
+@media screen and (max-width:500px) {
+	.side-bar {
+    left: -9rem;
+	}
+	.side-bar::before {
+		left: -1rem;
+		font-weight: 800;
+		color: rgb(0, 55, 255);
+	}
 }
 .side-bar:hover {
     left: 0rem;
