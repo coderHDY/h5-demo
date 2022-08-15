@@ -1,7 +1,8 @@
 :root {
     --light-bgc: #fff;
     --light-color: black;
-    --light-gray: rgba(27, 27, 27, 0.3);
+    --light-gray: rgba(81, 81, 255, 0.3);
+    --dark-gray: rgba(192, 207, 227, 0.3);
     --dark-bgc: black;
     --dark-color: #fff;
 }
@@ -33,7 +34,6 @@ body {
     flex: 1;
     height: 80%;
     cursor: pointer;
-    user-select: none;
 }
 .active {
     position: absolute;
@@ -44,14 +44,17 @@ body {
     height: 80%;
     border-radius: 8px;
     background-color: var(--light-gray);
-    filter: blur(10px);
     transition: all .8s 0s ease-in-out;
+    box-shadow: inset 8px 8px 6px rgb(246, 252, 255),
+                inset -5px -5px 15px rgb(229, 240, 252);
 }
-
+.wrapper:active {
+    transform: translate3d(0, 10px, 3px);
+}
 .active.close {
     left: calc(60% - 12px);
     /* right: 10px; */
-    background-color: rgba(202, 202, 202, 0.5);
+    background-color: var(--light-gray);
 }
 .wrapper.close, body.close {
     background-color: var(--dark-bgc);
