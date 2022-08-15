@@ -1,0 +1,38 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+.love {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 70px solid rgba(255, 36, 36, 1);
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-radius: 50%;
+  /* box-shadow: 1px 0 1px 2px rgba(255, 36, 36, 0.3); */
+}
+.love::before {
+  content: "";
+  width: 50px;
+  height: 50px;
+  top: -90px;
+  left: -40px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 36, 36, 1);
+  box-shadow: -2px 0 2px rgba(255, 36, 36, 1);
+}
+.love::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  top: -90px;
+  right: -40px;
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 36, 36, 1);
+  box-shadow: 2px 0 2px rgba(255, 36, 36, 1);
+}

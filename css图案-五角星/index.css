@@ -1,0 +1,41 @@
+body {
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.star {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-top: 36.32px solid red;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+}
+.star::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 36.32px solid red;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  transform-origin: center;
+  left: -50px;
+  top: -36.32px;
+  transform: rotate(69deg);
+}
+.star::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 36.32px solid red;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  transform-origin: center;
+  left: -50px;
+  top: -36.32px;
+  transform: rotate(-71deg);
+}

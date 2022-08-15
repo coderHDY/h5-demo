@@ -40,3 +40,8 @@ window.addEventListener("load", () => {
 iframe.addEventListener('load', () => {
     isLoading.val = false;
 })
+
+iframe.onload = () => {
+    const script = iframe.contentWindow.document.querySelectorAll("script");
+    script.forEach(item => document.body.appendChild(item));
+};
