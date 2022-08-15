@@ -1,0 +1,32 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  margin-left: 10vw;
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+.item {
+  flex: 1;
+  margin-right: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all .5s 0s linear;
+}
+.item-image {
+  width: auto;
+  height: 100%;
+}
+.active {
+  flex: 5;
+}
