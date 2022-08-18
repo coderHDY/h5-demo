@@ -11,7 +11,7 @@ const noTransition = (() => {
         timer = setTimeout(() => {
             steps.classList.remove('noTransition');
             timer = null;
-        })
+        }, 100)
     }
 })();
 
@@ -46,7 +46,7 @@ const useStep = (all = 1) => {
     return [getVal, setStep, prev, next];
 }
 
-const [getVal, setStep, prev, next] = useStep(4);
+const [getVal, setStep, prev, next] = useStep(stepsArr?.length || 0);
 
 prevEl.addEventListener('click', prev);
 nextEl.addEventListener('click', next);
