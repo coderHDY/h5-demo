@@ -1,0 +1,97 @@
+body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+}
+.steps {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    height: 50px;
+
+}
+.step {
+    display: flex;
+    position: relative;
+    align-items: flex-end;
+    flex-direction: column;
+    width: 100%;
+    --active-color: rgb(63, 255, 79);
+}
+
+.step .number {
+    right: 0;
+    flex-basis: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    border-radius: 50%;
+    text-align: center;
+    border: 3px solid rgb(208, 208, 208);
+    transition: border .2s .4s linear;
+}
+.step .line {
+    flex: 1;
+    position: absolute;
+    height: 3px;
+    width: calc(100% - 1.2rem - 6px);
+    left: 0;
+    top: calc(50% - 1.5px);
+    background-color: rgb(213, 213, 213);
+}
+.step .line::before {
+    content: "";
+    position: absolute;
+    height: 3px;
+    width: 0%;
+    left: 0;
+    top: 0;
+    background-color: var(--active-color);
+    transition: width 0.4s 0s linear;
+}
+.step.active .line::before {
+    width: 100%;
+}
+
+.step:first-child {
+    flex-basis: 1.2rem;
+    flex-grow: 0;
+}
+.step:first-child .number {
+    border: 3px solid var(--active-color);
+}
+.step:first-child .line{
+    display: none;
+}
+
+.controller {
+    display: flex;
+    position: relative;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 10px;
+}
+.prev, .next {
+    flex-shrink: 0;
+    width: 4rem;
+    height: 2rem;
+    line-height: 2rem;
+    padding: 0;
+    background-color: rgb(118, 173, 240);
+    border: 1px solid rgb(118, 143, 171);
+    border-radius: 10px;
+    box-shadow: 0 1px 2px 3px rgb(208, 218, 227);
+    user-select: none;
+}
+.prev:active, .next:active {
+    transform: translate(1px, 1px);
+}
+
+.step.active .number {
+    border: 3px solid var(--active-color);
+}
+.steps.noTransition .line::before, .steps.noTransition .number {
+    transition: none;
+}
