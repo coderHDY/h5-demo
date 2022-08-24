@@ -7,32 +7,6 @@ body {
     height: 100vh;
     overflow: hidden;
 }
-.header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100vw;
-    text-align: center;
-    height: 4rem;
-    line-height: 4rem;
-    background-color: rgb(200, 225, 255, 0);
-    font-size: 1.7rem;
-    box-sizing: border-box;
-    z-index: 0;
-    transition: all .3s 0s ease-in;
-}
-
-.header>span {
-    display: inline-block;
-    transition: all .3s 0s ease-in;
-    transform: scale(0);
-}
-.header:hover {
-    background-color: rgb(200, 225, 255, 0.7);
-}
-.header:hover>span {
-    transform: scale(1);
-}
 
 .layout {
     display: flex;
