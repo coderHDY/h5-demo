@@ -1,0 +1,98 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+.page {
+    position: relative;
+    transform-origin: 0 0;
+    height: 100%;
+    transition: all .7s 0s linear;
+    cursor: default;
+    user-select: none;
+}
+.nav-controller {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: rgb(234, 78, 78);
+    transform-origin: center;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    color: #fff;
+    transition: all .3s .4s linear;
+}
+.open {
+    position: absolute;
+    top: 60%;
+    left: 60%;
+    font-size: 2rem;
+    font-weight: 800;
+}
+.close {
+    position: absolute;
+    left: 20%;
+    top: 55%;
+    font-size: 2.5rem;
+    font-weight: 800;
+    transform: rotate(90deg);
+}
+.page.is-open {
+    transform: rotate(-20deg);
+}
+.page.is-open .nav-controller {
+    transform: translate(-50%, -50%) rotate(-70deg);
+}
+.page.is-open .nav-item {
+    transform: rotate(20deg);
+}
+.nav {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    text-align: right;
+    left: -20rem;
+    width: 20rem;
+    height: 120vh;
+    color: rgb(231, 231, 231);
+    background-color: rgb(101, 101, 101);
+    padding-right: 3rem;
+    padding-bottom: 20vh;
+    box-sizing: border-box;
+}
+.nav-item {
+    width: 50%;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    transform-origin: right 50%;
+    transition: all .5s .9s ease;
+    transform: translate(-200%);
+}
+
+.nav-item:nth-child(1) {
+    transition: all .6s .2s ease;
+}
+.nav-item:nth-child(2) {
+    transition: all .7s .2s ease;
+}
+.nav-item:nth-child(3) {
+    transition: all .8s .2s ease;
+}
+.content-wrapper {
+    width: 100vw;
+    height: 100vh;
+    overflow: scroll;
+}
+.page-content {
+    display: grid;
+    place-items: center;
+}
+.page-content h1 {
+    text-align: center;
+}
