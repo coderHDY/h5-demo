@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+.page {
+    position: relative;
+    background-color: rgb(125, 168, 247);
+    width: 100vw;
+    height: 100vh;
+    background-image: url("	https://coderhdy.com/assets/img/bg.svg");
+    background-color: rgb(119, 177, 253);
+    background-size: cover;
+    filter: blur(100px)
+}
+.progress {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    font-weight: 800;
+    color: aliceblue;
+}
