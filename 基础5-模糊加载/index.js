@@ -6,7 +6,7 @@ const setProgress = (i) => {
     if (i > 100) i = 100;
     progress.innerText = `${i}%`;
     page.setAttribute("style", `filter: blur(${scale(i, 0, 100, 30, 0)}px)`);
-    progress.setAttribute("style", `opacity: ${scale(i, 0, 100, 0, 30)}`);
+    progress.setAttribute("style", `opacity: ${scale(i, 0, 100, 1, 0)}`);
 }
 
 let p = 0;
@@ -21,4 +21,4 @@ let p = 0;
 })()
 
 // 重要：范围转换
-const scale = (num, in_min, in_max, out_min, out_max) => num / (in_max - in_min) * (out_max - out_min) + out_min;
+const scale = (num, in_min, in_max, out_min, out_max) => (num - in_min) / (in_max - in_min) * (out_max - out_min) + out_min;
