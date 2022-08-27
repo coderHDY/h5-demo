@@ -1,0 +1,51 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.page {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: scroll;
+}
+.contener {
+    position: relative;
+    display: flex;
+    overflow-x: hidden;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    background-color: rgb(255, 233, 68);
+}
+.header {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    line-height: 2.5rem;
+    height: 2.5rem;
+}
+.content {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    width: 20rem;
+    height: 150px;
+    text-align: center;
+    line-height: 150px;
+    background-color: rgb(121, 221, 214);
+    border-radius: 10px;
+    transition: all .2s 0s linear;
+}
+
+.content:nth-child(2N + 1) {
+    position: relative;
+    left: -100vw;
+}
+.content:nth-child(2N + 2) {
+    position: relative;
+    left: 100vw;
+}
+.content.visible {
+    left: 0;
+    top: 0;
+}
