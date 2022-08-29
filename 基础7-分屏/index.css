@@ -1,0 +1,70 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+.page {
+    display: flex;
+    height: 100vh;
+}
+.left, .right {
+    position: relative;
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    flex: 1;
+    transition: flex .7s 0s linear;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.left {
+    background-image: url("./ps.jpeg");
+}
+.right {
+    background-image: url("./xbox.jpeg");
+}
+.left .contener, .right .contener {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+}
+.left .contener {
+    background-color: rgba(9, 161, 255, 0.3);
+}
+.right .contener {
+    background-color: rgba(255, 196, 253, 0.1);
+}
+.left h2, .right h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.left button, .right button {
+    width: 15rem;
+    height: 5rem;
+    line-height: 3rem;
+    padding: 1rem;
+    border-radius: 9px;
+    background-color: rgba(0,0,0,0);
+    border: 3px solid #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3rem;
+}
+.left button:hover {
+    background: rgba(33, 59, 255, .8);
+    color: #fff;
+}
+.right button:hover {
+    background: rgba(255, 61, 61, .8);
+    color: #000;
+}
+.right button {
+    color: #fff;
+}
+.left:hover, .right:hover {
+    flex: 3;
+}
