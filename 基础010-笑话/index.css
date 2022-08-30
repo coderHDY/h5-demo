@@ -7,10 +7,21 @@ body {
 .joke-wrapper {
   display: flex;
   flex-direction: column;
-  width: 25rem;
+  min-width: 15rem;
+  max-width: 45rem;
   border-radius: 1rem;
   box-shadow: 0 2px 5px 5px rgb(201, 201, 201);
+  background-color: #fff;
   overflow: hidden;
+}
+.joke-trans {
+  padding: 1rem;
+}
+.joke-trans::before {
+  content: "译：";
+  font-size: 1.5rem;
+  color:rgb(68, 153, 222);
+  font-weight: 800;
 }
 .title, .btn-wrapper {
   text-align: center;
@@ -18,21 +29,24 @@ body {
   font-weight: 700;
   line-height: 2.5rem;
   height: 2.5rem;
-  color: #fff;
-  background-color: rgb(146, 161, 235);
+  /* color: #fff; */
+}
+.title {
+  color: rgb(197, 197, 197);
+  margin-bottom: 2rem;
 }
 .joke {
   flex: 1;
   padding: 1rem;
   min-height: 5rem;
   box-sizing: border-box;
-  background-color: #fff;
+  font-size: 2rem;
 }
 .btn-wrapper {
   display: grid;
   place-items: center;
+  margin-top: 2rem;
   height: 3.5rem;
-  background-color: rgb(137, 129, 229);
 }
 .button {
   color: #fff;
