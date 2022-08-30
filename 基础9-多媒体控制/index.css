@@ -1,0 +1,29 @@
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(221, 130, 218);
+}
+.audio-wrapper {
+  position: absolute;
+  width: 0;
+}
+.audio-controller {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.controller {
+  height: 3rem;
+  width: 7rem;
+  margin: 1rem;
+  border: 0;
+  background-color: rgb(137, 211, 247);
+  border-radius: 4px;
+}
+.controller:hover {
+  background-color: rgba(99, 195, 242);
+}
