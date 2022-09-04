@@ -1,0 +1,99 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(247, 189, 144);
+}
+.chat {
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 90vh;
+  /* width: 100%;
+  height: 100%; */
+  background-color: rgb(255, 255, 255);
+  border-radius: 1rem;
+  box-shadow: 0 2px 5px 5px rgb(212, 223, 232);
+  overflow: hidden;
+}
+.title {
+  background-color: rgb(130, 212, 252);
+  text-align: center;
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+.msg-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+  overflow: scroll;
+}
+.msg {
+  position: relative;
+  max-width: 85%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 1rem;
+  padding: .5rem;
+}
+.msg.me {
+  border-top-right-radius: 0;
+  background-color: rgb(167, 240, 128);
+  align-self: end;
+}
+.msg.me::after {
+  content: "";
+  position: absolute;
+  right: -.7rem;
+  top: -.2rem;
+  transform: rotate(-20deg);
+  border-left: 1rem solid rgb(167, 240, 128);
+  border-top: 0rem solid rgb(167, 240, 128);
+  border-bottom: 1rem solid transparent;
+}
+.msg.robot {
+  border-top-left-radius: 0;
+  background-color: rgb(250, 82, 82);
+}
+.msg.robot::after {
+  content: "";
+  position: absolute;
+  left: -.7rem;
+  top: -.2rem;
+  /* top: 0; */
+  transform: rotate(20deg);
+  border-right: 1rem solid rgb(250, 82, 82);
+  border-top: 0rem solid rgb(250, 82, 82);
+  border-bottom: 1rem solid transparent;
+}
+.ipt-wrapper {
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 -2px 2px rgb(241, 241, 241);
+  z-index: 999;
+}
+.ipt {
+  flex: 1;
+  margin: 0 1rem;
+  height: 80%;
+  line-height: 2rem;
+  padding-left: 1rem;
+  border-radius: 9px;
+  border: 1px solid rgb(151, 197, 238);
+}
+.send {
+  width: 3rem;
+  height: 70%;
+  border-radius: 4px;
+  border: none;
+  margin-right: .5rem;
+  box-shadow: inset 0 0 3px .5rem rgb(213, 235, 246);
+}

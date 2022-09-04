@@ -18,7 +18,7 @@ body {
   padding: 1rem;
 }
 .joke-trans::before {
-  content: "译：";
+  content: "Tip：";
   font-size: 1.5rem;
   color:rgb(68, 153, 222);
   font-weight: 800;
