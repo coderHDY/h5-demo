@@ -1,7 +1,7 @@
 const msgBox = document.querySelector(".msg-box");
 const ipt = document.querySelector(".ipt");
 const send = document.querySelector(".send");
-const BASE_URL = "http://169.129.115.80:8888";
+const BASE_URL = "https://hdy.gh520.xyz";
 
 const sendMe = (val) => {
   const meMsg = document.createElement("div");
@@ -12,7 +12,7 @@ const sendMe = (val) => {
 const sendRobot = (val) => {
   const robotMsg = document.createElement("div");
   robotMsg.classList.add("msg", "robot");
-  
+
   robotMsg.innerHTML = initNode(val);
   appendChild(robotMsg);
 }
@@ -25,7 +25,7 @@ const initNode = (val) => {
 }
 const appendChild = (el) => {
   msgBox.appendChild(el);
-  el.scrollIntoView({behavior: "smooth", block: "end", inline: "end"});
+  el.scrollIntoView({ behavior: "smooth", block: "end", inline: "end" });
 }
 const sendMsg = async () => {
   const val = encodeURIComponent(ipt.value);
