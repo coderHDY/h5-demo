@@ -21,22 +21,18 @@ sideBar.addEventListener('click', (e) => {
     const src = e.target.getAttribute("data-src");
     setSrc(src);
 });
-// sideBar.addEventListener('mousemove', (e) => {
-//     const src = e.target.getAttribute("data-src");
-//     setSrc(src);
-// });
 sideBar.addEventListener('click', (e) => {
     const src = e.target.getAttribute("data-src");
     if (!src) return;
     setSrc(src);
     Array.prototype.forEach.call(sideBar.children, item => item.classList[e.target === item ? "add" : "remove"]("active"));
 });
-// console.log(sideBar.children[0]);
-// sideBar.children[0].dispatchEvent(new Event("click")); // ?
 
 sideBar.children[0].classList.add("active");
 
 window.addEventListener("load", () => {
+    const hash = location.hash;
+    if (hash) return setSrc(hash.slice(1));
     const firstSideBar = sideBar?.children[0];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
