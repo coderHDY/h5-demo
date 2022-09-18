@@ -55,4 +55,4 @@ const setDate = () => {
 };
 
 setDate();
-setInterval(setDate, 500);
+setInterval(setDate, 980);

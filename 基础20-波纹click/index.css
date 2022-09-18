@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+    background-color: rgb(54, 54, 54);
+}
+
+.btn {
+    position: relative;
+    padding: 1rem;
+    border: 0;
+    border-radius: 4px;
+    background-color: rgb(209, 107, 182);
+    overflow: hidden;
+}
+.btn .effect {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    transform: translate(-50%, -50%) scale(0);
+    background-color: #fff;
+    animation: scale 1s 0s ease forwards;
+    border-radius: 50%;
+}
+
+@keyframes scale {
+    to {
+        transform: translate(-50%, -50%) scale(3);
+        opacity: 0;
+    }
+}
