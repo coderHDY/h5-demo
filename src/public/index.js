@@ -19,10 +19,6 @@ const setSrc = (src) => {
 }
 sideBar.addEventListener('click', (e) => {
     const src = e.target.getAttribute("data-src");
-    setSrc(src);
-});
-sideBar.addEventListener('click', (e) => {
-    const src = e.target.getAttribute("data-src");
     if (!src) return;
     setSrc(src);
     Array.prototype.forEach.call(sideBar.children, item => item.classList[e.target === item ? "add" : "remove"]("active"));
