@@ -88,6 +88,7 @@ body.dark {
     height: 2px;
     width: 50%;
     background-color: rgb(168, 35, 35);
+    transition: .1s;
 }
 .date {
     color: var(--color);
