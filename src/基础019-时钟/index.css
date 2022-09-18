@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root {
+    --light-color: #000000;
+    --light-bgc: #fff;
+    --dark-color: #fff;
+    --dark-bgc: #000000;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    justify-content: space-around;
+    --color: var(--light-color);
+    --bgc: var(--light-bgc);
+    background-color: var(--bgc);
+    transition: 0.4s;
+}
+body.dark {
+    --color: var(--dark-color);
+    --bgc: var(--dark-bgc);
+}
+.mode-controller {
+    align-self: center;
+    cursor: pointer;
+    user-select: none;
+}
+.mode-controller span::before {
+    content: "light";
+    display: inline-block;
+    width: 3rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    border-radius: 4px;
+    color: var(--bgc);
+    background-color: var(--color);
+}
+.dark .mode-controller span::before {
+    content: "dark";
+}
+.time-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.clock {
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    /* 初始化0点 */
+    transform-origin: center;
+    transform: rotate(-90deg);
+}
+.hour, .minute, .second {
+    position: absolute;
+    left: 50%;
+    top: calc(50% - .5px);
+    width: 35%;
+    height: 3px;
+    background-color: var(--color);
+    transform-origin: 0;
+    transition: .4s;
+}
+.second::before {
+    content: "";
+    position: absolute;
+    left: -3px;
+    top: -1.5px;
+    width: 6px;
+    height: 6px;
+    background-color: var(--color);
+    border-radius: 50%;
+    z-index: 10;
+}
+.minute {
+    top: calc(50% - .3px);
+    height: 2.5px;
+    width: 45%;
+}
+.second {
+    top: 50%;
+    height: 2px;
+    width: 50%;
+    background-color: rgb(168, 35, 35);
+}
+.date {
+    color: var(--color);
+}
+.time-list {
+    margin-top: 1rem;
+    height: 5rem;
+    line-height: 5rem;
+    font-size: 5rem;
+    text-align: center;
+    color: var(--color);
+}
+
+.day {
+    display: inline-block;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    color: var(--bgc);
+    background-color: var(--color);
+}
+
