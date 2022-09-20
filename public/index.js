@@ -15,20 +15,20 @@ let isLoading = new Proxy({ val: true }, {
 const setSrc = (src) => {
     if (!src || decodeURIComponent(src) === iframe.getAttribute("src")) return;
     isLoading.val = true;
+    Array.prototype.forEach.call(sideBar.children, item => {
+        item.classList[item.getAttribute("data-src") === src ? "add" : "remove"]("active")
+    });
     iframe.setAttribute("src", decodeURIComponent(src));
 }
 sideBar.addEventListener('click', (e) => {
     const src = e.target.getAttribute("data-src");
     if (!src) return;
     setSrc(src);
-    Array.prototype.forEach.call(sideBar.children, item => item.classList[e.target === item ? "add" : "remove"]("active"));
 });
-
-sideBar.children[0].classList.add("active");
 
 window.addEventListener("load", () => {
     const hash = location.hash;
-    if (hash) return setSrc(hash.slice(1));
+    if (hash) return setSrc(`${hash.slice(1)}/index.html`);
     const firstSideBar = sideBar?.children[0];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
