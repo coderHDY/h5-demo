@@ -41,10 +41,9 @@ const setDate = () => {
     let minuteDeg = getElDeg(minute);
     let secondDeg = getElDeg(second);
     hourDeg = (Number.isNaN(hourDeg) || (Math.floor(hourDeg / hourStep % 12) === hourTime % 12) ? hourTime * hourStep : hourDeg + hourStep);
-    minuteDeg = Number.isNaN(minuteDeg) ? timeStep * minuteTime : (minuteDeg / timeStep % 60 <= minuteTime ? minuteDeg + timeStep :  minuteDeg);
-    secondDeg = Number.isNaN(secondDeg) ? timeStep * secondTime : (secondDeg / timeStep % 60 <= secondTime ? secondDeg + timeStep : secondDeg);
+    minuteDeg = Number.isNaN(minuteDeg) ? timeStep * minuteTime : (minuteDeg/ timeStep % 59 <= minuteTime ? minuteDeg + timeStep :  minuteDeg);
+    secondDeg = Number.isNaN(secondDeg) ? timeStep * secondTime : (secondDeg/ timeStep % 59 <= secondTime ? secondDeg + timeStep : secondDeg);
     hourDeg += minuteDeg % 360 / 360 * hourStep;
-
     hour.setAttribute("style", `transform: rotate(${hourDeg}deg)`);
     minute.setAttribute("style", `transform: rotate(${minuteDeg}deg)`);
     second.setAttribute("style", `transform: rotate(${secondDeg}deg)`);
@@ -55,4 +54,19 @@ const setDate = () => {
 };
 
 setDate();
-setInterval(setDate, 990);
+let interval = setInterval(setDate, 990);
+
+const clear = () => {
+    hour.removeAttribute("style");
+    minute.removeAttribute("style");
+    second.removeAttribute("style");
+}
+document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+        setDate();
+        interval = setInterval(setDate, 990);
+    } else {
+        clearInterval(interval);
+        clear();
+    }
+})
