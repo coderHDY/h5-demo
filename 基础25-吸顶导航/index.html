@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./index.css">
+  <title>Document</title>
+</head>
+<body>
+  <div class="nav-bar">
+    <span class="site-name">我的网站</span>
+    <span class="nav-item">主页</span>
+    <span class="nav-item">分类</span>
+    <span class="nav-item">社区</span>
+    <span class="nav-item">关于</span>
+  </div>
+  <div class="img-wrapper">
+    <img src="https://coderhdy.com/assets/img/bgimg.jpg" alt="" class="top-img">
+    <div class="hello-info">
+      <span>欢迎来到我的网站</span>
+      <span>这是一个有趣的小网站，有很多的小知识点，对前端的学习掌握有很大的帮助～</span>
+    </div>
+  </div>
+  <div class="containt">
+    <div class="title">内容1</div>
+    <div class="context">
+      <ul>
+        <li>Vue3做了哪些性能上的提升？</li>
+        <li>defineProperty改proxy，新增属性也有响应式</li>
+        <li>对虚拟DOM提升：将不依赖响应式数据的VNode进行作用域提升，第二次调用render时，直接复用旧的VNode</li>
+        <li>diff算法的提升：提升作用域的VNode也不做diff算法，因为不依赖响应式数据的DOM不会因为数据的改变而变化</li>
+        <li>blockTree：生成一个dynamicChildren数组，将引用动态数据的元素收集起来。</li>
+        <li>Vue是以组件为粒度更新数据的，所以每个组件有一个dynamicChildren数组，更新时只diff这一部分的VNode</li>
+        <li>增加了CompositionAPI，有了类似react hook的写法，能够将数据逻辑抽离</li>
+        <li>能够增强代码的复用性，同一个数据以及数据的处理方法可以进行hooks抽取复用</li>
+        <li>将数据和数据处理的方法进行抽取，在编写代码时有更强的逻辑的连续性，体验会更好。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="containt">
+    <div class="title">内容2</div>
+    <div class="context">
+      <ul>
+        <li>浏览器会有主流CA证书机构的公钥。</li>
+        <li>服务器向CA机构递交证书申请，含有证书持有者信息、服务器的公钥信息。</li>
+        <li>CA机构生成明文证书并用自己的私钥进行加密生成数字签名，作为完整的证书给服务器。</li>
+        <li>浏览器向服务器发送请求</li>
+        <li>服务器返回自己的证书，含明文部分和签名部分</li>
+        <li>浏览器用CA机构的公钥解开签名部分，看是否完全相等于明文部分</li>
+        <li>完全相等，浏览器信任这份证书，也就信任内部的服务器公钥</li>
+        <li>浏览器生成随机密钥，用服务器公钥加密返回给服务器</li>
+        <li>服务器用自己的私钥解开随机密钥，作为对称密钥和浏览器进行交流</li>
+      </ul>
+    </div>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>
