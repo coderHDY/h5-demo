@@ -4,6 +4,7 @@ const sizeShow = document.querySelector(".size-show");
 const sizeAdd = document.querySelector(".size-add");
 const colorControler = document.querySelector(".color-controler");
 const clear = document.querySelector(".clear");
+const output = document.querySelector(".output");
 
 const ctx = canvas.getContext("2d");
 const canvasOptions = new Proxy({
@@ -48,6 +49,15 @@ const mouseMove = (e) => {
   ctx.lineTo(x, y);
   ctx.stroke();
 }
+const download = (e) => {
+  const data = canvas.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = data;
+  a.download = "img.png";
+  document.body.append(a);
+  a.click();
+  document.body.removeChild(a);
+}
 
 const clearRect = () => ctx.clearRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener('mousedown', mouseDown);
@@ -58,3 +68,4 @@ clear.addEventListener('click', clearRect);
 sizeDown.addEventListener("click", () => canvasOptions.size--);
 sizeAdd.addEventListener("click", () => canvasOptions.size++);
 colorControler.addEventListener("change", (e) => canvasOptions.color = e.target.value);
+output.addEventListener("click", download);
