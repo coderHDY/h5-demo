@@ -1,0 +1,113 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(104, 186, 236);
+}
+.card {
+  width: 300px;
+  height: auto;
+  border-radius: .5rem;
+  box-shadow: 0 0 30px rgb(210, 202, 202);
+  background-color: #fff;
+  overflow: hidden;
+}
+.title-img-wrapper {
+  position: relative;
+  height: 150px;
+  width: 100%;
+}
+.title-img {
+  height: 100%;
+  width: 100%;
+}
+.user-info {
+  position: relative;
+  margin-top: 1rem;
+  padding: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.avator-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 50%;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.avatar {
+  width: 100%;
+  height: 100%;
+}
+.name {
+  position: relative;
+  display: inline-block;
+  margin-left: 1rem;
+  height: 50px;
+  line-height: 50px;
+}
+.contant {
+  margin-top: 1rem;
+  padding: 1rem;
+}
+.context1 {
+  position: relative;
+  text-indent: 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.context2 {
+  position: relative;
+  margin-top: 1rem;
+  font-size: .9rem;
+  color: rgb(119, 115, 115);
+}
+
+/* 骨架屏 */
+.loading.card {
+  background-color: rgb(200, 200, 200);
+}
+.loading.card .title-img-wrapper::after,
+.loading.card .avator-wrapper::after,
+.loading.card .name::after,
+.loading.card .context1::after,
+.loading.card .context2::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgb(255, 255, 255) 0%, rgb(234, 234, 234) 10%, rgb(255, 255, 255) 20%, rgb(255, 255, 255) 100%);
+  background-size: 200% 100%;
+  background-color: rgb(196, 196, 196);
+  animation: bg 1s linear infinite;
+  border-radius: 1px;
+  z-index: 100;
+}
+.loading.card .name::after {
+  margin-top: 1rem;
+  height: 1rem;
+  width: 10rem;
+}
+.loading.card .name::after,
+.loading.card .context1::after,
+.loading.card .context2::after {
+  border-radius: 7px;
+}
+
+@keyframes bg {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: -150% 0;
+  }
+}
