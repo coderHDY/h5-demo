@@ -27,7 +27,7 @@ body {
   align-items: center;
   background-color: rgb(153, 168, 254);
 }
-.size-down, .size-show, .size-add, .color-controler, .clear {
+.size-down, .size-show, .size-add, .color-controler, .clear, .output {
   width: 50px;
   height: 50px;
   line-height: 40px;
@@ -45,6 +45,12 @@ body {
 }
 .clear {
   position: absolute;
-  right: 0;
+  right: 80px;
   border-color: rgb(203, 78, 78);
+}
+.output {
+  position: absolute;
+  right: 0;
+  font-size: 1rem;
+  border-color: rgb(67, 97, 247);
 }
