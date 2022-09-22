@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: rgb(138, 89, 236);
+}
+.font {
+  font-size: 2rem;
+  font-weight: 700;
+}
+.controller {
+  font-size: 1.2rem;
+}
+.speed {
+  position: relative;
+  background-color: rgba(93, 161, 250, 0.5);
+  border: none;
+  font-size: 1.5rem;
+  padding: .5rem;
+  width: 3rem;
+  outline: none;
+}
