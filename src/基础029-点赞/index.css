@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+.tip {
+  margin-top: 2rem;
+}
+.tip>span {
+  display: block;
+  text-align: center;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  width: 20rem;
+  height: 25rem;
+  box-shadow: 0 0 10px #333;
+  border-radius: .5rem;
+  overflow: hidden;
+  user-select: none;
+}
+.love-icon {
+  position: fixed;
+  font-size: 0rem;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  animation: bigger .5s ease 1 forwards;
+}
+.title-wrapper {
+  height: 10rem;
+  width: 100%;
+}
+.title-img {
+  width: 100%;
+  height: 100%;
+}
+.info-wrapper {
+  padding: 1rem;
+}
+.info-wrapper img {
+  vertical-align: middle;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+.content {
+  padding: 1rem;
+}
+
+@keyframes bigger {
+  to {
+    font-size: 10rem;
+    opacity: 0;
+  }
+  
+}
