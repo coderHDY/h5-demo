@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(119, 156, 226);
+}
+.notify-list {
+  position: fixed;
+  top: 0;
+  right: 1rem;
+  width: 15rem;
+}
+.notify-list div {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 9px;
+  padding: .5rem;
+  text-align: center;
+  transition: .5s;
+}
+.add-notify {
+  border: 0;
+  font-size: 1.5rem;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  background-color: rgb(255, 255, 255);
+}
+.add-notify:hover {
+  color: rgb(255, 0, 0);
+}
+.add-notify:active {
+  transform: scale(.99) translate(0, 5%);
+}
