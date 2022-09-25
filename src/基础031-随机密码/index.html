@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+        integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="tips"></div>
+    <div class="content">
+        <h1 class="title">密码生成器</h1>
+        <div class="pwd-wrapper">
+            <span class="pwd"></span>
+            <button class="copy">
+                <i class="far fa-clipboard"></i>
+            </button>
+        </div>
+        <label class="con-item" for="length">密码长度<input min="1" max="20" value="8" type="number" name="length"
+                id=""></label>
+        <label class="con-item" for="upper">包括大写字母<input checked type="checkbox" name="upper" id=""></label>
+        <label class="con-item" for="lowwer">包括小写字母<input checked type="checkbox" name="lowwer" id=""></label>
+        <label class="con-item" for="number">包括数字<input checked type="checkbox" name="number" id=""></label>
+        <label class="con-item" for="symbol">包括特殊字符<input type="checkbox" name="symbol" id=""></label>
+        <button class="generator">制作密码</button>
+    </div>
+    <script src="./index.js"></script>
+</body>
+
+</html>
