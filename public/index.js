@@ -18,6 +18,7 @@ const setSrc = (src) => {
     Array.prototype.forEach.call(sideBar.children, item => {
         item.classList[item.getAttribute("data-src") === src ? "add" : "remove"]("active")
     });
+    location.hash = `#${src}`;
     iframe.setAttribute("src", decodeURIComponent(src));
 }
 sideBar.addEventListener('click', (e) => {
@@ -28,7 +29,7 @@ sideBar.addEventListener('click', (e) => {
 
 window.addEventListener("load", () => {
     const hash = location.hash;
-    if (hash) return setSrc(`${hash.slice(1)}/index.html`);
+    if (hash) return setSrc(`${hash.slice(1).replace(/\/index.html/g, "")}/index.html`);
     const firstSideBar = sideBar?.children[0];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
