@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(125, 177, 215);
+}
+.magic {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 5px 20px;
+  background-color: rgb(154, 222, 252);
+  border: 0;
+  border-radius: 4px;
+  z-index: 999;
+}
+.wrapper {
+  display: flex;
+  width: 650px;
+  height: 650px;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+.box {
+  margin-right: calc(100% / 4 - 125px);
+  position: relative;
+  width: 125px;
+  height: 125px;
+  background-color: rgb(212, 215, 125);
+  background-image: url("https://media.giphy.com/media/EZqwsBSPlvSda/giphy.gif"), url("https://coderhdy.com/assets/img/bg.svg");
+  background-size: 400% 400%;
+  background-position: calc((var(--col) - 1) * -100%) calc((var(--row) - 1) * -100%);
+  transition: .4s;
+}
+.box::before {
+  content: "";
+  position: absolute;
+  right: -30px;
+  top: 15px;
+  width: 30px;
+  height: 100%;
+  background-color: rgb(143, 191, 84);
+  transform: skewY(45deg);
+}
+.box::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  width: 100%;
+  height: 30px;
+  background-color: rgb(107, 137, 70);
+  transform: skewX(45deg);
+}
+.small {
+  height: 500px !important;
+  width: 500px !important;
+}
+.small .box {
+  transform: rotate(-360deg);
+  margin-right: 0;
+}
