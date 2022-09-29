@@ -2,8 +2,9 @@ const loading = document.querySelector(".loading");
 const wrapper = document.querySelector(".wrapper");
 const reloadBtn = document.querySelector(".reload-btn");
 
-let timer = 3;
+let timer = 5;
 
+loading.innerText = timer;
 loading.addEventListener("animationstart", (e) => {
   let calcTime = timer;
   loading.innerText = calcTime--;
