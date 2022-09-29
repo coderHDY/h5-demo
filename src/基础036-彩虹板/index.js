@@ -1,13 +1,16 @@
 const container = document.querySelector(".container");
 
-const ROW = 500;
-const COLUMN = 500;
+let COLUMN = 1000;
+let ROW = 700;
 const ITEM = 20
 
-for (let i = 0; i < (ROW / ITEM) * (COLUMN / ITEM); i++) {
-  const itemDiv = document.createElement("div");
-  itemDiv.classList.add("item");
-  container.append(itemDiv);
+const init = () => {
+  container.innerHTML = "";
+  for (let i = 0; i < (ROW / ITEM) * (COLUMN / ITEM); i++) {
+    const itemDiv = document.createElement("div");
+    itemDiv.classList.add("item");
+    container.append(itemDiv);
+  }
 }
 
 container.addEventListener("mousemove", (e) => {
@@ -28,3 +31,5 @@ const tempBgc = (target) => {
   target.setAttribute("style", `background-color: ${color}; box-shadow: 0 0 10px ${color};`)
   target.addEventListener('mouseleave', removeColor);
 }
+
+init();

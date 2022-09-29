@@ -14,8 +14,8 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 500px;
-  height: 500px;
+  width: 1000px;
+  height: 700px;
 }
 .item {
   width: 18px;
