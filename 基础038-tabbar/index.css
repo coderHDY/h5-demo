@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background-color: rgb(102, 169, 210);
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 375px;
+  height: 644px;
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 9px;
+  overflow: hidden;
+}
+.container {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+.container > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: .4s;
+}
+.container > img.active {
+  opacity: 1;
+}
+.container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.tabbar {
+  display: flex;
+  justify-content: space-around;
+  height: 60px;
+  width: 100%;
+  background-color: #fff;
+}
+.home, .work, .blog, .us {
+  padding: 5px 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: rgb(195, 195, 195);
+  cursor: pointer;
+}
+.home>i, .work>i, .blog>i, .us>i {
+  text-align: center;
+  width: 100%;
+  font-size: 30px;
+  line-height: 30px;
+  align-items: center;
+}
+.home.active, .home:hover, .work.active, .work:hover, .blog.active, .blog:hover, .us.active, .us:hover {
+  color: rgb(135, 181, 255);
+}
