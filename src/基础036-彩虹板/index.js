@@ -20,7 +20,7 @@ container.addEventListener("mousemove", (e) => {
   tempBgc(e.target);
 });
 
-const randomRgb = () => `rgb(255, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+const randomRgb = () => `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
 
 const tempBgc = (target) => {
   const color = randomRgb();
