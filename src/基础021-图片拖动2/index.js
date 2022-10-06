@@ -1,9 +1,9 @@
 const container = document.querySelector(".container");
 const iptContainer = document.querySelector(".ipt-container");
 
-// const host = 'https://hdy.gh520.xyz';
+const host = 'https://hdy.gh520.xyz';
 // const host = 'http://127.0.0.1:8080';
-const host = 'http://164.88.255.3:8070';
+// const host = 'http://164.88.255.3:8070';
 
 function dragOver(e) {
   e.preventDefault();
