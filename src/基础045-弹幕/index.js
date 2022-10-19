@@ -15,7 +15,7 @@ const goToFullScreen = (element = document.body) => {
 
 body.addEventListener("click", () => goToFullScreen());
 
-
+// ws://hdy.gh520.xyz:8888/ws
 let socket = new WebSocket("ws://localhost:8888/");
 socket.onopen = function () {
     console.log('用websocket与服务器建立连接...');
