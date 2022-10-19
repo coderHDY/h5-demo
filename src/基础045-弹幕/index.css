@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000000;
+    color: #fff;
+}
+.dynamic {
+    position: fixed;
+    left: 100vw;
+    white-space: nowrap;
+    animation: moveToLeft 5s linear forwards;
+}
+@keyframes moveToLeft {
+    to {
+        left: -10vw;
+    }
+}
