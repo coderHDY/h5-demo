@@ -22,7 +22,7 @@ body {
   height: 18px;
   margin: 1px;
   background-color: rgb(63, 63, 63);
-  transition: 1s;
+  transition: 2s;
 }
 .item:hover {
   transition: 0s;
