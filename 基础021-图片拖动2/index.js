@@ -3,6 +3,7 @@ const iptContainer = document.querySelector(".ipt-container");
 
 const host = 'https://hdy.gh520.xyz';
 // const host = 'http://127.0.0.1:8080';
+// const host = 'http://164.88.255.3:8070';
 
 function dragOver(e) {
   e.preventDefault();
@@ -20,8 +21,8 @@ const uploadAndUpdate = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
   const { filename } = await fetch(`${host}/api/uploadFile`, {
-      method: "POST",
-      body: formData,
+    method: "POST",
+    body: formData,
   }).then(res => res.ok ? res.json() : {});
   if (filename) {
     const img = document.createElement("img");
