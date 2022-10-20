@@ -1,5 +1,5 @@
 const body = document.body;
-
+const WsServer = "wss://hdy.gh520.xyz/ws";
 const goToFullScreen = (element = document.body) => {
     console.log(element);
     if (element.requestFullscreen) {
@@ -15,8 +15,9 @@ const goToFullScreen = (element = document.body) => {
 
 body.addEventListener("click", () => goToFullScreen());
 
-// ws://hdy.gh520.xyz:8888/ws
-let socket = new WebSocket("ws://localhost:8888/");
+
+// let socket = new WebSocket("ws://localhost:8888/");
+let socket = new WebSocket(WsServer);
 socket.onopen = function () {
     console.log('用websocket与服务器建立连接...');
 };
@@ -41,5 +42,5 @@ const dynamicText = (text) => {
     document.body.appendChild(span);
     setTimeout(() => {
         document.body.removeChild(span);
-    }, 5000);
+    }, 7000);
 }
