@@ -24,6 +24,7 @@ socket.onopen = function () {
 
 socket.onmessage = function (e) {
     const msg = JSON.parse(e.data);
+    console.log(msg);
     if (msg?.text) {
         dynamicText(msg.text);
     }
@@ -37,7 +38,8 @@ setTimeout(() => {
 const dynamicText = (text) => {
     const span = document.createElement("span");
     span.classList.add("dynamic");
-    span.style.top = `${Math.random() * 80 + 10}vh`
+    span.style.top = `${Math.random() * 80 + 10}vh`;
+    span.style.animationDuration = `${Math.random() * 5 + 5}s`;
     span.innerText = text;
     document.body.appendChild(span);
     setTimeout(() => {
