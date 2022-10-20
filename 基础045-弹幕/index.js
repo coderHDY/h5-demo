@@ -42,5 +42,5 @@ const dynamicText = (text) => {
     document.body.appendChild(span);
     setTimeout(() => {
         document.body.removeChild(span);
-    }, 7000);
+    }, 10000);
 }

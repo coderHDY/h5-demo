@@ -13,11 +13,11 @@ body {
     position: fixed;
     left: 100vw;
     white-space: nowrap;
-    animation: moveToLeft 5s linear forwards;
+    animation: moveToLeft 10s linear forwards;
     font-size: 5vh;
 }
 @keyframes moveToLeft {
     to {
-        left: -30vw;
+        left: -100vw;
     }
 }
