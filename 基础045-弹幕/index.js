@@ -15,15 +15,16 @@ const goToFullScreen = (element = document.body) => {
 
 body.addEventListener("click", () => goToFullScreen());
 
+let socket;
 const initWS = () => {
     // let socket = new WebSocket("ws://localhost:8888/");
-    const socket = new WebSocket(WsServer);
+    socket = new WebSocket(WsServer);
     socket.onclose = () => socket = initWS();
-    
+
     socket.onopen = function () {
         console.log('用websocket与服务器建立连接...');
     };
-    
+
     socket.onmessage = function (e) {
         const msg = JSON.parse(e.data);
         console.log(msg);
@@ -31,9 +32,8 @@ const initWS = () => {
             dynamicText(msg.text);
         }
     };
-    return socket;
 }
-let socket = initWS();
+initWS();
 
 window.addEventListener("visibilitychange", () => {
     if (!document.hidden && socket.readyState === WebSocket.CLOSED) {
