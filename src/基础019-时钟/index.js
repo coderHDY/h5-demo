@@ -8,7 +8,19 @@ const month = document.querySelector(".month");
 const day = document.querySelector(".day");
 const timeList = document.querySelector(".time-list");
 
+const goToFullScreen = (element = document.body) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen();
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullScreen();
+    }
+  };
 modeController.addEventListener("click", () => body.classList.toggle("dark"));
+body.addEventListener("dblclick", () => body.classList.contains("dark") && goToFullScreen(body))
 
 const timeStep = 360 / 60;
 const hourStep = 360 / 12;
