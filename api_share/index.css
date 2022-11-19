@@ -7,3 +7,16 @@ body {
     display: grid;
     place-items: center;
 }
+
+#share {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(to top right, rgb(44, 172, 242) 0%, rgb(231, 244, 255) 100%);
+    border: none;
+    box-shadow: 0 2px 10px 2px rgb(203, 238, 255);
+}
+#share:hover {
+    transition: .2s;
+    transform: scale(1.05);
+}
