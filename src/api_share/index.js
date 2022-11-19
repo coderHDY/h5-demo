@@ -1,8 +1,14 @@
 const share = document.querySelector("#share");
-const data = {
-    title: document.title,
-    text: 'Hello World',
-    url: 'https://developer.mozilla.org',
-}
+const input = document.querySelector("#input");
 
-share.addEventListener("click", () => navigator.share(data).then(res => console.log(res)).catch(err => console.log(err)));
+
+const handleShare = () => {
+    const val = input.value;
+    const data = {
+        title: document.title,
+        text: '分享你个东西～',
+        url: val,
+    }
+    navigator.share?.(data).then(res => console.log(res)).catch(err => console.log(err))
+}
+share.addEventListener("click", handleShare);
