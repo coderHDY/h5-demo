@@ -5,4 +5,4 @@ const data = {
     url: 'https://developer.mozilla.org',
 }
 
-share.addEventListener("click", () => navigator.share().then(res => console.log(res)).catch(err => console.log(err)));
+share.addEventListener("click", () => navigator.share(data).then(res => console.log(res)).catch(err => console.log(err)));
