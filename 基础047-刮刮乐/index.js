@@ -65,7 +65,7 @@ let initCanvas = (el) => {
         const touchX = x - boundingRect.left;
         const touchY = y - boundingRect.top;
         let num = -1
-        if (touchX < 110) {
+        if (touchX < 105) {
             num = touchY < 55 ? 1 : (touchY < 115 ? 4 : 7);
         } else if (touchX < 215) {
             num = touchY < 55 ? 2 : (touchY < 115 ? 5 : 8);
