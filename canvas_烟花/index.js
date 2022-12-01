@@ -119,6 +119,10 @@ class FireworkController {
     }
     initEvents = () => {
         window.addEventListener("resize", this.resize);
+        // 离开清除烟花
+        window.addEventListener("visibilitychange", () => {
+            if (document.visibilityState === 'visible') this.fireworks = [];
+        })
         document.body.addEventListener("click", (e) => {
             const x = e.x - this.offsetX;
             const y = e.y - this.offsetY;
@@ -164,7 +168,6 @@ class FireworkController {
         return stop;
     }
 }
-
 
 const fireController = new FireworkController();
 const stop = fireController.stileFile();
