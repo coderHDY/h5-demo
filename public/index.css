@@ -64,7 +64,7 @@ html, body {
 		height: 3rem;
 		line-height: 3rem;
 		align-content: top;
-		background-color: rgb(162, 182, 255, .4);
+		background-color: rgb(136, 188, 255);
 		color: #fff;
 		transition: 1s;
 	}
