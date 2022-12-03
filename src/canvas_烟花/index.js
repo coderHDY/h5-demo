@@ -32,9 +32,17 @@ class FireWork {
     bordersNum = Math.ceil(Math.random() * 3) + 7;
     currentY = window.innerHeight;
     lineDash = [Math.random() * 10, Math.random() * 100 + 10]
+    fly = new Audio();
+    boom = new Audio();
     constructor(x, y) {
         this.x = x;
         this.y = y;
+        this.initAudio()
+    }
+    initAudio() {
+        this.fly.volume = 0.2;
+        this.fly.setAttribute("autoplay", true)
+        this.fly.src = "./fly1.mp3";
     }
     // 更新及渲染放到自组件来做，父组件控制整体流程
     update(ctx) {
@@ -73,7 +81,11 @@ class FireWork {
     }
     wait() {
         this.waitTime--;
-        if (this.waitTime <= 0) this.state = FireWork.FIRE;
+        if (this.waitTime <= 0) {
+            this.state = FireWork.FIRE;
+            this.boom.setAttribute("autoplay", true);
+            this.boom.src = "./boom.mp3";
+        }
     }
     fire(ctx) {
         this.speed *= 0.999;
@@ -94,8 +106,6 @@ class FireWork {
             const startAngle = Math.random() * Math.PI;
             const endAngle = startAngle + 2 * Math.PI;
             ctx.strokeStyle = i % 4 === 0 ? `${randomRgb().slice(0, -1)}, ${this.opacity * 1.5})` : this.lineColor();
-            console.log(ctx.strokeStyle);
-            // ctx.strokeStyle = this.lineColor();
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.r * scale, startAngle, endAngle);
             ctx.stroke();
@@ -185,4 +195,4 @@ class FireworkController {
 
 const fireController = new FireworkController();
 const stop = fireController.stileFile(150);
-// setTimeout(stop, 10000);
+setTimeout(stop, 10000);
