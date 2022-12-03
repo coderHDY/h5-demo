@@ -16,18 +16,22 @@ class FireWork {
     static UP = "up";
     static WAIT = "wait";
     static FIRE = "fire";
+    static OUT = "out";
     state = FireWork.UP;
     x = 0;
     y = 0;
     r = Math.random() * 100 + 80;
+    opacity = Math.random();
     color = randomRgb();
-    bgc = `${this.color.slice(0, -1)}, 0.7)`;
+    bgc = () => `${this.color.slice(0, -1)}, ${this.opacity})`;
+    lineColor = () => `${this.color.slice(0, -1)}, ${this.opacity * 1.5})`;
     scale = 0;
     speed = 1 / this.r / 1.3;
     finished = false;
     waitTime = Math.random() * 300;
-    bordersNum = Math.ceil(Math.random() * 3) + 5;
+    bordersNum = Math.ceil(Math.random() * 3) + 7;
     currentY = window.innerHeight;
+    lineDash = [Math.random() * 10, Math.random() * 100 + 10]
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -47,6 +51,10 @@ class FireWork {
                 this.fire(ctx);
                 break;
             }
+            case FireWork.OUT: {
+                this.out(ctx);
+                break;
+            }
             default: { }
         }
     }
@@ -55,7 +63,7 @@ class FireWork {
         if (this.currentY >= this.y) {
             ctx.beginPath();
             const gradient = ctx.createLinearGradient(this.x, this.currentY, this.x, this.currentY + 10);
-            gradient.addColorStop(0, this.bgc);
+            gradient.addColorStop(0, this.bgc());
             gradient.addColorStop(1, "transparent");
             ctx.fillStyle = gradient;
             ctx.fillRect(this.x, this.currentY, 3, 50);
@@ -71,8 +79,8 @@ class FireWork {
         this.speed *= 0.999;
         this.scale += this.speed;
         ctx.beginPath();
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * this.scale);
-        gradient.addColorStop(0, this.bgc);
+        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r * 1.5 * this.scale);
+        gradient.addColorStop(0, this.bgc());
         gradient.addColorStop(1, "transparent");
         ctx.fillStyle = gradient;
         ctx.strokeWidth = 0;
@@ -80,18 +88,25 @@ class FireWork {
         ctx.fill();
 
         ctx.lineWidth = 2;
-        ctx.setLineDash([1, 4]);
+        ctx.setLineDash(this.lineDash);
         for (let i = 0; i < this.bordersNum; i++) {
             const scale = (1 - this.scale * i * 0.1) * this.scale;
             const startAngle = Math.random() * Math.PI;
             const endAngle = startAngle + 2 * Math.PI;
-            ctx.strokeStyle = i % 4 === 0 ? randomRgb() : this.bgc;
+            ctx.strokeStyle = i % 4 === 0 ? `${randomRgb().slice(0, -1)}, ${this.opacity * 1.5})` : this.lineColor();
+            console.log(ctx.strokeStyle);
+            // ctx.strokeStyle = this.lineColor();
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.r * scale, startAngle, endAngle);
             ctx.stroke();
         }
 
         if (this.scale >= 1) this.finished = true;
+        if (this.scale >= 0.3) this.state = FireWork.OUT;
+    }
+    out(ctx) {
+        this.opacity *= 0.998;
+        this.fire(ctx);
     }
 }
 class FireworkController {
@@ -132,7 +147,6 @@ class FireworkController {
     appendFirework(x, y) {
         const firework = new FireWork(x, y);
         this.fireworks.push(firework);
-        console.log(this.fireworks);
     }
     loop() {
         this.ctx.clearRect(0, 0, this.width, this.height);
@@ -170,5 +184,5 @@ class FireworkController {
 }
 
 const fireController = new FireworkController();
-const stop = fireController.stileFile();
+const stop = fireController.stileFile(150);
 // setTimeout(stop, 10000);
