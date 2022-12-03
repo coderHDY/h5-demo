@@ -41,11 +41,12 @@ html, body {
 }
 .side-bar::before {
     position: fixed;
-		display: block;
+	display: block;
     content: ">";
     font-size: 3rem;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+	justify-content: center;
     width: 2.5rem;
     height: 100vh;
     left: 0;
@@ -55,12 +56,20 @@ html, body {
 }
 @media screen and (max-width:500px) {
 	.side-bar {
-    left: -9rem;
+    	/* left: -9rem; */
 	}
 	.side-bar::before {
-		left: -1rem;
-		font-weight: 800;
-		color: rgb(0, 55, 255);
+		content: "<";
+		width: 3rem;
+		height: 3rem;
+		line-height: 3rem;
+		align-content: top;
+		background-color: rgb(162, 182, 255, .4);
+		color: #fff;
+		transition: 1s;
+	}
+	.side-bar:hover::before {
+		left: -5rem;
 	}
 }
 .side-bar:hover {
