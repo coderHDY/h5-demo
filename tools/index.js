@@ -28,7 +28,8 @@ function generate() {
 
     // 服务器和开发环境跟路径设置不同，待优化代码
     const idx = 0;
-    const linksEl = "\n" + paths.map(src => `<div class="side-bar-item" data-src="${src}">${decodeURIComponent(src.split("/")[idx])}</div>`).join("\n") + "\n";
+    // const linksEl = "\n" + paths.map(src => `<div class="side-bar-item" data-src="${src}">${decodeURIComponent(src.split("/")[idx])}</div>`).join("\n") + "\n";
+    const linksEl = "\n" + paths.map(src => `<div class="side-bar-item" data-src="/h5-demo/${src}">${decodeURIComponent(src.split("/")[idx])}</div>`).join("\n") + "\n";
     writePublic(linksEl);
 }
 
