@@ -44,3 +44,5 @@ iframe.addEventListener('load', () => {
 sideBar.addEventListener("scroll", () => {
     if (sideBar.scrollTop < -100) window.location.reload();
 })
+// 手机页面整体会滚动
+document.body.addEventListener("touchmove", e => e.preventDefault());
