@@ -41,8 +41,11 @@ window.addEventListener("load", () => {
 iframe.addEventListener('load', () => {
     isLoading.val = false;
 })
+// 滚动过头处理测试
 sideBar.addEventListener("scroll", e => {
     e.preventDefault();
     e.stopImmediatePropagation();
     if (sideBar.scrollTop < -100) window.location.reload();
 })
+document.documentElement.addEventListener("touchmove", () => e.preventDefault());
+document.body.addEventListener("touchmove", () => e.preventDefault());
