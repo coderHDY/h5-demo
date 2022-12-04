@@ -5,13 +5,17 @@ const reset = document.querySelector(".reset"); // check
 // callback: (x, y) => void
 const moveListener = (el, callback) => {
     let mouseDown = false;
-    el.addEventListener("touchmove", e => callback(e.targetTouches[0].clientX, e.targetTouches[0].clientY));
     el.addEventListener("mousedown", () => mouseDown = true);
     el.addEventListener("mouseup", () => mouseDown = false);
     el.addEventListener("mouseout", () => mouseDown = false);
     document.addEventListener("mouseout", () => mouseDown = false);
+    el.addEventListener("touchmove", e => {
+        e.preventDefault();
+        callback(e.targetTouches[0].clientX, e.targetTouches[0].clientY)
+    })
     el.addEventListener("mousemove", (e) => {
         if (!mouseDown) return;
+        e.preventDefault();
         callback(e.clientX, e.clientY);
     })
 }
