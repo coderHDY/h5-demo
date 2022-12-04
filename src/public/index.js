@@ -40,3 +40,6 @@ window.addEventListener("load", () => {
 iframe.addEventListener('load', () => {
     isLoading.val = false;
 })
+sideBar.addEventListener("scroll", () => {
+    if (sideBar.scrollTop < -100) window.location.reload();
+})
