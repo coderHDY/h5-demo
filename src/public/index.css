@@ -60,11 +60,11 @@ html, body {
 	}
 	/* 处理：iframe手机上总是置于伪元素上层 */
 	.side-bar:not(.side-bar:hover) {
-		background-color: #fff !important;
+		background-color: transparent !important;
 	}
 	.side-bar:not(.side-bar:hover) * {
-		background-color: #fff !important;
-		color: #fff !important;
+		background-color: transparent !important;
+		color: transparent !important;
 	}
 	.side-bar::before {
 		content: "<";
