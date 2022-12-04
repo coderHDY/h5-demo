@@ -56,7 +56,8 @@ html, body {
 }
 @media screen and (max-width:500px) {
 	.side-bar {
-    	left: -11rem;
+    	left: -10.9rem;
+		filter: blur(100%);
 	}
 	.side-bar::before {
 		content: "<";
