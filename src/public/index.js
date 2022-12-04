@@ -30,7 +30,8 @@ sideBar.addEventListener('click', (e) => {
 window.addEventListener("load", () => {
     const hash = location.hash;
     if (hash) return setSrc(`${hash.slice(1).replace(/\/index.html/g, "")}/index.html`);
-    const firstSideBar = sideBar?.children[0];
+    // 第0个字元素是刷新图标
+    const firstSideBar = sideBar?.children[1];
     if (firstSideBar) {
         const src = firstSideBar.getAttribute("data-src");
         setSrc(src);
