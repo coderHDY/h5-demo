@@ -194,5 +194,8 @@ class FireworkController {
 }
 
 const fireController = new FireworkController();
-const stop = fireController.stileFile(150);
+
+// 适应屏幕避免手机卡死
+const timer = window.innerWidth > 500 ? 150 : 1000;
+const stop = fireController.stileFile(timer);
 setTimeout(stop, 10000);
