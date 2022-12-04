@@ -56,8 +56,15 @@ html, body {
 }
 @media screen and (max-width:500px) {
 	.side-bar {
-    	left: -10.9rem;
-		filter: blur(100%);
+    	left: -8rem;
+	}
+	/* 处理：iframe手机上总是置于伪元素上层 */
+	.side-bar:not(.side-bar:hover) {
+		background-color: #fff !important;
+	}
+	.side-bar:not(.side-bar:hover) * {
+		background-color: #fff !important;
+		color: #fff !important;
 	}
 	.side-bar::before {
 		content: "<";
