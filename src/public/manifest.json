@@ -1,0 +1,22 @@
+{
+  "name": "Coding",
+  "short_name": "Coding",
+  "description": "Coding",
+  "icons": [{
+    "src": "public/icon.jpeg",
+    "sizes": "16x16",
+    "type": "image/jpeg"
+  }, {
+    "src": "public/icon.jpeg",
+    "sizes": "48x48",
+    "type": "image/jpeg"
+  }, {
+    "src": "public/icon.jpeg",
+    "sizes": "128x128",
+    "type": "image/jpeg"
+  }],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}
