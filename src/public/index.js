@@ -41,8 +41,8 @@ window.addEventListener("load", () => {
 iframe.addEventListener('load', () => {
     isLoading.val = false;
 })
-sideBar.addEventListener("scroll", () => {
+sideBar.addEventListener("scroll", e => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
     if (sideBar.scrollTop < -100) window.location.reload();
 })
-// 手机页面整体会滚动
-document.body.addEventListener("touchmove", e => e.preventDefault());
