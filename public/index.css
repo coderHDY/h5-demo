@@ -70,6 +70,7 @@ html, body {
 		background-color: rgb(136, 188, 255);
 		color: #fff;
 		transition: 1s;
+		z-index: 999;
 	}
 	.side-bar:hover::before {
 		left: -5rem;
