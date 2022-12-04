@@ -139,6 +139,41 @@ html, body {
 	width: 100%;
 	height: 100%;
 }
+
+/* 侧边栏顶部旋转加载 */
+.roll-wrapper {
+    position: absolute;
+	left: 50%;
+	top: 0%;
+	transform: translate(-50%, -100%);
+    width: 20px;
+    height: 20px;
+}
+.roll-outer, .roll-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 50%;
+}
+.roll-outer {
+  border: 5px solid rgb(246, 246, 246);
+}
+.roll-inner {
+  border: 5px solid rgba(255, 255, 255, 0);
+  border-top-color: rgba(249, 121, 121, 0.7);
+  animation: roll .3s 0s linear infinite running;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* loading */
 /* 定义全局的变量 */
 .loading {

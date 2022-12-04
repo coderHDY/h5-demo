@@ -34,8 +34,13 @@ function generate() {
 }
 
 function writePublic(linksEl) {
+    const refresh = `
+    <div class="roll-wrapper">
+        <div class="roll-outer"></div>
+        <div class="roll-inner"></div>
+    </div>`;
     let file = fs.readFileSync(path.join(__dirname, "../src/public/index.html"), "utf-8");
-    file = file.replace(/<div class="side-bar">\s*<\/div>/, `<div class="side-bar">${linksEl}</div>`)
+    file = file.replace(/<div class="side-bar">\s*<\/div>/, `<div class="side-bar">${refresh}${linksEl}</div>`)
     fs.writeFileSync(path.join(__dirname, "../src/index.html"), file);
 }
 
