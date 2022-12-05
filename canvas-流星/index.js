@@ -17,9 +17,8 @@ class Star {
     flashSize = Math.random() * 10;
     flashSpeed = this.flashSize * 35 / this.flashTime;
     CFlashSize = 1;
+    shadowBlur = Math.random() * 10;
     update(ctx) {
-        console.log(this.x)
-        console.log(this.y)
         switch (this.state) {
             case Star.DOWN: {
                 this.down(ctx);
@@ -45,6 +44,7 @@ class Star {
         gradient.addColorStop(1, this.bgc);
         ctx.strokeStyle = gradient;
         ctx.strokeWidth = 10;
+        ctx.shadowBlur = 0;
         ctx.moveTo(this.startX, this.startY);
         ctx.lineTo(this.x, this.y);
         ctx.stroke();
@@ -54,6 +54,8 @@ class Star {
         this.flashTime--;
         this.CFlashSize += this.flashSpeed;
         ctx.beginPath();
+        ctx.shadowBlur = this.shadowBlur;
+        ctx.shadowColor = "#fff";
         ctx.strokeStyle = this.bgc;
         ctx.moveTo(this.x - this.CFlashSize, this.y - this.CFlashSize);
         ctx.lineTo(this.x + this.CFlashSize, this.y + this.CFlashSize);
@@ -66,6 +68,8 @@ class Star {
         this.flashTime--;
         this.CFlashSize -= this.flashSpeed;
         ctx.beginPath();
+        ctx.shadowBlur = this.shadowBlur;
+        ctx.shadowColor = "#fff";
         ctx.strokeStyle = this.bgc;
         ctx.moveTo(this.x - this.CFlashSize, this.y - this.CFlashSize);
         ctx.lineTo(this.x + this.CFlashSize, this.y + this.CFlashSize);
