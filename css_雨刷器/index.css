@@ -1,0 +1,10 @@
+.wipers {
+  position: fixed;
+  width: 40vw;
+  height: 5px;
+  left: 10vw;
+  bottom: -2.5px;
+  opacity: 0.5;
+  background-color: #000000;
+  transform-origin: 100% 50%;
+}
