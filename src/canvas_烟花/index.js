@@ -21,7 +21,7 @@ class FireWork {
     x = 0;
     y = 0;
     r = Math.random() * 100 + 80;
-    opacity = Math.random();
+    opacity = 1;
     color = randomRgb();
     bgc = () => `${this.color.slice(0, -1)}, ${this.opacity})`;
     lineColor = () => `${this.color.slice(0, -1)}, ${this.opacity * 1.5})`;
