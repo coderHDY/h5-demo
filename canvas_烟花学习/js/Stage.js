@@ -3,8 +3,8 @@
 // - Proper multitouch support!
 // 支持多点触控
 
-// 内嵌式 stage 依赖
 // Inlined Stage.js dependency: Ticker.js
+// 内嵌式 stage 依赖: Ticker.js
 /**
  * Stage.js
  * -----------
@@ -63,6 +63,7 @@ const Ticker = (function TickerFactory(window) {
 	}
 
 	// 更新控制器，注：requestAnimationFrame 第一个参数会传入当前距离网页打开的时间戳
+	// 用【计算桢】来控制视图展示位置
 	function frameHandler(timestamp) {
 		let frameTime = timestamp - lastTimestamp;
 		lastTimestamp = timestamp;
@@ -72,15 +73,17 @@ const Ticker = (function TickerFactory(window) {
 			frameTime = 17;
 		}
 		// - cap minimum framerate to 15fps[~68ms] (assuming 60fps[~17ms] as 'normal')
-		// 一秒60帧，
+		// 一秒60帧，一桢17毫秒，如果浏览器过卡，也让每桢控制在68毫秒内，也就是每秒14帧左右
 		else if (frameTime > 68) {
 			frameTime = 68;
 		}
 
 		// fire custom listeners
+		// frame time 控制在 17-68 毫秒内，那么一次跳转 1～4.25 帧
 		listeners.forEach(listener => listener.call(window, frameTime, frameTime / 16.6667));
 
 		// always queue another frame
+		// 开启下轮轮询
 		queueFrame();
 	}
 
@@ -95,24 +98,31 @@ const Stage = (function StageFactory(window, document, Ticker) {
 	'use strict';
 
 	// Track touch times to prevent redundant mouse events.
+	// 跟踪点击时间，防止多余的鼠标事件
 	let lastTouchTimestamp = 0;
 
 	// Stage constructor (canvas can be a dom node, or an id string)
+	// 用 canvas 制造舞台
 	function Stage(canvas) {
 		if (typeof canvas === 'string') canvas = document.getElementById(canvas);
 
 		// canvas and associated context references
+		// 重点：每个舞台自己建一个 ctx
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');
 
 		// Prevent gestures on stages (scrolling, zooming, etc)
+		// 不支持手势滚动/缩放
 		this.canvas.style.touchAction = 'none';
 
 		// physics speed multiplier: allows slowing down or speeding up simulation (must be manually implemented in physics layer)
+		// 物理层速度【乘数？】，【模拟】仿真变快变慢，必须【手动】在物理层实现
 		this.speed = 1;
 
 		// devicePixelRatio alias (should only be used for rendering, physics shouldn't care)
+		// dpr 影响只在渲染的时候作用，不应该让物理层管理相关的计算
 		// avoids rendering unnecessary pixels that browser might handle natively via CanvasRenderingContext2D.backingStorePixelRatio
+		// 避免浏览器可能通过【CanvasRenderingContext2D.backingStorePixelRatio】原生地处理不必要的像素
 		this.dpr = Stage.disableHighDPI ? 1 : ((window.devicePixelRatio || 1) / (this.ctx.backingStorePixelRatio || 1));
 
 		// canvas size in DIPs and natural pixels
@@ -122,6 +132,7 @@ const Stage = (function StageFactory(window, document, Ticker) {
 		this.naturalHeight = this.height * this.dpr;
 
 		// size canvas to match natural size
+		// 也就是 dpr !== 1
 		if (this.width !== this.naturalWidth) {
 			this.canvas.width = this.naturalWidth;
 			this.canvas.height = this.naturalHeight;
@@ -132,6 +143,7 @@ const Stage = (function StageFactory(window, document, Ticker) {
 		Stage.stages.push(this);
 
 		// event listeners (note that 'ticker' is also an option, for frame events)
+		// 所有的事件绑定都应该在这里存放
 		this._listeners = {
 			// canvas resizing
 			resize: [],
@@ -144,6 +156,7 @@ const Stage = (function StageFactory(window, document, Ticker) {
 	}
 
 	// track all Stage instances
+	// 静态方法，存放在函数本身身上，是不是也可以直接用变量存？
 	Stage.stages = [];
 
 	// allow turning off high DPI support for perf reasons (enabled by default)

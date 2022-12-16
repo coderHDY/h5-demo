@@ -1,5 +1,5 @@
 const body = document.body;
-const WsServer = "wss://hdy.gh520.xyz/ws";
+const WsServer = "ws://47.92.141.56:8070/ws";
 const goToFullScreen = (element = document.body) => {
     console.log(element);
     if (element.requestFullscreen) {
