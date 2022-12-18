@@ -1,0 +1,30 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    overflow: hidden;
+}
+
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: rgba(255, 35, 35, 0.8);
+    box-shadow: 0 0 10px 2px rgb(255, 141, 141);
+    border-radius: 50%;
+    animation: up 7s var(--i) infinite forwards cubic-bezier(0.3, 0.9, 0.8, 0.3);
+}
+
+.ball:nth-child(odd) {
+    background-color: rgb(78, 124, 250);
+    box-shadow: rgb(148, 176, 255);
+}
+
+@keyframes up {
+    to {
+        top: -5vh;
+        transform: scale(1.3);
+        ;
+    }
+
+}
