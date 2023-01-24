@@ -1,0 +1,7 @@
+body {
+    background-image: url(../public/icon.jpeg);
+    background-size: cover;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
