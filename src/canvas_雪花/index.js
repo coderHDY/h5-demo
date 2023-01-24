@@ -54,6 +54,9 @@ class SnowItem {
         this.ctx = ctx;
     }
     draw(diffTime, maxX, maxY) {
+
+        // 依赖diffTime做出变化，不会因为电脑帧数跳动而动画跳动
+        // 每个雪球留一个speed控制方向速度《多样性》
         this.x += diffTime / 70 + (this.speed - 0.5) * 0.5;
         this.y += diffTime / 70 + this.speed * 0.3;
         if (this.y > maxY) this.done = true;
