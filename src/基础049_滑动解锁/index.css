@@ -1,0 +1,124 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: grid;
+    place-content: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(147, 190, 243);
+    overflow: hidden;
+}
+
+/* 提示盒子 */
+.tip {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    font-weight: 1200;
+    font-size: 30px;
+    transform: translate(-50%);
+}
+
+.tip::before {
+    content: "请验证";
+    color: rgb(233, 233, 233);
+}
+
+.tip.success::before {
+    content: "验证通过";
+    color: rgb(51, 254, 51);
+}
+
+.tip.failed::before {
+    content: "验证失败";
+    color: rgb(254, 51, 51);
+}
+
+
+/* 滑动验证盒子 */
+.auth-box {
+    display: grid;
+    position: relative;
+    width: 300px;
+    height: 200px;
+
+    /* 重点grid：控制所有盒子宽高 */
+    grid-template-columns: 100px 200px;
+    grid-template-rows: 150px 50px;
+}
+
+.slide-lock {
+    position: relative;
+    background-color: rgb(255, 158, 158);
+    background-image: url(./bgimg.jpg);
+    background-size: cover;
+}
+
+.slide-lock::before {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(220, 220, 220);
+
+    /* 盒子宽15%， 高20% */
+    clip-path: inset(var(--offset-top) calc(85% - var(--offset-left)) calc(80% - var(--offset-top)) var(--offset-left));
+}
+
+.slide-key {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url(./bgimg.jpg);
+    background-size: cover;
+    clip-path: inset(var(--offset-top) calc(85% - var(--offset-left)) calc(80% - var(--offset-top)) var(--offset-left));
+
+    /* -50% 距左边的距离，--offset-left 为向右偏移量*/
+    left: calc(-50% - var(--offset-left));
+
+}
+
+.slide-bar-wrapper {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.slide-bar {
+    position: relative;
+    height: 50%;
+    top: 50%;
+    background: linear-gradient(to right, rgb(236, 236, 236) 0%, rgb(236, 236, 236) 15%, rgb(255, 255, 255) 20%, rgb(236, 236, 236) 25%, rgb(236, 236, 236) 100%);
+    background-position: 50% 0;
+    background-size: 200% 100%;
+    animation: slide-bar 2s linear infinite;
+}
+
+.slide-item {
+    position: absolute;
+    height: 100%;
+    width: 30px;
+    font-size: 15px;
+    background-color: #fff;
+    /* 移动操作 */
+    left: 0%;
+    font-weight: 900;
+    text-align: right;
+    line-height: 164%;
+    border-radius: 0 5px 5px 0;
+    padding-left: 3px;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+
+@keyframes slide-bar {
+    100% {
+        background-position: -150% 0;
+    }
+}
