@@ -5,13 +5,11 @@ const slideKey = document.querySelector(".slide-key");
 const tipBox = document.querySelector(".tip");
 
 slideItem.addEventListener("mousedown", (e) => {
-    console.log("mousedown")
     const { offsetX } = e;
     const slideBarRect = slideBar.getBoundingClientRect();
     const slideItemRect = slideItem.getBoundingClientRect();
     let left = 0;
     const mouseMove = (e) => {
-        console.log("mouseMove")
         /* 滑动核心：计算正确的显示左偏移量 */
         left = e.clientX - offsetX < slideBarRect.left
             ? 0
@@ -25,7 +23,6 @@ slideItem.addEventListener("mousedown", (e) => {
         slideKey.style.left = `calc(-50% - var(--offset-left) + ${left}px)`;
     }
     const mouseUp = (e) => {
-        console.log("mouseup")
         window.removeEventListener("mousemove", mouseMove);
         window.removeEventListener("mouseup", mouseUp);
 
@@ -62,7 +59,6 @@ slideItem.addEventListener("touchstart", (e) => {
         slideKey.style.left = `calc(-50% - var(--offset-left) + ${left}px)`;
     }
     const touchEnd = () => {
-        console.log("touchend")
         window.removeEventListener("touchmove", touchMove);
         window.removeEventListener("touchend", touchEnd);
 
