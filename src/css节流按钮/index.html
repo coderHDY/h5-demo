@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">1s节流按钮</button>
+
+
+    <script>
+        const onClick = () => {
+            const love = document.createElement("div");
+            love.classList.add("love");
+            const { innerHeight, innerWidth } = window;
+            love.style.left = `${Math.random() * 0.8 * innerWidth}px`;
+            love.style.top = `${Math.random() * 0.8 * innerHeight}px`;
+            document.body.append(love);
+            setTimeout(() => love.remove(), 1000);
+        };
+        btn.addEventListener("click", onClick);
+    </script>
+</body>
+
+</html>
