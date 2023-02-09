@@ -1,0 +1,75 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-items: center;
+}
+/* 节流代码 */
+button {
+    padding: 20px 30px;
+    background-color: rgb(93, 155, 210);
+    color: #fff;
+    border: 0;
+    border-radius: 10px;
+}
+
+button {
+    animation: throttle 1s step-end forwards;
+    color: #333;
+    user-select: none;
+}
+button:active {
+    animation: none;
+    color: #fff;
+}
+
+@keyframes throttle {
+    from {
+        pointer-events: none;
+    }
+    to {
+        pointer-events: all;
+    }
+}
+
+
+/* 爱心代码 */
+.love {
+    position: absolute;
+    animation: bigger .5s linear forwards;
+    transform: scale(.1);
+}
+@keyframes bigger {
+    to {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.love::before {
+    content: "";
+    position: absolute;
+    width: 50px;
+    background-color: rgba(255, 36, 36, 1);
+    height: 70px;
+    border-bottom: 0;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 100px;
+}
+.love::after {
+    content: "";
+    position: absolute;
+    left: 50px;
+    width: 50px;
+    background-color: rgba(255, 36, 36, 1);
+    height: 70px;
+    border-bottom: 0;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom-right-radius: 100px;
+    transform: translate(-5px);
+    box-shadow: 1px 1px 10px rgba(255, 36, 36, 1);
+}
