@@ -104,6 +104,10 @@ body {
     transform: rotate(0deg);
   }
   /* 旋转 1s */
+  99% {
+    transform: rotate(180deg);
+  }
+  /* 防止闪屏 */
   100% {
     transform: rotate(180deg);
   }
