@@ -4,6 +4,7 @@ body {
   background-color: rgb(145, 217, 243);
   height: 100vh;
 }
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -16,7 +17,7 @@ body {
   --sand-color: rgb(145, 126, 240);
   /* 下面三角形做一个平角向上移动了 10px，中心就是y轴 -5px */
   transform-origin: center calc(50% - 5px);
-  animation: rotate var(--load-time) infinite linear normal;
+  animation: rotate var(--load-time) infinite linear backwards;
 }
 
 /* 沙线 */
@@ -24,13 +25,14 @@ body {
   content: "";
   width: 2px;
   position: absolute;
-  height: 40px;
+  height: 41px;
   left: calc(50% - 1px);
   bottom: 15px;
   background-color: var(--sand-color);
   z-index: 1000;
-  animation: line-down var(--load-time) normal infinite;
+  animation: line-down var(--load-time) infinite ease-in backwards;
 }
+
 .up {
   position: relative;
   width: 0;
@@ -55,12 +57,13 @@ body {
   border-top: 50px solid var(--sand-color);
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;
-  animation: down var(--load-time) linear normal infinite;
   transform: translate(-50%, -100%) scale(0.9);
   box-shadow: 0 0 3px 3px #fff;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  animation: down var(--load-time) linear infinite backwards;
 }
+
 .down {
   position: relative;
   top: -10px;
@@ -74,6 +77,7 @@ body {
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
+
 /* 下三角 */
 .down::after {
   content: "";
@@ -85,7 +89,7 @@ body {
   border-bottom: 50px solid var(--sand-color);
   border-left: 30px solid transparent;
   border-right: 30px solid transparent;
-  animation: up var(--load-time) linear normal infinite;
+  animation: up var(--load-time) linear infinite backwards;
   transform: translate(-50%, 1px) scale(0.9);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -95,71 +99,106 @@ body {
   0% {
     transform: rotate(0deg);
   }
+
   /* 下落线条 1s */
   10% {
     transform: rotate(0deg);
   }
+
   /* 下落 8s */
   90% {
     transform: rotate(0deg);
   }
+
   /* 旋转 1s */
   99% {
     transform: rotate(180deg);
   }
+
   /* 防止闪屏 */
   100% {
     transform: rotate(180deg);
   }
 }
+
 @keyframes down {
   0% {
     clip-path: inset(0 0 0 0);
   }
+
   /* 下落线条 1s */
   10% {
     clip-path: inset(10% 0 0 0);
   }
+
   /* 下落 8s */
   90% {
     clip-path: inset(100% 0 0 0);
   }
+
   /* 旋转 1s */
   100% {
     clip-path: inset(100% 0 0 0);
   }
 }
+
 @keyframes up {
   0% {
     clip-path: inset(100% 0 0 0);
   }
+
   /* 下落线条 1s */
   10% {
     clip-path: inset(100% 0 0 0);
   }
+
   /* 下落 8s */
   90% {
     clip-path: inset(0% 0 0 0);
   }
+
   /* 旋转 1s */
   100% {
     clip-path: inset(0% 0 0 0);
   }
 }
+
 @keyframes line-down {
   0% {
+    height: 41px;
     transform: translate(0, -100%);
   }
+
   /* 下落线条 1s */
   10% {
+    height: 41px;
     transform: translate(0, 0%);
   }
+
   /* 下落 8s */
   90% {
+    height: 41px;
     transform: translate(0, 0%);
   }
+
   /* 旋转 1s */
   100% {
+    height: 0px;
     transform: translate(0, 0%);
   }
 }
+
+/* @keyframes line-down {
+  0% {
+    clip-path: inset(0 0 100% 0);
+  }
+  10% {
+    clip-path: inset(0 0 0% 0);
+  }
+  90% {
+    clip-path: inset(0 0 40% 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+} */
