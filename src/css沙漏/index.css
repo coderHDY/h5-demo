@@ -1,0 +1,161 @@
+body {
+  display: grid;
+  place-items: center;
+  background-color: rgb(145, 217, 243);
+  height: 100vh;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 60px;
+
+  /* 自定义漏斗时间 */
+  --load-time: 7s;
+
+  --sand-color: rgb(145, 126, 240);
+  /* 下面三角形做一个平角向上移动了 10px，中心就是y轴 -5px */
+  transform-origin: center calc(50% - 5px);
+  animation: rotate var(--load-time) infinite linear normal;
+}
+
+/* 沙线 */
+.wrapper::before {
+  content: "";
+  width: 2px;
+  position: absolute;
+  height: 40px;
+  left: calc(50% - 1px);
+  bottom: 15px;
+  background-color: var(--sand-color);
+  z-index: 1000;
+  animation: line-down var(--load-time) normal infinite;
+}
+.up {
+  position: relative;
+  width: 0;
+  height: 0px;
+  border-bottom: 0px solid #fff;
+  border-top: 50px solid rgb(255, 255, 255);
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  clip-path: inset(0 0 5px 0);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+/* 上三角 */
+.up::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0px;
+  border-bottom: 0px solid #fff;
+  border-top: 50px solid var(--sand-color);
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  animation: down var(--load-time) linear normal infinite;
+  transform: translate(-50%, -100%) scale(0.9);
+  box-shadow: 0 0 3px 3px #fff;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.down {
+  position: relative;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-top: 0px solid #333;
+  border-bottom: 50px solid #fff;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  clip-path: inset(5px 0 0 0);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+/* 下三角 */
+.down::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 0px solid #333;
+  border-bottom: 50px solid var(--sand-color);
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  animation: up var(--load-time) linear normal infinite;
+  transform: translate(-50%, 1px) scale(0.9);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  /* 下落线条 1s */
+  10% {
+    transform: rotate(0deg);
+  }
+  /* 下落 8s */
+  90% {
+    transform: rotate(0deg);
+  }
+  /* 旋转 1s */
+  100% {
+    transform: rotate(180deg);
+  }
+}
+@keyframes down {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  /* 下落线条 1s */
+  10% {
+    clip-path: inset(10% 0 0 0);
+  }
+  /* 下落 8s */
+  90% {
+    clip-path: inset(100% 0 0 0);
+  }
+  /* 旋转 1s */
+  100% {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+@keyframes up {
+  0% {
+    clip-path: inset(100% 0 0 0);
+  }
+  /* 下落线条 1s */
+  10% {
+    clip-path: inset(100% 0 0 0);
+  }
+  /* 下落 8s */
+  90% {
+    clip-path: inset(0% 0 0 0);
+  }
+  /* 旋转 1s */
+  100% {
+    clip-path: inset(0% 0 0 0);
+  }
+}
+@keyframes line-down {
+  0% {
+    transform: translate(0, -100%);
+  }
+  /* 下落线条 1s */
+  10% {
+    transform: translate(0, 0%);
+  }
+  /* 下落 8s */
+  90% {
+    transform: translate(0, 0%);
+  }
+  /* 旋转 1s */
+  100% {
+    transform: translate(0, 0%);
+  }
+}
