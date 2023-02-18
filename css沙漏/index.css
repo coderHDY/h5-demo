@@ -3,6 +3,8 @@ body {
   place-items: center;
   background-color: rgb(145, 217, 243);
   height: 100vh;
+  padding: 0;
+  margin: 0;
 }
 
 .wrapper {
