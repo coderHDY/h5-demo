@@ -37,7 +37,8 @@ body > div {
 
 /* 隐藏滚动条 */
 .no-bar::-webkit-scrollbar {
-  display: none
+  display: none;
+  overscroll-behavior: none;
 }
 
 /* 彩色滚动条 */
@@ -58,8 +59,9 @@ body > div {
   height: 300px;
   background-color: rgb(113, 190, 216);
   overflow-y: scroll;
-
   scroll-snap-type: y mandatory;
+
+  overscroll-behavior: none;
 }
 .page {
   display: flex;
