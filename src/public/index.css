@@ -134,6 +134,9 @@ html, body {
 	background-color: rgba(166, 128, 226, 0.8);
 }
 .content {
+	position: fixed;
+	top: 0;
+
 	flex: 1;
 	width: 100vw;
 	height: 100vh;
