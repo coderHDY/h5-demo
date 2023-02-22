@@ -8,6 +8,7 @@ body {
   display: grid;
   place-items: center;
   height: 100vh;
+  width: 100vw;
 }
 .love {
   position: relative;
