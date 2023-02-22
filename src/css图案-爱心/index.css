@@ -3,6 +3,7 @@ body {
   place-items: center;
   height: 100vh;
   width: 100vw;
+  overscroll-behavior: none;
 }
 .love {
   position: relative;
