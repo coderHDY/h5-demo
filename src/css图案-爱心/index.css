@@ -1,4 +1,6 @@
 body {
+  position: fixed;
+  top: 0;
   display: grid;
   place-items: center;
   height: 100vh;
@@ -7,7 +9,6 @@ body {
   margin: 0;
   overscroll-behavior: none;
   overflow: hidden;
-  background-color: rgb(145, 217, 243);
 }
 .love {
   position: relative;
