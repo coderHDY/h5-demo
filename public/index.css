@@ -78,8 +78,7 @@ html, body {
 		height: 3rem;
 		line-height: 3rem;
 		align-content: top;
-		background-color: rgb(136, 188, 255);
-		color: #fff;
+		color: rgba(0,0,0,0.6);
 		transition: 1s;
 		z-index: 999;
 	}
@@ -121,7 +120,7 @@ html, body {
 	height: 3rem;
 	line-height: 3rem;
 	margin-bottom: 10px;
-	background-color: rgba(163, 183, 215, 0.8);
+	background-color: rgb(255 255 255 / 80%);
 	padding-left: 10px;
 	user-select: none;
 	cursor: default;
@@ -131,7 +130,8 @@ html, body {
 	cursor: default;
 }
 .side-bar-item.active {
-	background-color: rgba(166, 128, 226, 0.8);
+	background-color: rgb(143 72 254 / 80%);
+	color: #fff;
 }
 .content {
 	position: fixed;
