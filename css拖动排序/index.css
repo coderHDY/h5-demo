@@ -1,0 +1,61 @@
+body {
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.drag-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+  border-radius: 5px;
+  list-style: none;
+  background-color: #7fc5e8;
+  padding: 10px;
+}
+.drag-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  margin-bottom: 4px;
+  background-color: #fff;
+  border-radius: 5px;
+  user-select: none;
+  border: 2px solid #333;
+}
+.drag-item span {
+  margin-right: 30px;
+  margin-left: 10px;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+}
+.drag-item::after {
+  content:"::";
+  position: absolute;
+  right: 10px;
+  font-weight: 900;
+  font-size: 23px;
+  cursor: grab;
+}
+.drag-item:active {
+  cursor: grabbing;
+}
+
+/* 拖动事件代码 */
+.dragging :where(span, .title) {
+  opacity: 0.2;
+}
