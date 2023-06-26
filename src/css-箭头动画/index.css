@@ -20,34 +20,53 @@ body {
   cursor: pointer;
 }
 
-.btnWrapper div {
+.centerLine {
+  position: relative;
   background-color: #fff;
-  transition: .1s;
-  height: 2px;
   width: 80%;
+  height: 2px;
+  --arrow: 25px;
+}
+.centerLine::before,
+.centerLine::after {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 2px;
+  transition: .1s;
 }
 
-.upLine {}
+.centerLine::after {
+  content: "";
+  display: block;
+  top: -12px;
+  width: 100%;
+}
 
 .centerLine::before {
-  
+  content: "";
+  display: block;
+  top: 10px;
+  width: 100%;
 }
-
-.downLine {}
 
 /* 动画 */
-.btnWrapper:hover .upLine {
-  width: 60%;
+.btnWrapper:hover .centerLine::after {
+  width: var(--arrow);
 
-  /* 等腰三角形 -》67.5
-  *  X + X / Math.tan(67.5 * Math.PI / 180) = 30px * 1/2
+  /* 等腰三角形 -> 67.5 -> tan67.5 = Math.tan(67.5 * Math.PI / 180) = 2.41
+  *  x + x * tan67.5 = 30 / 2
+  *  y = x * tan67.5
+  *
+  * 15 / 3.41 = 4.4
+  * 4.4 * 2.41 = 10.6
+  *
+  * 少1px做拼接
   */
-  transform:  translate(-10px, 23px) rotate(45deg);
+  transform: translate(calc(0px - var(--arrow) / 2 / 3.4), calc(10px + (var(--arrow) / 2 - 1px) / 3.4 * 2.4)) rotate(45deg);
 }
 
-.btnWrapper:hover .centerLine {}
-
-.btnWrapper:hover .downLine {
-  width: 60%;
-  transform:  translate(-10px, -23px) rotate(-45deg);
+.btnWrapper:hover .centerLine::before {
+  width: var(--arrow);
+  transform: translate(calc(0px - var(--arrow) / 2 / 3.4), calc(-10px - (var(--arrow) / 2 - 1px) / 3.4 * 2.4))  rotate(-45deg) ;
 }
