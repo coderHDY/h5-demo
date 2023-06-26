@@ -1,0 +1,53 @@
+body {
+  display: grid;
+  place-items: center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.btnWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #333;
+  background-color: blueviolet;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btnWrapper div {
+  background-color: #fff;
+  transition: .1s;
+  height: 2px;
+  width: 80%;
+}
+
+.upLine {}
+
+.centerLine::before {
+  
+}
+
+.downLine {}
+
+/* 动画 */
+.btnWrapper:hover .upLine {
+  width: 60%;
+
+  /* 等腰三角形 -》67.5
+  *  X + X / Math.tan(67.5 * Math.PI / 180) = 30px * 1/2
+  */
+  transform:  translate(-10px, 23px) rotate(45deg);
+}
+
+.btnWrapper:hover .centerLine {}
+
+.btnWrapper:hover .downLine {
+  width: 60%;
+  transform:  translate(-10px, -23px) rotate(-45deg);
+}
