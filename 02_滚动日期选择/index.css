@@ -1,0 +1,73 @@
+body {
+  display: grid;
+  place-items: center;
+  position: fixed;
+  height: 100vh;
+  width: 100svw;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+
+.timeWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 4.5rem;
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.year,
+.month,
+.day {
+  flex: 1;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: none;
+}
+
+.year::-webkit-scrollbar,
+.month::-webkit-scrollbar,
+.day::-webkit-scrollbar {
+  display: none;
+  overscroll-behavior: none;
+}
+
+.yearItem,
+.monthItem,
+.dayItem,
+.placeholderItem {
+  text-align: center;
+  scroll-snap-align: center;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.mask {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgb(138, 138, 138) 0%, rgba(136, 136, 136, 0) 33%, transparent 33%, transparent 66%, rgba(146, 146, 146, 0) 66%, rgb(137, 137, 137) 100%);
+  pointer-events: none;
+}
+
+.maskSelected {
+  width: 95%;
+  height: 1.5rem;
+  border-radius: .3rem;
+  background-color: transparent;
+  border: 1px solid #fff;
+}
