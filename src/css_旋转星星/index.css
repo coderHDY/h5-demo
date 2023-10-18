@@ -14,7 +14,7 @@ body {
   --r: 7rem;
   width: calc(var(--r) * 2);
   height: calc(var(--r) * 2);
-  animation: animationColor 5s linear infinite;
+  /* animation: animationColor 5s linear infinite; */
 }
 
 .star {
@@ -31,31 +31,25 @@ body {
   animation-delay: calc(var(--i) * 0.1s);
   transform: rotate(0deg) scale(calc(0.01));
 }
-/* 
-.star::before {
-  content: "\f005";
-  font-family: fontAwesome;
-  position: absolute;
-  font-size: 0.75em;
-  color: var(--bgc);
-  animation: starParticle 1.2s infinite linear;
-  animation-delay: calc(var(--i) * -0.1s);
-} */
 
 @keyframes rotate-star {
   0% {
     transform: rotate(0deg) scale(calc(0));
+    filter: hue-rotate(0deg);
   }
 
   50% {
     transform: rotate(180deg) scale(calc(2));
+    filter: hue-rotate(180deg);
   }
 
   100% {
     transform: rotate(360deg) scale(calc(0));
+    filter: hue-rotate(360deg);
   }
 }
 
+/* 
 @keyframes animationColor {
   0% {
     filter: hue-rotate(0deg);
@@ -64,4 +58,4 @@ body {
   100% {
     filter: hue-rotate(360deg);
   }
-}
+} */
