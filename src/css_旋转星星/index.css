@@ -1,0 +1,67 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  --bgc: #1c1c1c;
+  background-color: var(--bgc);
+}
+
+.loader {
+  --r: 7rem;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  animation: animationColor 5s linear infinite;
+}
+
+.star {
+  position: absolute;
+  transform-origin: var(--r) var(--r);
+  transform: rotate(calc(360deg / 12 * var(--i)));
+  color: rgb(13, 154, 255);
+  filter: drop-shadow(0 0 5px #1f93ff) drop-shadow(0 0 10px #309bff) drop-shadow(0 0 15px #3aa0ff);
+}
+
+.star i {
+  position: relative;
+  animation: rotate-star 1.2s infinite linear;
+  animation-delay: calc(var(--i) * 0.1s);
+  transform: rotate(0deg) scale(calc(0.01));
+}
+/* 
+.star::before {
+  content: "\f005";
+  font-family: fontAwesome;
+  position: absolute;
+  font-size: 0.75em;
+  color: var(--bgc);
+  animation: starParticle 1.2s infinite linear;
+  animation-delay: calc(var(--i) * -0.1s);
+} */
+
+@keyframes rotate-star {
+  0% {
+    transform: rotate(0deg) scale(calc(0));
+  }
+
+  50% {
+    transform: rotate(180deg) scale(calc(2));
+  }
+
+  100% {
+    transform: rotate(360deg) scale(calc(0));
+  }
+}
+
+@keyframes animationColor {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
