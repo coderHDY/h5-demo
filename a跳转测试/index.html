@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>按钮</title>
+  </head>
+  <body>
+    <a href="mobason" target="_blank">mobason</a>
+    <a href="代理店" target="_blank">代理店</a>
+    <a href="哈哈哈" target="_blank">哈哈哈</a>
+    <a href="heheheh" target="_blank">heheheh</a>
+    <button>按钮</button>
+
+    <script>
+      document.addEventListener("click", async (e) => {
+        const a = e.target;
+        const href = a.getAttribute("href");
+
+        if (href === "mobason") {
+          e.preventDefault();
+          await Promise.resolve().then(() => console.log(href));
+        }
+      });
+    </script>
+  </body>
+</html>
