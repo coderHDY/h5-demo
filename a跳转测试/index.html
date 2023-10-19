@@ -4,10 +4,8 @@
     <title>按钮</title>
   </head>
   <body>
-    <a href="mobason" target="_blank">mobason</a>
-    <a href="代理店" target="_blank">代理店</a>
-    <a href="哈哈哈" target="_blank">哈哈哈</a>
-    <a href="heheheh" target="_blank">heheheh</a>
+    <a href="哈哈哈哈被阻止了" target="_blank">阻止跳转</a>
+    <a href="https://baidu.com" target="_blank">直接跳转百度</a>
     <button>按钮</button>
 
     <script>
@@ -15,11 +13,17 @@
         const a = e.target;
         const href = a.getAttribute("href");
 
-        if (href === "mobason") {
+        if (href === "哈哈哈哈被阻止了") {
           e.preventDefault();
           await Promise.resolve().then(() => console.log(href));
         }
       });
     </script>
+
+    <style>
+      body {
+        padding: 10rem;
+      }
+    </style>
   </body>
 </html>
