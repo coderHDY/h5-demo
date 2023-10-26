@@ -87,8 +87,7 @@ body {
   margin: .2rem;
   padding: .7rem .3rem;
   text-align: center;
-  height: 2.5rem;
-  line-height: 100%;
+  line-height: 150%;
   border: 0;
   border-radius: .3rem;
   background-color: #fff;
@@ -98,6 +97,9 @@ body {
 .toolsWrapper .space {
   flex: 2;
   padding-bottom: 1rem;
+}
+.toolsWrapper .space:active {
+  background-color: #e4e4e4;
 }
 
 .toolsWrapper .search {
