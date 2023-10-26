@@ -104,7 +104,7 @@ body {
   padding-bottom: 1rem;
 }
 
-.toolsWrapper .space:active {
+.toolsWrapper .space:active, button:active {
   background-color: #e4e4e4;
 }
 
@@ -119,4 +119,8 @@ button:focus,
 button:active {
   outline: none;
   border: none;
+}
+/* safari */
+button:focus {
+  -webkit-tap-highlight-color: transparent;
 }
