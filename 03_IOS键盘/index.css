@@ -105,6 +105,8 @@ body {
   color: #fff;
 }
 
+button:focus,
 button:active {
   outline: none;
+  border: none;
 }
