@@ -13,7 +13,7 @@ html, body {
 
 .layout {
     display: flex;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
 }
 .layout>.loading {
@@ -139,7 +139,7 @@ html, body {
 
 	flex: 1;
 	width: 100vw;
-	height: 100vh;
+	height: 100%;
 	overflow: hidden;
 }
 .content>iframe {
