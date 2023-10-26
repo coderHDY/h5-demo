@@ -15,6 +15,9 @@ body {
   background-color: #D5D8DD;
   padding-top: 1rem;
   padding-bottom: 2rem;
+}
+
+.board * {
   user-select: none;
 }
 
@@ -100,6 +103,7 @@ body {
   flex: 2;
   padding-bottom: 1rem;
 }
+
 .toolsWrapper .space:active {
   background-color: #e4e4e4;
 }
