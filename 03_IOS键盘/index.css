@@ -15,6 +15,7 @@ body {
   background-color: #D5D8DD;
   padding-top: 1rem;
   padding-bottom: 2rem;
+  user-select: none;
 }
 
 
