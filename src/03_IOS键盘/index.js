@@ -51,3 +51,14 @@ const modelValue = new Proxy(
 
 // input框
 const iptRef = document.querySelector("#ipt");
+
+// 响应式
+(function () {
+  const setRootFontSize = () => {
+    const dpi = document.documentElement.clientWidth;
+    const fontSize = (dpi * 16) / 375; // iphone6上是 100
+    document.documentElement.style.fontSize = fontSize + "px";
+  };
+  setRootFontSize();
+  window.addEventListener("resize", setRootFontSize);
+})();
