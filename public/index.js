@@ -58,9 +58,10 @@ document.documentElement.addEventListener("touchmove", () =>
 );
 document.body.addEventListener("touchmove", () => e.preventDefault());
 
+// full screen
 const div100vh = () => {
   const height = window.innerHeight;
-  const layoutDiv = document.querySelector("layout");
+  const layoutDiv = document.querySelector(".layout");
   layoutDiv.setAttribute("style", `height: ${height}px;`);
 };
 div100vh();
