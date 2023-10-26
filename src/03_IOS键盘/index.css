@@ -104,3 +104,7 @@ body {
   background-color: #3d93ef;
   color: #fff;
 }
+
+button:active {
+  outline: none;
+}
