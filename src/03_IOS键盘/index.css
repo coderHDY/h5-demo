@@ -87,10 +87,12 @@ body {
   margin: .2rem;
   padding: .7rem .3rem;
   text-align: center;
-  line-height: 150%;
+  height: 2.5rem;
+  line-height: 100%;
   border: 0;
   border-radius: .3rem;
   background-color: #fff;
+  user-select: none;
 }
 
 .toolsWrapper .space {
