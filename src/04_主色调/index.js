@@ -1,3 +1,4 @@
+// 研究库：https://github.com/lokesh/color-thief/tree/master/src
 const img = document.querySelector("#img");
 
 img.onload = function () {
