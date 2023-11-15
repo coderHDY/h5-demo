@@ -1,0 +1,35 @@
+body {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+.ball {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 8rem;
+  height: 8rem;
+  background-color: #61c0ed;
+  border-radius: 50%;
+  animation:
+    hor 3.5s alternate infinite linear,
+    ver 2.3s alternate infinite linear;
+}
+
+@keyframes hor {
+  to {
+    left: calc(100% - 8rem);
+  }
+}
+
+@keyframes ver {
+  to {
+    top: calc(100% - 8rem);
+  }
+
+}
