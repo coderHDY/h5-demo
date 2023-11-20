@@ -1,0 +1,15 @@
+body {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#progress {
+  width: 100vw;
+  height: 50vw;
+  background-color: rgb(219, 136, 136);
+}
