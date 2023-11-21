@@ -13,3 +13,16 @@ body {
   height: 50vw;
   background-color: rgb(219, 136, 136);
 }
+
+#val {
+  position: absolute;
+  width: 3rem;
+  height: 2rem;
+  line-height: 2rem;
+  font-size: 2rem;
+  left: 50%;
+  top: 45vw;
+  text-align: center;
+  margin: 0;
+  transform: translate(-50%, -2rem);
+}

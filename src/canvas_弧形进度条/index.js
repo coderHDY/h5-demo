@@ -1,4 +1,5 @@
 const progressEl = document.querySelector("#progress");
+const valEl = document.querySelector("#val");
 
 class Progress {
   static OTTER_COLOR = "#FCD99B";
@@ -206,7 +207,7 @@ class Progress {
     }
   };
   onThrottleChange = () => {
-    const TIME = 100;
+    const TIME = 50;
     let timer = null;
     const onChange = (val) => {
       if (timer !== null) {
@@ -223,6 +224,6 @@ class Progress {
 }
 
 const progress = new Progress(progressEl, 20);
-const onChange = (val) => console.log(val);
+const onChange = (val) => valEl.innerText = val;
 
 progress.addListener(onChange);
