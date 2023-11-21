@@ -103,8 +103,8 @@ class Progress {
     this.ctx.stroke();
   }
   getCurrentBarPosition() {
-    const h = this.radius * Math.sin((1.8 * this.percent * Math.PI) / 180);
-    const s = this.radius * Math.cos((1.8 * this.percent * Math.PI) / 180);
+    const h = this.radius * Math.sin(1.8 * this.percent * Math.PI / 180);
+    const s = this.radius * Math.cos(1.8 * this.percent * Math.PI / 180);
     const x = this.xCenter - s;
     const y = this.yCenter - h;
     return { x, y };
