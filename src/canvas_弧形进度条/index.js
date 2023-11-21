@@ -132,7 +132,7 @@ class Progress {
     window.addEventListener("resize", this.onResize);
     this.canvas.addEventListener("click", this.onClick);
     this.canvas.addEventListener("mousedown", this.onMouseDown);
-    this.canvas.addEventListener("mouseup", this.onMouseUp);
+    document.addEventListener("mouseup", this.onMouseUp); // take care
     this.canvas.addEventListener("mousemove", this.onMouseMove);
     this.canvas.addEventListener("touchstart", this.onTouchStart);
     this.canvas.addEventListener("touchmove", this.onTouchMove);
@@ -143,7 +143,7 @@ class Progress {
     window.removeEventListener("resize", this.onResize);
     this.canvas.removeEventListener("click", this.onClick);
     this.canvas.removeEventListener("mousedown", this.onMouseDown);
-    this.canvas.removeEventListener("mouseup", this.onMouseUp);
+    document.removeEventListener("mouseup", this.onMouseUp);
     this.canvas.removeEventListener("mousemove", this.onMouseMove);
     this.canvas.removeEventListener("touchstart", this.onTouchStart);
     this.canvas.removeEventListener("touchmove", this.onTouchMove);
