@@ -24,8 +24,8 @@ class Progress {
   init = () => {
     this.ctx = this.initRatioCtx(this.canvas);
     this.setProgress(this.percent);
-  }
-  initRatioCtx (canvas) {
+  };
+  initRatioCtx(canvas) {
     const canvasRect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio;
     const width = canvasRect.width;
@@ -50,26 +50,32 @@ class Progress {
     ctx.scale(dpr, dpr);
     return ctx;
   }
-  clear () {
+  clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
-  getXByRate (xPercent) {
-    return this.width * xPercent / 100;
+  getXByRate(xPercent) {
+    return (this.width * xPercent) / 100;
   }
-  getYByRate (yPercent) {
-    return this.height * yPercent / 100;
+  getYByRate(yPercent) {
+    return (this.height * yPercent) / 100;
   }
-  percent2Angle (percent) {
+  percent2Angle(percent) {
     return Math.PI * (percent / 100 - 1);
   }
-  initOuterLine () {
+  initOuterLine() {
     this.ctx.beginPath();
-    this.ctx.arc(this.xCenter, this.yCenter, this.radius, this.percent2Angle(0), this.percent2Angle(100));
+    this.ctx.arc(
+      this.xCenter,
+      this.yCenter,
+      this.radius,
+      this.percent2Angle(0),
+      this.percent2Angle(100)
+    );
     this.ctx.lineWidth = 5;
     this.ctx.strokeStyle = Progress.OTTER_COLOR;
     this.ctx.stroke();
   }
-  setProgress (percent) {
+  setProgress(percent) {
     this.clear();
     this.initOuterLine();
     percent = Math.abs(percent);
@@ -80,12 +86,12 @@ class Progress {
     const start = this.percent2Angle(0);
     const end = this.percent2Angle(percent);
     this.ctx.arc(this.xCenter, this.yCenter, this.radius, start, end);
-    this.ctx.lineWidth = 5;
+    this.ctx.lineWidth = 7;
     this.ctx.strokeStyle = Progress.INNER_COLOR;
     this.ctx.stroke();
-    this.setBarIcon(percent)
+    this.setBarIcon(percent);
   }
-  setBarIcon (percent) {
+  setBarIcon(percent) {
     this.ctx.beginPath();
     percent = percent > 99.5 ? 99.5 : percent;
     const start = this.percent2Angle(percent);
@@ -95,33 +101,33 @@ class Progress {
     this.ctx.strokeStyle = Progress.INNER_COLOR;
     this.ctx.stroke();
   }
-  getYByX (x) {
-    const l1 = this.xCenter - x;
-    const l3 = this.radius;
-    const l2 = Math.sqrt(Math.pow(l3, 2) - Math.pow(l1, 2), 2);
-
-    // 圆弧外为 NaN
-    return this.yCenter - l2;
+  getCurrentBarPosition() {
+    const h = this.radius * Math.sin((1.8 * this.percent * Math.PI) / 180);
+    const s = this.radius * Math.cos((1.8 * this.percent * Math.PI) / 180);
+    const x = this.xCenter - s;
+    const y = this.yCenter - h;
+    return { x, y };
   }
-  isPositionInProgressBar (x, y) {
-    const yInAngle = this.getYByX(x);
-    return yInAngle !== NaN && Math.abs(y - yInAngle) < 20;
+  isPositionInProgressBar(x, y) {
+    // new
+    const { x: cx, y: cy } = this.getCurrentBarPosition();
+    return Math.abs(x - cx) < 20 && Math.abs(y - cy) < 20;
   }
-  radiansToDegrees (radians) {
+  radiansToDegrees(radians) {
     const degrees = radians * (180 / Math.PI);
     return degrees;
   }
-  getPercent (x, y) {
+  getPercent(x, y) {
     const l1 = this.yCenter - y;
     const l2 = this.xCenter - x;
     const angle = Math.atan2(l1, l2);
-    let ans = Math.ceil(this.radiansToDegrees(angle) / 180 * 100);
+    let ans = Math.ceil((this.radiansToDegrees(angle) / 180) * 100);
     if (ans < 0 || ans > 100) {
       ans = this.percent;
     }
     return ans;
   }
-  initEventListener () {
+  initEventListener() {
     window.addEventListener("resize", this.onResize);
     this.canvas.addEventListener("click", this.onClick);
     this.canvas.addEventListener("mousedown", this.onMouseDown);
@@ -132,7 +138,7 @@ class Progress {
     this.canvas.addEventListener("touchend", this.onTouchEnd);
     this.canvas.addEventListener("touchcancel", this.onTouchCancel);
   }
-  destroyEventListener () {
+  destroyEventListener() {
     window.removeEventListener("resize", this.onResize);
     this.canvas.removeEventListener("click", this.onClick);
     this.canvas.removeEventListener("mousedown", this.onMouseDown);
@@ -148,7 +154,7 @@ class Progress {
     this.destroyEventListener();
     this.init();
     this.initEventListener();
-  }
+  };
   onClick = (e) => {
     const { x, y } = e;
     const inProgressBar = this.isPositionInProgressBar(x, y);
@@ -156,16 +162,16 @@ class Progress {
       const percent = this.getPercent(x, y);
       this.setProgress(percent);
     }
-  }
+  };
   onMouseDown = (e) => {
     const { x, y } = e;
     if (this.isPositionInProgressBar(x, y)) {
       this.touching = true;
     }
-  }
+  };
   onMouseUp = (e) => {
     this.touching = false;
-  }
+  };
   onMouseMove = (e) => {
     if (!this.touching) {
       return;
@@ -173,7 +179,7 @@ class Progress {
     const { x, y } = e;
     const percent = this.getPercent(x, y);
     this.setProgress(percent);
-  }
+  };
   onTouchMove = (e) => {
     if (!this.touching) {
       return;
@@ -181,24 +187,24 @@ class Progress {
     const { pageX: x, pageY: y } = e.targetTouches[0];
     const percent = this.getPercent(x, y);
     this.setProgress(percent);
-  }
+  };
   onTouchStart = (e) => {
     const { pageX: x, pageY: y } = e.targetTouches[0];
     if (this.isPositionInProgressBar(x, y)) {
       this.touching = true;
     }
-  }
+  };
   onTouchEnd = (e) => {
     this.touching = false;
-  }
+  };
   onTouchCancel = (e) => {
     this.touching = false;
-  }
+  };
   addListener = (fn) => {
     if (typeof fn === "function") {
       this.listeners.push(fn);
     }
-  }
+  };
   onThrottleChange = () => {
     const TIME = 100;
     let timer = null;
@@ -207,12 +213,12 @@ class Progress {
         return;
       }
       timer = setTimeout(() => {
-        this.listeners.forEach(fn => fn(val));
+        this.listeners.forEach((fn) => fn(val));
         timer = null;
       }, TIME);
-    }
+    };
     return onChange;
-  }
+  };
   onChange = this.onThrottleChange();
 }
 
