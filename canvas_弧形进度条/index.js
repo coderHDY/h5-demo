@@ -13,6 +13,8 @@ class Progress {
   xCenter = 0;
   yCenter = 0;
   radius = 0;
+  left = 0;
+  top = 0;
   touching = false;
   listeners = [];
 
@@ -25,7 +27,14 @@ class Progress {
   init = () => {
     this.ctx = this.initRatioCtx(this.canvas);
     this.setProgress(this.percent);
+    this.initCanvasPosition();
   };
+  initCanvasPosition () {
+    const canvasRect = this.canvas.getBoundingClientRect();
+    const { left, top } = canvasRect;
+    this.left = left;
+    this.top = top;
+  }
   initRatioCtx (canvas) {
     const canvasRect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio;
@@ -158,19 +167,23 @@ class Progress {
   };
   onClick = (e) => {
     const { x, y } = e;
-    const inProgressBar = this.isPositionInProgressBar(x, y);
+    const relativeX = x - this.left;
+    const relativeY = y - this.top;
+    const inProgressBar = this.isPositionInProgressBar(relativeX, relativeY);
     if (inProgressBar) {
-      const percent = this.getPercent(x, y);
+      const percent = this.getPercent(relativeX, relativeY);
       this.setProgress(percent);
     }
   };
   onMouseDown = (e) => {
     const { x, y } = e;
-    if (this.isPositionInProgressBar(x, y)) {
+    const relativeX = x - this.left;
+    const relativeY = y - this.top;
+    if (this.isPositionInProgressBar(relativeX, relativeY)) {
       this.touching = true;
     }
   };
-  onMouseUp = (e) => {
+  onMouseUp = () => {
     this.touching = false;
   };
   onMouseMove = (e) => {
@@ -178,7 +191,9 @@ class Progress {
       return;
     }
     const { x, y } = e;
-    const percent = this.getPercent(x, y);
+    const relativeX = x - this.left;
+    const relativeY = y - this.top;
+    const percent = this.getPercent(relativeX, relativeY);
     this.setProgress(percent);
   };
   onTouchMove = (e) => {
@@ -187,19 +202,23 @@ class Progress {
     }
     e.preventDefault();
     const { pageX: x, pageY: y } = e.targetTouches[0];
-    const percent = this.getPercent(x, y);
+    const relativeX = x - this.left;
+    const relativeY = y - this.top;
+    const percent = this.getPercent(relativeX, relativeY);
     this.setProgress(percent);
   };
   onTouchStart = (e) => {
     const { pageX: x, pageY: y } = e.targetTouches[0];
-    if (this.isPositionInProgressBar(x, y)) {
+    const relativeX = x - this.left;
+    const relativeY = y - this.top;
+    if (this.isPositionInProgressBar(relativeX, relativeY)) {
       this.touching = true;
     }
   };
-  onTouchEnd = (e) => {
+  onTouchEnd = () => {
     this.touching = false;
   };
-  onTouchCancel = (e) => {
+  onTouchCancel = () => {
     this.touching = false;
   };
   addListener = (fn) => {
@@ -208,7 +227,7 @@ class Progress {
     }
   };
   onThrottleChange = () => {
-    const TIME = 50;
+    const TIME = 20;
     let timer = null;
     const onChange = (val) => {
       if (timer !== null) {
