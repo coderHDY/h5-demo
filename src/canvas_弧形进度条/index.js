@@ -26,7 +26,7 @@ class Progress {
     this.ctx = this.initRatioCtx(this.canvas);
     this.setProgress(this.percent);
   };
-  initRatioCtx(canvas) {
+  initRatioCtx (canvas) {
     const canvasRect = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio;
     const width = canvasRect.width;
@@ -51,19 +51,19 @@ class Progress {
     ctx.scale(dpr, dpr);
     return ctx;
   }
-  clear() {
+  clear () {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
-  getXByRate(xPercent) {
+  getXByRate (xPercent) {
     return (this.width * xPercent) / 100;
   }
-  getYByRate(yPercent) {
+  getYByRate (yPercent) {
     return (this.height * yPercent) / 100;
   }
-  percent2Angle(percent) {
+  percent2Angle (percent) {
     return Math.PI * (percent / 100 - 1);
   }
-  initOuterLine() {
+  initOuterLine () {
     this.ctx.beginPath();
     this.ctx.arc(
       this.xCenter,
@@ -76,7 +76,7 @@ class Progress {
     this.ctx.strokeStyle = Progress.OTTER_COLOR;
     this.ctx.stroke();
   }
-  setProgress(percent) {
+  setProgress (percent) {
     this.clear();
     this.initOuterLine();
     percent = Math.abs(percent);
@@ -92,7 +92,7 @@ class Progress {
     this.ctx.stroke();
     this.setBarIcon(percent);
   }
-  setBarIcon(percent) {
+  setBarIcon (percent) {
     this.ctx.beginPath();
     percent = percent > 99.5 ? 99.5 : percent;
     const start = this.percent2Angle(percent);
@@ -102,23 +102,23 @@ class Progress {
     this.ctx.strokeStyle = Progress.INNER_COLOR;
     this.ctx.stroke();
   }
-  getCurrentBarPosition() {
+  getCurrentBarPosition () {
     const h = this.radius * Math.sin(1.8 * this.percent * Math.PI / 180);
     const s = this.radius * Math.cos(1.8 * this.percent * Math.PI / 180);
     const x = this.xCenter - s;
     const y = this.yCenter - h;
     return { x, y };
   }
-  isPositionInProgressBar(x, y) {
+  isPositionInProgressBar (x, y) {
     // new
     const { x: cx, y: cy } = this.getCurrentBarPosition();
     return Math.abs(x - cx) < 20 && Math.abs(y - cy) < 20;
   }
-  radiansToDegrees(radians) {
+  radiansToDegrees (radians) {
     const degrees = radians * (180 / Math.PI);
     return degrees;
   }
-  getPercent(x, y) {
+  getPercent (x, y) {
     const l1 = this.yCenter - y;
     const l2 = this.xCenter - x;
     const angle = Math.atan2(l1, l2);
@@ -128,7 +128,7 @@ class Progress {
     }
     return ans;
   }
-  initEventListener() {
+  initEventListener () {
     window.addEventListener("resize", this.onResize);
     this.canvas.addEventListener("click", this.onClick);
     this.canvas.addEventListener("mousedown", this.onMouseDown);
@@ -139,7 +139,7 @@ class Progress {
     this.canvas.addEventListener("touchend", this.onTouchEnd);
     this.canvas.addEventListener("touchcancel", this.onTouchCancel);
   }
-  destroyEventListener() {
+  destroyEventListener () {
     window.removeEventListener("resize", this.onResize);
     this.canvas.removeEventListener("click", this.onClick);
     this.canvas.removeEventListener("mousedown", this.onMouseDown);
@@ -222,6 +222,9 @@ class Progress {
     return onChange;
   };
   onChange = this.onThrottleChange();
+  setValue (value) {
+    this.setProgress(value);
+  }
 }
 
 const progress = new Progress(progressEl, 20);
