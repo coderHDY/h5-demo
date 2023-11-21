@@ -185,6 +185,7 @@ class Progress {
     if (!this.touching) {
       return;
     }
+    e.preventDefault();
     const { pageX: x, pageY: y } = e.targetTouches[0];
     const percent = this.getPercent(x, y);
     this.setProgress(percent);
