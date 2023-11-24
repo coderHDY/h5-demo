@@ -42,7 +42,8 @@ const compressImage = (file) => {
    * 按长边固定值缩小，会不准确？
    * 根据需要调整，身份证一般宽或高有1280就能清晰看清楚字
   */
-  const maxSide = 1280;
+  const MAX_SIDE = 1280;
+
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -62,13 +63,13 @@ const compressImage = (file) => {
 
             // 横向图片
             if (targetWidth > targetHeight) {
-              const scale = maxSide / targetWidth;
-              targetWidth = maxSide;
+              const scale = MAX_SIDE / targetWidth;
+              targetWidth = MAX_SIDE;
               targetHeight = targetHeight * scale;
             } else {
               // 纵向图片
-              const scale = maxSide / targetHeight;
-              targetHeight = maxSide;
+              const scale = MAX_SIDE / targetHeight;
+              targetHeight = MAX_SIDE;
               targetWidth = targetWidth * scale;
             }
 
