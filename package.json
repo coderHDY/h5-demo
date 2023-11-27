@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "serve": "node index.js && cd ./src && vite --host",
-    "build": "node index.js"
+    "serve": "NODE_ENV=development node index.js && cd ./src && vite --host",
+    "build": "NODE_ENV=production node index.js"
   },
   "author": "",
   "license": "ISC",
