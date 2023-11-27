@@ -38,11 +38,11 @@ const addDownloadBtn = (file) => {
 const compressImage = (file) => {
   // MAX_SIZE 以内不压缩
   const MAX_SIZE = 128 * 1024;
-  /* 
+  /*
    * 按长边固定值缩小，会不准确？
    * 根据需要调整，身份证一般宽或高有1280就能清晰看清楚字
-  */
-  const MAX_SIDE = 1280;
+   */
+  const MIN_SIDE = 1280;
 
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -57,25 +57,30 @@ const compressImage = (file) => {
           } else {
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
-            const scaleRate = MAX_SIZE / file.size;
+            let scaleRate = MAX_SIZE / file.size;
+            if (scaleRate < 0.2) {
+              scaleRate = 0.2;
+            }
+            console.log(scaleRate);
             let targetWidth = img.width;
             let targetHeight = img.height;
 
             // 横向图片
             if (targetWidth > targetHeight) {
-              const scale = MAX_SIDE / targetWidth;
-              targetWidth = MAX_SIDE;
-              targetHeight = targetHeight * scale;
+              const scale = MIN_SIDE / targetHeight;
+              targetHeight = MIN_SIDE;
+              targetWidth = targetWidth * scale;
             } else {
               // 纵向图片
-              const scale = MAX_SIDE / targetHeight;
-              targetHeight = MAX_SIDE;
-              targetWidth = targetWidth * scale;
+              const scale = MIN_SIDE / targetWidth;
+              targetWidth = MIN_SIDE;
+              targetHeight = targetHeight * scale;
             }
 
             /* 按尺寸缩小，会过于模糊？ */
             // let targetWidth = img.width * scaleRate;
             // let targetHeight = img.height * scaleRate;
+
             canvas.width = targetWidth;
             canvas.height = targetHeight;
             ctx?.clearRect(0, 0, canvas.width, canvas.height);
