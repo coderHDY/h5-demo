@@ -1,12 +1,12 @@
 const { rootPath, pathToUrl } = require("./handler");
 const fs = require("fs");
 const path = require("path");
-const URL_PATH = "/h5-demo";
+const URL_PATH = "/h5-demo/";
 
 function isDev() {
   return process.env.NODE_ENV === "development";
 }
-const ROOT_URL = isDev() ? URL_PATH : "/";
+const ROOT_URL = isDev() ? URL_PATH : "";
 
 // 把服务器文件都做成对应URL，服务器路径会根据 IS_SERVER 修改
 function getAllFile(dir, fileName) {
@@ -35,7 +35,7 @@ function getPaths() {
 
 function src2SideItem(src) {
   const idx = 0;
-  const linkEl = `<div class="side-bar-item" data-src="${ROOT_URL}/${src}">${decodeURIComponent(
+  const linkEl = `<div class="side-bar-item" data-src="${ROOT_URL}${src}">${decodeURIComponent(
     src.split("/")[idx]
   )}</div>`;
   return linkEl;
