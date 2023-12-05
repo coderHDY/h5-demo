@@ -195,7 +195,7 @@ class Fish {
     if (this.isOut) {
       this.vy += 0.1;
     } else {
-      this.vy -= 0.05;
+      this.vy -= 0.1;
     }
   }
   controlStates(factor) {
