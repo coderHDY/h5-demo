@@ -228,6 +228,8 @@ class Fish {
     // console.log(bodyRotate);
     ctx.rotate(bodyRotate);
 
+    ctx.save();
+    ctx.scale(0.8, 0.8);
     // 鱼身
     ctx.moveTo(0, 45);
     ctx.bezierCurveTo(-10, 75, -70, 65, -100, 45);
@@ -256,6 +258,7 @@ class Fish {
     ctx.bezierCurveTo(-105, 30, -140, 25, -110, 45);
     ctx.moveTo(-90, 45);
     ctx.bezierCurveTo(-105, 60, -140, 65, -110, 45);
+    ctx.restore();
 
     ctx.fill();
     ctx.restore();
