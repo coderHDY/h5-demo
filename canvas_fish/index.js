@@ -22,6 +22,7 @@ class Pool {
     this.ctx = this.getCtx(canvas);
     this.setup();
     this.render(0);
+    this.eventListener();
   }
 
   getCtx = (canvas) => {
@@ -47,7 +48,15 @@ class Pool {
     this.initFishes();
     this.initSurface();
   }
-
+  eventListener() {
+    window.addEventListener("resize", this.onResize);
+  }
+  onResize = () => {
+    console.log("resize");
+    this.ctx = this.getCtx(this.canvas);
+    this.initSurface();
+    this.fishes.forEach((f) => f.initStates());
+  };
   initSurface() {
     const firstP = new Surface(0, this.poolHeight);
     this.points.push(firstP);
@@ -137,11 +146,11 @@ class Fish {
   direction = this.randomBool();
   constructor(pool) {
     this.pool = pool;
-    this.poolHeight = this.pool.poolHeight;
-    this.poolWidth = this.pool.width;
     this.initStates();
   }
   initStates() {
+    this.poolHeight = this.pool.poolHeight;
+    this.poolWidth = this.pool.width;
     this.x = this.direction ? 0 : this.poolWidth;
     // 水面和水下同样高度
     // this.y = this.randomRange(
