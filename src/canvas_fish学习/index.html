@@ -7,9 +7,7 @@
   <body>
     <div id="jsi-flying-fish-container" style="margin-top: 20rem"></div>
 
-    <script
-      src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"
-    ></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
 
     <script>
       /* eslint-disable eqeqeq */
@@ -20,10 +18,14 @@
 
       class RENDERER {
         ENABLE = false;
+
+        // 每隔五个像素画一个点，然后连起来
         POINT_INTERVAL = 5;
         FISH_COUNT = 3;
         MAX_INTERVAL_COUNT = 50;
         INIT_HEIGHT_RATE = 0.5;
+
+        // 设定鼠标触发动画阈值
         THRESHOLD = 50;
 
         COLOR = "hsl(0, 0%, 95%)";
@@ -41,6 +43,7 @@
           this.ENABLE = true;
         }
 
+        // 防止多次初始化，先移除同名DOM
         removeCanvas() {
           const container = document.querySelector(
             "#jsi-flying-fish-container"
@@ -49,10 +52,12 @@
           if (canvas) canvas.remove();
         }
 
+        // 设置整体色系
         setColor(color) {
           if (color) this.COLOR = color;
         }
 
+        // 初始化实例属性 ctx/点数组
         setParameters() {
           this.$window = $(window);
           this.$container = $("#jsi-flying-fish-container");
@@ -66,10 +71,16 @@
           this.watchIds = [];
         }
 
+        // 计算出所有水平面点points数组
         createSurfacePoints() {
+          // 重新根据屏幕尺寸计算精确的点间隔
           const count = Math.round(this.width / this.POINT_INTERVAL);
           this.pointInterval = this.width / (count - 1);
+
+          // 起点：造一个新的点对象，并且把本ctx画笔交给他
           this.points.push(new SURFACE_POINT(this, 0));
+
+          // 算法：造出所有的点对象并做成数组存在本对象中
           for (let i = 1; i < count; i++) {
             const point = new SURFACE_POINT(this, i * this.pointInterval);
             const previous = this.points[i - 1];
@@ -79,6 +90,7 @@
           }
         }
 
+        // 绑定this方法，可以用箭头函数替换
         reconstructMethods() {
           this.watchWindowSize = this.watchWindowSize.bind(this);
           this.jdugeToStopResize = this.jdugeToStopResize.bind(this);
@@ -95,14 +107,19 @@
           this.intervalCount = this.MAX_INTERVAL_COUNT;
           this.width = this.$container.width();
           this.height = this.$container.height();
+
+          // 计算鱼数量？
           this.fishCount =
             (((this.FISH_COUNT * this.width) / 500) * this.height) / 500;
           this.$canvas.attr({ width: this.width, height: this.height });
+
+          // 是否反转颜色
           this.reverse = false;
           this.fishes.push(new FISH(this));
           this.createSurfacePoints();
         }
 
+        // 监听 windowResize 重新 setup
         watchWindowSize() {
           this.clearTimer();
           this.tmpWidth = this.$window.width();
@@ -112,10 +129,12 @@
           );
         }
 
+        // 清除所有定时器，在 watchIds 里面
         clearTimer() {
           while (this.watchIds.length > 0) clearTimeout(this.watchIds.pop());
         }
 
+        // 重新setup方法，执行前确认宽高是不是刚才resize完毕的宽高（因为有定时器，如果定时器等待期间又resize了就不执行）
         jdugeToStopResize() {
           const width = this.$window.width();
           const height = this.$window.height();
@@ -131,6 +150,7 @@
           this.$container.on("mousemove", this.moveEpicenter);
         }
 
+        // 获取事件相对于canvas的x，y
         getAxis(event) {
           const offset = this.$container.offset();
           return {
@@ -139,10 +159,12 @@
           };
         }
 
+        // 确认事件是不是真的进容器了（算上本身canvas距离窗口的距离）
         startEpicenter(event) {
           this.axis = this.getAxis(event);
         }
 
+        // mousemove事件
         moveEpicenter(event) {
           const axis = this.getAxis(event);
           if (!this.axis) this.axis = axis;
@@ -152,6 +174,7 @@
         }
 
         generateEpicenter(x, y, velocity) {
+          // 检测动画触发阈值
           if (
             y < this.height / 2 - this.THRESHOLD ||
             y > this.height / 2 + this.THRESHOLD
@@ -164,12 +187,14 @@
           if (this.points[index]) this.points[index].interfere(y, velocity);
         }
 
+        // 调用所有鱼对象的 reverseVertical
         reverseVertical() {
           this.reverse = !this.reverse;
           for (let i = 0, count = this.fishes.length; i < count; i++)
             this.fishes[i].reverseVertical();
         }
 
+        // 遍历调用points数组的几个方法，并且控制鱼的数量
         controlStatus() {
           for (let i = 0, count = this.points.length; i < count; i++)
             this.points[i].updateSelf();
@@ -186,21 +211,34 @@
           }
         }
 
+        // 渲染方法
         render() {
+          // 动画定时器：下一个渲染时机也吊用此方法
           requestAnimationFrame(this.render);
           this.controlStatus();
+
+          // 这里清空画布？
           this.context.clearRect(0, 0, this.width, this.height);
+          // 整体设定fillStyle?
           this.context.fillStyle = this.COLOR;
+
+          // 每一条鱼render，把ctx传进去
           for (let i = 0, count = this.fishes.length; i < count; i++)
             this.fishes[i].render(this.context);
 
+          // save的原因?不save鱼的颜色会不对
           this.context.save();
-          this.context.globalCompositeOperation = "xor";
+
+          // 重叠部分全部透明
+          this.context.globalCompositeOperation = "lighter";
           this.context.beginPath();
           this.context.moveTo(0, this.reverse ? 0 : this.height);
+
+          // points：所有水平面的点
           for (let i = 0, count = this.points.length; i < count; i++)
             this.points[i].render(this.context);
 
+          // points最后一点连接到canvas边上
           this.context.lineTo(this.width, this.reverse ? 0 : this.height);
           this.context.closePath();
           this.context.fill();
@@ -239,6 +277,7 @@
             (this.renderer.height - this.height - y >= 0 ? -1 : 1) *
             Math.abs(velocity);
         },
+        // 计算本个点应该在的位置
         updateSelf() {
           this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height);
           this.fy *= this.SPRING_FRICTION;
@@ -262,6 +301,8 @@
             this.next.height += this.force.next;
             this.next.fy += this.force.next;
           }
+
+          // 核心：算出本点的位置并且连线
           context.lineTo(this.x, this.renderer.height - this.height);
         },
       };
@@ -272,14 +313,26 @@
       };
 
       FISH.prototype = {
-        GRAVITY: 0.4,
+        // 重力加速度，让出水后掉回来的速度
+        GRAVITY: 0.3,
+
+        /*
+        *  初始化位置 x，y，
+        *  速度 vx vy，
+        *  方向 
+        */
         init() {
+          // 方向只有左右
           this.direction = Math.random() < 0.5;
+
+          // 从屏幕外面开始进入
           this.x = this.direction
             ? this.renderer.width + this.renderer.THRESHOLD
             : -this.renderer.THRESHOLD;
           this.previousY = this.y;
           this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1);
+
+          // 得出随机y值
           if (this.renderer.reverse) {
             this.y = this.getRandomValue(
               (this.renderer.height * 1) / 10,
@@ -295,22 +348,31 @@
             this.vy = this.getRandomValue(-5, -2);
             this.ay = this.getRandomValue(-0.2, -0.05);
           }
+
+          // 判断是否离开水面
           this.isOut = false;
           this.theta = 0;
           this.phi = 0;
         },
+        
+        // 获取范围随机值
         getRandomValue(min, max) {
           return min + (max - min) * Math.random();
         },
+        
+        // 未调用
         reverseVertical() {
           this.isOut = !this.isOut;
           this.ay *= -1;
         },
+        
         controlStatus() {
           this.previousY = this.y;
           this.x += this.vx;
           this.y += this.vy;
           this.vy += this.ay;
+
+          // 计算速度
           if (this.renderer.reverse) {
             if (
               this.y >
@@ -336,6 +398,8 @@
               this.isOut = false;
             }
           }
+
+          // 未离开水面，计算角度
           if (!this.isOut) {
             this.theta += Math.PI / 20;
             this.theta %= Math.PI * 2;
@@ -347,6 +411,8 @@
             this.y,
             this.y - this.previousY
           );
+
+          // 出界，重新初始化
           if (
             (this.vx > 0 &&
               this.x > this.renderer.width + this.renderer.THRESHOLD) ||
@@ -356,7 +422,10 @@
         },
         render(context) {
           context.save();
+          // 重要，移动到本位置开始画鱼
           context.translate(this.x, this.y);
+
+          // 画笔旋转角度，来让鱼旋转
           context.rotate(Math.PI + Math.atan2(this.vy, this.vx));
           context.scale(1, this.direction ? 1 : -1);
           context.beginPath();
@@ -399,11 +468,12 @@
         },
       };
 
-      RENDERER
+      RENDERER;
 
       let renderer;
       function reset() {
-        const color = "hsl(0, 0%, 9%)";
+        // const color = "hsl(0, 0%, 9%)";
+        const color = "hsl(0, 0%, 40%)";
         if (!renderer) {
           renderer = new RENDERER(color);
         } else {
