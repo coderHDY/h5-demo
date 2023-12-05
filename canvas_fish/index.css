@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#canvasFish {
+  position: fixed;
+  bottom: 0;
+  /* background-color: #eca8a8; */
+  width: 100vw;
+  height: 400px;
+}
