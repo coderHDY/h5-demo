@@ -9,7 +9,7 @@ class Pool {
   ctx = null;
   width = 0;
   height = 0;
-  poolHeight = 0;
+  poolSurface = 0;
 
   // 上一个时间戳，所有动画 8ms 为一个单位
   lastStamp = 0;
@@ -30,10 +30,12 @@ class Pool {
     const dpr = window.devicePixelRatio;
     const width = canvasRect.width;
     const height = canvasRect.height;
-    const poolHeight = canvasRect.height / 2;
+
+    // 计算只需要知道水面距离canvas左顶角的距离，方便计算
+    const poolSurface = canvasRect.height / 1.8;
     this.width = width;
     this.height = height;
-    this.poolHeight = poolHeight;
+    this.poolSurface = poolSurface;
     Pool.MAX_FISH_NUM = Math.floor(width / 300);
 
     canvas.style.width = width;
@@ -58,15 +60,15 @@ class Pool {
     this.fishes.forEach((f) => f.initStates());
   };
   initSurface() {
-    const firstP = new Surface(0, this.poolHeight);
+    const firstP = new Surface(0, this.poolSurface);
     this.points.push(firstP);
 
     const pointNum = Math.floor(this.width / Pool.POINT_INTERVAL);
     for (let i = 1; i <= pointNum; i++) {
       const currentX = Pool.POINT_INTERVAL * i;
-      this.points.push(new Surface(currentX, this.poolHeight));
+      this.points.push(new Surface(currentX, this.poolSurface));
     }
-    const lastP = new Surface(this.width, this.poolHeight);
+    const lastP = new Surface(this.width, this.poolSurface);
     this.points.push(lastP);
   }
   initFishes() {
@@ -128,7 +130,7 @@ class Fish {
   y = 0;
   vx = 0;
   vy = 0;
-  poolHeight = 0;
+  poolSurface = 0;
   poolWidth = 0;
 
   // y轴加速度
@@ -149,15 +151,15 @@ class Fish {
     this.initStates();
   }
   initStates() {
-    this.poolHeight = this.pool.poolHeight;
+    this.poolSurface = this.pool.poolSurface;
     this.poolWidth = this.pool.width;
     this.x = this.direction ? 0 : this.poolWidth;
     // 水面和水下同样高度
     // this.y = this.randomRange(
-    //   this.poolHeight,
-    //   this.poolHeight * 2 - Fish.HEIGHT
+    //   this.poolSurface,
+    //   this.poolSurface * 2 - Fish.HEIGHT
     // );
-    this.y = this.poolHeight;
+    this.y = this.poolSurface;
 
     // tip: 速度应该用 requestAnimationFrame 时间计算不会掉帧
     this.vx = this.randomRange(3, 7) * (this.direction ? 1 : -1);
@@ -172,7 +174,7 @@ class Fish {
     return Math.random() < 0.5;
   }
   updateIsOut() {
-    this.isOut = this.y < this.poolHeight - Fish.HEIGHT;
+    this.isOut = this.y < this.poolSurface - Fish.HEIGHT;
   }
   updateFinRotate() {
     // 出水面不动鱼鳍角度
