@@ -30,6 +30,7 @@ const getCtx = (canvas) => {
 };
 const drawImg = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawBreakLines();
   // 创建FileReader对象，读取文件数据
   const reader = new FileReader();
   reader.onload = function (event) {
@@ -89,6 +90,31 @@ const multiUp = () => {
 }
 const multiDown = () => {
   multi -= 0.1;
+}
+const drawBreakLines = () => {
+  ctx.globalCompositeOperation = "xor";
+  for (let i = 1; i < 3; i++) {
+    const startX = canvas.width / 3 * i;
+    const endX = startX;
+    const startY = 0;
+    const endY = canvas.height;
+    ctx.beginPath();
+    ctx.strokeStyle = "red";
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+  }
+  for (let i = 1; i < 3; i++) {
+    const startY = canvas.height / 3 * i;
+    const endY = startY;
+    const startX = 0;
+    const endX = canvas.width;
+    ctx.beginPath();
+    ctx.strokeStyle = "red";
+    ctx.moveTo(startX, startY);
+    ctx.lineTo(endX, endY);
+    ctx.stroke();
+  }
 }
 
 const ctx = getCtx(canvas);
