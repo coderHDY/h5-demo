@@ -13,10 +13,6 @@ let multi = 1.0;
 let leftOffset = 0;
 let topOffset = 0;
 
-uploadEl.addEventListener("change", (e) => {
-  file = uploadEl.files[0];
-  drawImg();
-});
 
 const getCtx = (canvas) => {
   const canvasRect = canvas.getBoundingClientRect();
@@ -32,8 +28,6 @@ const getCtx = (canvas) => {
   ctx.scale(dpr, dpr);
   return ctx;
 };
-const ctx = getCtx(canvas);
-
 const drawImg = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 创建FileReader对象，读取文件数据
@@ -50,7 +44,6 @@ const drawImg = () => {
   };
   reader.readAsDataURL(file);
 };
-
 const downloadImage = () => {
   // 将Canvas分成9宫格
   const gridWidth = canvas.width / 3;
@@ -98,6 +91,11 @@ const multiDown = () => {
   multi -= 0.1;
 }
 
+const ctx = getCtx(canvas);
+uploadEl.addEventListener("change", (e) => {
+  file = uploadEl.files[0];
+  drawImg();
+});
 downloadEl.addEventListener("click", function () {
   downloadImage();
 });
