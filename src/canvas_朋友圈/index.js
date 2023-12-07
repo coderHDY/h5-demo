@@ -8,6 +8,10 @@ const leftEl = document.querySelector(".left");
 const rightEl = document.querySelector(".right");
 const downEl = document.querySelector(".down");
 
+// 9 | 4
+const BLOCK_NUM = 4;
+const COL_NUM = Math.sqrt(BLOCK_NUM);
+
 let file = null;
 let multi = 1.0;
 let leftOffset = 0;
@@ -47,10 +51,10 @@ const drawImg = () => {
 };
 const downloadImage = () => {
   // 将Canvas分成9宫格
-  const gridWidth = canvas.width / 3;
-  const gridHeight = canvas.height / 3;
-  for (let row = 0; row < 3; row++) {
-    for (let col = 0; col < 3; col++) {
+  const gridWidth = canvas.width / COL_NUM;
+  const gridHeight = canvas.height / COL_NUM;
+  for (let row = 0; row < COL_NUM; row++) {
+    for (let col = 0; col < COL_NUM; col++) {
       // 计算当前格子的坐标和大小
       const x = col * gridWidth;
       const y = row * gridHeight;
@@ -80,7 +84,7 @@ const downloadImage = () => {
       // 创建一个链接，下载导出的图片
       const link = document.createElement("a");
       link.href = dataURL;
-      link.download = "export-" + (row * 3 + col + 1) + ".png";
+      link.download = "export-" + (row * COL_NUM + col + 1) + ".png";
       link.click();
     }
   }
@@ -93,24 +97,24 @@ const multiDown = () => {
 }
 const drawBreakLines = () => {
   ctx.globalCompositeOperation = "xor";
-  for (let i = 1; i < 3; i++) {
-    const startX = canvas.width / 3 * i;
+  for (let i = 1; i < COL_NUM; i++) {
+    const startX = canvas.width / COL_NUM * i;
     const endX = startX;
     const startY = 0;
     const endY = canvas.height;
     ctx.beginPath();
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "white";
     ctx.moveTo(startX, startY);
     ctx.lineTo(endX, endY);
     ctx.stroke();
   }
-  for (let i = 1; i < 3; i++) {
-    const startY = canvas.height / 3 * i;
+  for (let i = 1; i < COL_NUM; i++) {
+    const startY = canvas.height / COL_NUM * i;
     const endY = startY;
     const startX = 0;
     const endX = canvas.width;
     ctx.beginPath();
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "white";
     ctx.moveTo(startX, startY);
     ctx.lineTo(endX, endY);
     ctx.stroke();
