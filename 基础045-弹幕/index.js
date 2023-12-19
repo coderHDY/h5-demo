@@ -1,5 +1,5 @@
 const body = document.body;
-const WsServer = "ws://localhost:8888/ws";
+const WsServer = "ws://121.40.31.166:8070/ws/screen";
 const goToFullScreen = (element = document.body) => {
     console.log(element);
     if (element.requestFullscreen) {
@@ -28,8 +28,8 @@ const initWS = () => {
     socket.onmessage = function (e) {
         const msg = JSON.parse(e.data);
         console.log(msg);
-        if (msg?.text) {
-            dynamicText(msg.text);
+        if (msg?.content) {
+            dynamicText(msg.content);
         }
     };
 }
