@@ -17,7 +17,6 @@ body.addEventListener("click", () => goToFullScreen());
 
 let socket;
 const initWS = () => {
-    // let socket = new WebSocket("ws://localhost:8888/");
     socket = new WebSocket(WsServer);
     socket.onclose = () => socket = initWS();
 
@@ -42,7 +41,7 @@ window.addEventListener("visibilitychange", () => {
 })
 
 setTimeout(() => {
-    const msg = JSON.stringify({ text: 'ws连接成功' });
+    const msg = JSON.stringify({ type: "text", content: 'ws连接成功' });
     socket.send(msg);
 }, 2000);
 
