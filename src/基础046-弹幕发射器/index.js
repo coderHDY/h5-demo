@@ -1,6 +1,7 @@
 const ipt = document.querySelector(".ipt");
 const submit = document.querySelector(".submit");
 const wsUrl = "http://121.40.31.166:8070/ws/msg";
+// const wsUrl = "http://localhost:8070/ws/msg";
 // const wsUrl = "http://47.92.141.56:8070/ws/msg?m={msg}";
 
 const send = () => {
