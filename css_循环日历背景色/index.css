@@ -1,0 +1,107 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+.root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.row-scroll-root {
+  flex: 1;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.row-wrapper {
+  width:fit-content;
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+.row-wrapper pre {
+  margin: 0;
+  /* height: 20px; */
+}
+.calender {
+  font-size: 10px;
+  color: #999;
+  line-height: 20px;
+  height: 20px;
+}
+
+.month {
+  display: inline-block;
+  width: 1240px;
+}
+
+
+.column-scroll-root {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+.task-box {
+  width: 100%;
+  /* 高度可根据需要调整 */
+  height: 100%;
+  overflow-y: auto;
+  /* 高度可根据需要调整 */
+  border-top: #ebebeb 1px solid;
+  border-bottom: #ebebeb 1px solid;
+  border-right: #ebebeb 1px solid;
+  border-left: #ebebeb 1px solid;
+  box-sizing: border-box;
+  background: repeating-linear-gradient(to right,
+      #ebebeb 0px,
+      #ebebeb 1px,
+      white 1px,
+      white 40px,
+      #ebebeb 40px,
+      #ebebeb 41px,
+      white 41px,
+      white 80px,
+      #ebebeb 80px,
+      #ebebeb 81px,
+      white 81px,
+      white 120px,
+      #ebebeb 120px,
+      #ebebeb 121px,
+      white 121px,
+      white 160px,
+      #ebebeb 160px,
+      #ebebeb 161px,
+      white 161px,
+      white 200px,
+      #ebebeb 200px,
+      #ebebeb 201px,
+      aliceblue 201px,
+      aliceblue 240px,
+      #ebebeb 240px,
+      #ebebeb 241px,
+      aliceblue 241px,
+      aliceblue 280px);
+}
+
+.task {
+  height: 30px;
+  width: 100%;
+  padding: 5px;
+  background-clip: content-box;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: rgb(147, 168, 230);
+  box-sizing: border-box;
+}
