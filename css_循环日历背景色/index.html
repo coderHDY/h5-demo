@@ -1,49 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patterned Box</title>
     <style>
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            height: 300vh;
-            width: fit-content;
-        }
-        .calender {
-            width: 1000vw;
-            height: 20px;
-        }
-        .patterned-box {
-            width: 100%; /* 高度可根据需要调整 */
-            height: 100%; /* 高度可根据需要调整 */
-            border-top: #ebebeb 1px solid;
-            border-bottom: #ebebeb 1px solid;
-            background: repeating-linear-gradient(
-                to right,
-                #ebebeb 0px, #ebebeb 1px,
-                white 1px, white 40px,
-                #ebebeb 40px, #ebebeb 41px,
-                white  41px, white 80px,
-                #ebebeb 80px, #ebebeb 81px,
-                white  81px, white 120px,
-                #ebebeb 120px, #ebebeb 121px,
-                white  121px, white 160px,
-                #ebebeb 160px, #ebebeb 161px,
-                white  161px, white 200px,
-                #ebebeb 200px, #ebebeb 201px,
-                aliceblue  201px, aliceblue 240px,
-                #ebebeb 240px, #ebebeb 241px,
-                aliceblue  241px, aliceblue 280px
-            );
-        }
+      .wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 300vh;
+        width: fit-content;
+      }
+      .patterned-box {
+        width: 100%; /* 高度可根据需要调整 */
+        height: 100%; /* 高度可根据需要调整 */
+        border-top: #ebebeb 1px solid;
+        border-bottom: #ebebeb 1px solid;
+        border-right: #ebebeb 1px solid;
+        background: repeating-linear-gradient(
+          to right,
+          #ebebeb 0px,
+          #ebebeb 1px,
+          white 1px,
+          white 40px,
+          #ebebeb 40px,
+          #ebebeb 41px,
+          white 41px,
+          white 80px,
+          #ebebeb 80px,
+          #ebebeb 81px,
+          white 81px,
+          white 120px,
+          #ebebeb 120px,
+          #ebebeb 121px,
+          white 121px,
+          white 160px,
+          #ebebeb 160px,
+          #ebebeb 161px,
+          white 161px,
+          white 200px,
+          #ebebeb 200px,
+          #ebebeb 201px,
+          aliceblue 201px,
+          aliceblue 240px,
+          #ebebeb 240px,
+          #ebebeb 241px,
+          aliceblue 241px,
+          aliceblue 280px
+        );
+      }
+      .wrapper pre {
+        margin: 0;
+        height: 30px;
+      }
+      .calender {
+        font-size: 10px;
+        color: #999;
+        line-height: 20px;
+        height: 20px;
+      }
+      .month {
+        display: inline-block;
+        width: 1240px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="wrapper">
-        <div class="calender"></div>
-        <div class="patterned-box"></div>
+      <pre><div class="calender"></div></pre>
+      <div class="patterned-box"></div>
     </div>
-</body>
+
+    <script>
+      const generateDateRaw = () => {
+        let date = "";
+        for (let i = 1; i <= 12; i++) {
+          // TODO 待解决：数字宽度具体不确定，用span先代替
+          date += `<span class="month">`;
+          for (let i = 1; i <= 31; i++) {
+            const d = `${i}`.padStart(2, "0");
+            date += `&nbsp;&nbsp;${d}日&nbsp;`;
+          }
+          date += `</span>`;
+        }
+        return date;
+      };
+      document.querySelector(".calender").innerHTML = generateDateRaw();
+    </script>
+  </body>
 </html>
