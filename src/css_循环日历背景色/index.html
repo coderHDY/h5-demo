@@ -9,60 +9,22 @@
   <body>
     <div class="root">
       <h1>甘特图demo</h1>
-      <div class="row-scroll-root">
-        <div class="row-wrapper">
-          <pre><div class="calender"></div></pre>
-          <div class="column-scroll-root">
-            <div class="task-box">
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
-              <div class="task">1</div>
+      <div class="gant-wrapper">
+        <div class="task-info-box">
+          <!-- task-infos -->
+        </div>
+        <div class="row-scroll-root">
+          <div class="row-wrapper">
+            <pre><div class="calender"></div></pre>
+            <div class="column-scroll-root">
+              <div class="task-box">
+                <!-- tasks -->
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <script>
-      const generateDateRaw = () => {
-        let date = "";
-        for (let i = 1; i <= 12; i++) {
-          // TODO 待解决：数字宽度具体不确定，用span先代替
-          date += `<span class="month">`;
-          for (let i = 1; i <= 31; i++) {
-            const d = `${i}`.padStart(2, "0");
-            date += `&nbsp;&nbsp;${d}日&nbsp;`;
-          }
-          date += `</span>`;
-        }
-        return date;
-      };
-      document.querySelector(".calender").innerHTML = generateDateRaw();
-    </script>
+    <script src="./index.js"></script>
   </body>
 </html>
