@@ -143,3 +143,7 @@ html {
   background-clip: content-box;
   box-sizing: border-box;
 }
+
+.placeholder {
+  width: 100%;
+}
