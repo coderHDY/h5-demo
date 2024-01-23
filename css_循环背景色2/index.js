@@ -1,5 +1,5 @@
 const TASK_HEIGHT = 100;
-const TASK_NUM = 1000;
+const TASK_NUM = 1000000;
 const OFFSET = 10;
 
 // 生成日历
