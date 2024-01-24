@@ -101,9 +101,10 @@ html {
   overflow-x: auto;
 }
 
-
+/* 40 * 365 * 30 */
 .task-box {
   width: 14882px;
+  /* width: 438000px; */
   /* 高度可根据需要调整 */
   /* height: 100%; */
   /* 高度可根据需要调整 */
