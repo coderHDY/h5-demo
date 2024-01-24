@@ -17,7 +17,7 @@ body, html {
    * display: initial  可以让元素不被视为可滚动元素，同时border / padding / margin生效
    */
   display: initial;
-  border: 5px solid #888888;
+  /* border: 5px solid #888888; */
   padding: 100px;
   margin: 20px;
   position: inherit;
