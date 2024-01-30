@@ -1,3 +1,6 @@
+/**
+ * 注释：safari性能来说，placeholder的方案就是没有absolute布局的方案好
+ */
 const TASK_HEIGHT = 100;
 const TASK_NUM = 1000000;
 const OFFSET = 10;
