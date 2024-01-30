@@ -103,6 +103,7 @@ html {
 
 /* 40 * 365 * 30 */
 .task-box {
+  position: relative;
   width: 14882px;
   /* width: 438000px; */
   /* 高度可根据需要调整 */
