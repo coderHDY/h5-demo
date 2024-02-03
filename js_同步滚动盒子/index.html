@@ -20,7 +20,6 @@
         // Y轴移动更多，纵向滚动不同步
         if (Math.abs(e.deltaY) - Math.abs(e.deltaX) > 0) return;
         e.preventDefault();
-        console.log(e);
         const shouldScrollTop = containerDiv.scrollTop + e.deltaY;
         const scrollTop =
           shouldScrollTop < 0
