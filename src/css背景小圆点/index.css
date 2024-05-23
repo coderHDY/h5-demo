@@ -1,0 +1,12 @@
+.btnWrapper {
+
+  width: 100%;
+  /* 可以根据需要调整宽度 */
+  height: 100vh;
+  /* 可以根据需要调整高度 */
+  background-color: white;
+  /* 背景颜色 */
+  background-image: radial-gradient(circle, lightgray 1px, transparent 1px);
+  background-size: 40px 30px;
+  background-repeat: repeat;
+}
