@@ -1,112 +1,15 @@
-<body>
-  <input type="file" accept="image/*" id="input" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css">
+    <title>Document</title>
+  </head>
+  <body>
 
-  <style>
-    body {
-      padding-left: 100px;
-    }
-  </style>
+    <input type="file" accept="image/*" id="input" />
 
-  <script>
-    input.addEventListener("change", async () => {
-      const file = input.files[0];
-      if (!file) return;
-      const zippedFile = await compressImage(file);
-      addImg(zippedFile);
-      addDownloadBtn(zippedFile);
-    });
-
-    const addImg = (blob) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(blob);
-      reader.onload = function () {
-        const img = document.createElement("img");
-        img.src = reader.result;
-        img.style.width = "200px";
-        img.style.height = "150px";
-        img.style.display = "block";
-        document.body.appendChild(img);
-      };
-    };
-    const addDownloadBtn = (file) => {
-      const downloadBtn = document.createElement("button");
-      downloadBtn.innerText = "下载";
-      downloadBtn.addEventListener("click", function () {
-        const url = URL.createObjectURL(file);
-        const linkElement = document.createElement("a");
-        linkElement.href = url;
-        linkElement.download = file.name;
-        document.body.appendChild(linkElement);
-        linkElement.click();
-        linkElement.remove();
-      });
-
-      document.body.appendChild(downloadBtn);
-    };
-
-    const compressImage = (file) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = (event) => {
-          try {
-            const img = new Image();
-            img.src = event.target.result;
-            img.onload = () => {
-              const canvas = document.createElement("canvas");
-              const ctx = canvas.getContext("2d");
-              let targetWidth = img.width;
-              let targetHeight = img.height;
-              const maxSide = 1280;
-              // 横向图片
-              if (targetWidth > targetHeight) {
-                const scale = targetHeight / maxSide;
-                targetHeight = maxSide;
-                targetWidth = targetWidth / scale;
-              } else {
-                // 纵向图片
-                const scale = targetWidth / maxSide;
-                targetWidth = maxSide;
-                targetHeight = targetHeight / scale;
-              }
-              canvas.width = targetWidth;
-              canvas.height = targetHeight;
-              ctx?.clearRect(0, 0, canvas.width, canvas.height);
-              ctx?.drawImage(img, 0, 0, canvas.width, canvas.height);
-              let data = "";
-              // 128k 以内不压缩
-              const targetSize = 131072;
-              if (file.size <= targetSize) {
-                resolve(file);
-              } else {
-                // 按比例压缩
-                const scaleRate = targetSize / file.size;
-                data = canvas.toDataURL("image/jpeg", scaleRate);
-                const newFile = dataURL2file(data);
-                newFile.name = file.name;
-                resolve(newFile);
-              }
-            };
-            img.onerror = reject;
-          } catch (e) {
-            console.warn(e);
-            // 兜底处理，上传源文件
-            resolve(file);
-          }
-        };
-        reader.onerror = reject;
-      });
-    };
-
-    const dataURL2file = (dataURL) => {
-      const type = dataURL.match(/^data:([^;]+)/)?.[1]; // 提取文件类型
-      const data = atob(dataURL.split(",")[1]); // 解码 Base64 数据
-      const dataArray = new Uint8Array(data.length);
-      for (let i = 0; i < data.length; i++) {
-        dataArray[i] = data.charCodeAt(i);
-      }
-      const blob = new Blob([dataArray], { type: type });
-      return blob;
-    };
-  </script>
-</body>
+    <script src="./index.js"></script>
+  </body>
+</html>

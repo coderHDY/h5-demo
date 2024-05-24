@@ -1,5 +1,5 @@
 const body = document.body;
-const WsServer = "ws://47.92.141.56:8070/ws";
+const WsServer = "ws://121.40.31.166:8070/ws/screen";
 const goToFullScreen = (element = document.body) => {
     console.log(element);
     if (element.requestFullscreen) {
@@ -17,7 +17,6 @@ body.addEventListener("click", () => goToFullScreen());
 
 let socket;
 const initWS = () => {
-    // let socket = new WebSocket("ws://localhost:8888/");
     socket = new WebSocket(WsServer);
     socket.onclose = () => socket = initWS();
 
@@ -28,8 +27,8 @@ const initWS = () => {
     socket.onmessage = function (e) {
         const msg = JSON.parse(e.data);
         console.log(msg);
-        if (msg?.text) {
-            dynamicText(msg.text);
+        if (msg?.content) {
+            dynamicText(msg.content);
         }
     };
 }
@@ -42,7 +41,7 @@ window.addEventListener("visibilitychange", () => {
 })
 
 setTimeout(() => {
-    const msg = JSON.stringify({ text: 'ws连接成功' });
+    const msg = JSON.stringify({ type: "text", content: 'ws连接成功' });
     socket.send(msg);
 }, 2000);
 

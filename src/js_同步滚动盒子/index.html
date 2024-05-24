@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="item"></div>
+    </div>
+    <div class="container2">
+      <div class="item"></div>
+    </div>
+
+    <script>
+      const containerDiv = document.querySelector(".container");
+      const container2Div = document.querySelector(".container2");
+      containerDiv.addEventListener("wheel", (e) => {
+        // Y轴移动更多，纵向滚动不同步
+        if (Math.abs(e.deltaY) - Math.abs(e.deltaX) > 0) return;
+        e.preventDefault();
+        const shouldScrollTop = containerDiv.scrollTop + e.deltaY;
+        const scrollTop =
+          shouldScrollTop < 0
+            ? 0
+            : shouldScrollTop >
+              containerDiv.scrollHeight - containerDiv.clientHeight
+            ? containerDiv.scrollHeight - containerDiv.clientHeight
+            : shouldScrollTop;
+        containerDiv.scrollTop = scrollTop;
+        container2Div.scrollTop = scrollTop;
+        const shouldScrollLeft = containerDiv.scrollLeft + e.deltaX;
+        const scrollLeft =
+          shouldScrollLeft < 0
+            ? 0
+            : shouldScrollLeft >
+              containerDiv.scrollWidth - containerDiv.clientWidth
+            ? containerDiv.scrollWidth - containerDiv.clientWidth
+            : shouldScrollLeft;
+        containerDiv.scrollLeft = scrollLeft;
+        container2Div.scrollLeft = scrollLeft;
+      });
+    </script>
+
+    <style>
+      body {
+        display: flex;
+      }
+      .container2 {
+        margin: 0;
+        padding: 0;
+        width: 30vw;
+        height: 80vh;
+        margin-left: 20px;
+        overflow: hidden;
+      }
+      .container {
+        margin: 0;
+        padding: 0;
+        width: 30vw;
+        height: 80vh;
+        overflow: auto;
+      }
+      .item {
+        width: 1000%;
+        height: 1000%;
+        background: linear-gradient(to right bottom, #ebb4b4 0%, #0000ff 100%);
+      }
+    </style>
+  </body>
+</html>

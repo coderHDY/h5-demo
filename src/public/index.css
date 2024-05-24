@@ -90,7 +90,7 @@ html, body {
     left: 0rem;
     background-color: rgba(136, 166, 202, 0.3);
 }
-.side-bar-close {
+.side-bar-toggle {
 	position: fixed;
 	font-size: 3rem;
 	display: block;
