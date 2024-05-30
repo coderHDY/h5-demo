@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div style="--i: 1">a</div>
+      <div style="--i: 2">b</div>
+      <div style="--i: 10">c</div>
+      <div style="--i: 4">d</div>
+      <div style="--i: 5">e</div>
+      <div style="--i: 3">f</div>
+      <div style="--i: 2">g</div>
+      <div style="--i: 1">h</div>
+      <div style="--i: 3">i</div>
+      <div style="--i: 6">j</div>
+      <div style="--i: 1">k</div>
+      <div style="--i: 2">l</div>
+    </div>
+
+    <style>
+      .wrapper {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 3px;
+      }
+      .wrapper div {
+        background-color: #ff7f50;
+        height: calc(20px * var(--i));
+        grid-row: span var(--i);
+      }
+      .wrapper div:nth-child(2n + 1) {
+        background-color: #ffa94d;
+      }
+    </style>
+    <script>
+      const colors = [
+        "#ff7f50",
+        "#ffa94d",
+        "#ffd700",
+        "#adff2f",
+        "#20b2aa",
+        "#87ceeb",
+        "#dda0dd",
+        "#ff69b4",
+      ];
+      const divs = document.querySelectorAll(".wrapper div");
+      divs.forEach((div, index) => {
+        div.style.backgroundColor = colors[index % colors.length];
+      });
+    </script>
+  </body>
+</html>
