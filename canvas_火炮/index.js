@@ -1,14 +1,12 @@
 class Paint {
   canvas = null;
   ctx = null;
-  el = null;
   artillery = null;
   artilleryPosition = [0, 0];
   bombs = [];
   lasTime = Date.now();
 
   constructor(el = document.body) {
-    this.el = el;
     this.canvas = document.createElement("canvas");
     el.appendChild(this.canvas);
     this.init();
@@ -58,14 +56,16 @@ class Paint {
   getPixelRatioCtx = () => {
     const dpr = window.devicePixelRatio;
     const ctx = this.canvas.getContext("2d");
-    this.width = this.el.clientWidth;
-    this.height = this.el.clientHeight;
-    this.canvas.style.position = "absolute";
+    this.width = window.innerWidth;
+    this.height = window.innerHeight;
+    this.canvas.style.position = "fixed";
     this.canvas.style.top = 0;
     this.canvas.style.left = 0;
     this.canvas.style.width = `${this.width}px`;
     this.canvas.style.height = `${this.height}px`;
-    this.canvas.style.pointEvents = "none";
+    this.canvas.style.pointerEvents = "none";
+    this.canvas.style.zIndex = 999;
+
     this.canvas.width = this.width * dpr;
     this.canvas.height = this.height * dpr;
     ctx.scale(dpr, dpr);
@@ -85,15 +85,15 @@ class Paint {
     this.bombs.push(bomb);
   };
   mouseDown = (e) => {
-    this.generateBoom(e.offsetX, e.offsetY);
+    this.generateBoom(e.clientX, e.clientY);
   };
   bindEvent() {
     window.addEventListener("resize", this.onWindowResize);
-    this.canvas.addEventListener("click", this.mouseDown);
+    document.addEventListener("click", this.mouseDown);
   }
 
   onWindowResize = (e) => {
-    this.init(this.el);
+    this.init();
   };
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
@@ -311,13 +311,13 @@ class Artillery {
     ctx.restore();
   };
   observeMouse2Angle = (e) => {
-    const { offsetX, offsetY } = e;
+    const { clientX, clientY } = e;
     const [x, y] = this.position;
     const angle =
       Math.PI / 2 -
       Math.atan2(
-        offsetX - (x + this.center.x / 2),
-        offsetY - (y + this.center.y - 10) // 炮台中心有偏移
+        clientX - (x + this.center.x / 2),
+        clientY - (y + this.center.y - 10) // 炮台中心有偏移
       );
     this.angle = angle;
   };
@@ -397,9 +397,8 @@ class Bomb {
     const x = Math.sign(Math.random() - 0.5) * Math.random() * 30;
     const y = Math.sign(Math.random() - 0.5) * Math.random() * 30;
     const r = Math.random() * 10;
-    const color = `rgb(${Math.random() * 255},${Math.random() * 255},${
-      Math.random() * 255
-    })`;
+    const color = `rgb(${Math.random() * 255},${Math.random() *
+      255},${Math.random() * 255})`;
 
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
@@ -409,5 +408,6 @@ class Bomb {
     ctx.restore();
   };
 }
+
 
 new Paint();
