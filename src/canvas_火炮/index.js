@@ -208,11 +208,11 @@ class Artillery {
   };
   drawArtilleryTube = (ctx) => {
     // 炮管  转轴心：30, -20
-    // 炮管1 圈
     ctx.save();
     ctx.translate(this.center.x, this.center.y);
     ctx.rotate(this.angle);
-
+    
+    // 炮管1 圈
     ctx.save();
     ctx.translate(-130, 0);
     ctx.beginPath();
@@ -296,6 +296,7 @@ class Artillery {
     ctx.stroke();
     ctx.restore();
 
+    // 炮管管道部分结束
     ctx.restore();
 
     // 炮管转轴  转轴心：30, -20
