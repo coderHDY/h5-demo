@@ -208,7 +208,8 @@ container.addEventListener("dblclick", (e) => {
   const y = e.clientY;
   // const size = Math.floor(Math.random() * 30) + 10;
   const size = 20;
-  const rotate = Math.floor(Math.random() * 360);
+  // const rotate = Math.floor(Math.random() * 360);
+  const rotate = Math.floor(Math.random() * 0);
   const text = prompt(`${x}, ${y}`, "Text");
   if (text) {
     appendText({ text, x, y, size, rotate });
