@@ -60,21 +60,20 @@ class SVGDrawer {
       group.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("--- text click ---");
         this.selectText(e, index);
       });
 
-      group.setAttribute(
-        "transform",
-        `translate(${item.x}, ${item.y}) rotate(${item.rotate})`
-      );
-
       this.textGroup.appendChild(group);
       const bbox = group.getBBox();
+
+      group.setAttribute(
+        "transform",
+        `translate(${item.x}, ${item.y}) rotate(${item.rotate}, ${bbox.width / 2}, -20)`
+      );
+
       const padding = 5; // 添加一些内边距
 
       if (this.selectedText === index) {
-        console.log(bbox);
         const rect = document.createElementNS(
           "http://www.w3.org/2000/svg",
           "rect"
@@ -253,12 +252,15 @@ class SVGDrawer {
     this.isRotatingText = true;
     this.rotatingTextIndex = index;
     const rect = this.svg.getBoundingClientRect();
-    const centerX = rect.left + item.x * this.scale + this.translateX;
-    const centerY = rect.top + item.y * this.scale + this.translateY;
-    this.rotationStartAngle = Math.atan2(
-      e.clientY - centerY,
-      e.clientX - centerX
-    );
+    const bbox = this.textGroup.children[index].getBBox();
+    this.centerX = rect.left + (item.x + bbox.width / 2) * this.scale + this.translateX;
+    this.centerY = rect.top + (item.y - 20) * this.scale + this.translateY;
+    this.initialAngle = item.rotate;
+    this.startAngle = Math.atan2(
+      e.clientY - this.centerY,
+      e.clientX - this.centerX
+    ) * 180 / Math.PI;
+  
     this.svg.addEventListener("mousemove", this.rotate.bind(this));
     this.svg.addEventListener("mouseup", this.endRotate.bind(this));
   }
@@ -266,15 +268,13 @@ class SVGDrawer {
   rotate(e) {
     if (!this.isRotatingText) return;
     const item = this.textData[this.rotatingTextIndex];
-    const rect = this.svg.getBoundingClientRect();
-    const centerX = rect.left + item.x * this.scale + this.translateX;
-    const centerY = rect.top + item.y * this.scale + this.translateY;
-    console.log(centerX);
-    const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-    const angleDelta =
-      (currentAngle - this.rotationStartAngle) * (180 / Math.PI);
-    item.rotate += angleDelta;
-    this.rotationStartAngle = currentAngle;
+    const currentAngle = Math.atan2(
+      e.clientY - this.centerY,
+      e.clientX - this.centerX
+    ) * 180 / Math.PI;
+    let angleDelta = (currentAngle - this.startAngle) * 2;
+    item.rotate = this.initialAngle + angleDelta;
+    item.rotate = (item.rotate + 360) % 360;
     this.draw();
   }
 
