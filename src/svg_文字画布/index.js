@@ -19,6 +19,11 @@ class SVGDrawer {
     this.minScale = 0.5;
     this.maxScale = 5;
 
+    this.selectedText = null;
+    this.isDraggingText = false;
+    this.isRotatingText = false;
+    this.rotationStartAngle = 0;
+
     this.setupSVG();
     this.addEventListeners();
   }
@@ -38,29 +43,63 @@ class SVGDrawer {
       this.textGroup.removeChild(this.textGroup.firstChild);
     }
 
-    this.textData.forEach((item) => {
+    this.textData.forEach((item, index) => {
+      const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
       const text = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "text"
       );
-      text.setAttribute("x", item.x);
-      text.setAttribute("y", item.y);
+
+      text.setAttribute("x", 0);
+      text.setAttribute("y", 0);
       text.setAttribute("dominant-baseline", "hanging");
       text.setAttribute("font-size", item.size);
       text.textContent = item.text;
-      this.textGroup.appendChild(text);
 
-      const bbox = text.getBBox();
-      console.log(bbox);
-      const centerX = bbox.x + bbox.width / 2;
-      const centerY = bbox.y + bbox.height / 2;
+      group.appendChild(text);
+      group.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log("--- text click ---");
+        this.selectText(e, index);
+      });
 
-      text.setAttribute(
+      group.setAttribute(
         "transform",
-        ` translate(${-bbox.width / 2}, ${-bbox.height / 2}) rotate(${
-          item.rotate
-        }, ${centerX}, ${centerY})`
+        `translate(${item.x}, ${item.y}) rotate(${item.rotate})`
       );
+
+      this.textGroup.appendChild(group);
+      const bbox = group.getBBox();
+      const padding = 5; // 添加一些内边距
+
+      if (this.selectedText === index) {
+        console.log(bbox);
+        const rect = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        rect.setAttribute("x", -padding);
+        rect.setAttribute("y", -padding);
+        rect.setAttribute("width", bbox.width + padding * 2);
+        rect.setAttribute("height", bbox.height + padding * 2);
+        rect.setAttribute("fill", "none");
+        rect.setAttribute("stroke", "blue");
+        group.insertBefore(rect, text);
+
+        const circle = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "circle"
+        );
+        circle.setAttribute("cx", bbox.width / 2);
+        circle.setAttribute("cy", -20);
+        circle.setAttribute("r", 5);
+        circle.setAttribute("fill", "red");
+        circle.addEventListener("mousedown", (e) =>
+          this.startRotate(e, item, index)
+        );
+        group.appendChild(circle);
+      }
     });
   }
 
@@ -80,27 +119,43 @@ class SVGDrawer {
     this.svg.addEventListener("touchstart", this.handleTouchStart.bind(this));
     this.svg.addEventListener("touchmove", this.handleTouchMove.bind(this));
     this.svg.addEventListener("touchend", this.handleTouchEnd.bind(this));
+    this.svg.addEventListener("click", this.deselectText.bind(this));
   }
 
   startDrag(e) {
-    this.isDragging = true;
+    if (this.selectedText !== null) {
+      this.isDraggingText = true;
+    } else {
+      this.isDragging = true;
+    }
     this.lastX = e.clientX;
     this.lastY = e.clientY;
   }
 
   drag(e) {
-    if (!this.isDragging) return;
-    const dx = e.clientX - this.lastX;
-    const dy = e.clientY - this.lastY;
-    this.translateX += dx;
-    this.translateY += dy;
-    this.lastX = e.clientX;
-    this.lastY = e.clientY;
-    this.updateTransform();
+    if (this.isDraggingText && this.selectedText !== null) {
+      const dx = (e.clientX - this.lastX) / this.scale;
+      const dy = (e.clientY - this.lastY) / this.scale;
+      this.textData[this.selectedText].x += dx;
+      this.textData[this.selectedText].y += dy;
+      this.lastX = e.clientX;
+      this.lastY = e.clientY;
+      this.draw();
+    } else if (this.isDragging) {
+      const dx = e.clientX - this.lastX;
+      const dy = e.clientY - this.lastY;
+      this.translateX += dx;
+      this.translateY += dy;
+      this.lastX = e.clientX;
+      this.lastY = e.clientY;
+      this.updateTransform();
+    }
   }
 
   endDrag() {
     this.isDragging = false;
+    this.isDraggingText = false;
+    this.isRotatingText = false;
   }
 
   handleWheel(e) {
@@ -178,6 +233,56 @@ class SVGDrawer {
 
     this.updateTransform();
   }
+
+  selectText(e, index) {
+    if (this.isDragging) return;
+    e.stopPropagation();
+    this.selectedText = index;
+    this.draw();
+  }
+
+  deselectText(e) {
+    if (e.target.nodeName !== "text") {
+      this.selectedText = null;
+      this.draw();
+    }
+  }
+
+  startRotate(e, item, index) {
+    e.stopPropagation();
+    this.isRotatingText = true;
+    this.rotatingTextIndex = index;
+    const rect = this.svg.getBoundingClientRect();
+    const centerX = rect.left + item.x * this.scale + this.translateX;
+    const centerY = rect.top + item.y * this.scale + this.translateY;
+    this.rotationStartAngle = Math.atan2(
+      e.clientY - centerY,
+      e.clientX - centerX
+    );
+    this.svg.addEventListener("mousemove", this.rotate.bind(this));
+    this.svg.addEventListener("mouseup", this.endRotate.bind(this));
+  }
+
+  rotate(e) {
+    if (!this.isRotatingText) return;
+    const item = this.textData[this.rotatingTextIndex];
+    const rect = this.svg.getBoundingClientRect();
+    const centerX = rect.left + item.x * this.scale + this.translateX;
+    const centerY = rect.top + item.y * this.scale + this.translateY;
+    console.log(centerX);
+    const currentAngle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
+    const angleDelta =
+      (currentAngle - this.rotationStartAngle) * (180 / Math.PI);
+    item.rotate += angleDelta;
+    this.rotationStartAngle = currentAngle;
+    this.draw();
+  }
+
+  endRotate() {
+    this.isRotatingText = false;
+    this.svg.removeEventListener("mousemove", this.rotate.bind(this));
+    this.svg.removeEventListener("mouseup", this.endRotate.bind(this));
+  }
 }
 
 // 使用示例
@@ -203,13 +308,10 @@ const appendText = ({ text = "Text", x = 0, y = 0, size = 20, rotate = 0 }) => {
 
 // 双击屏幕追加文字
 container.addEventListener("dblclick", (e) => {
-  console.log(e);
   const x = e.clientX;
   const y = e.clientY;
-  // const size = Math.floor(Math.random() * 30) + 10;
   const size = 20;
-  // const rotate = Math.floor(Math.random() * 360);
-  const rotate = Math.floor(Math.random() * 0);
+  const rotate = 0;
   const text = prompt(`${x}, ${y}`, "Text");
   if (text) {
     appendText({ text, x, y, size, rotate });
