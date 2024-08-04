@@ -194,8 +194,9 @@ drawer.setTextData(textData);
 drawer.draw();
 
 const appendText = ({ text = "Text", x = 0, y = 0, size = 20, rotate = 0 }) => {
+  x = (x - drawer.translateX) / drawer.scale;
+  y = (y - drawer.translateY) / drawer.scale;
   textData.push({ text, x, y, size, rotate });
-  console.log({ text, x, y, size, rotate });
   drawer.setTextData(textData);
   drawer.draw();
 };
@@ -206,7 +207,7 @@ container.addEventListener("dblclick", (e) => {
   const x = e.clientX;
   const y = e.clientY;
   // const size = Math.floor(Math.random() * 30) + 10;
-  const size = 50;
+  const size = 20;
   const rotate = Math.floor(Math.random() * 360);
   const text = prompt(`${x}, ${y}`, "Text");
   if (text) {
