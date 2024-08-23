@@ -20,7 +20,7 @@ const loopShow = async (elements, duration) => {
       display: "block",
     });
     await asyncGsap(element, {
-      duration: 1,
+      duration,
       display: "none",
     });
   }
