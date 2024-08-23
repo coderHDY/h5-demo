@@ -1,0 +1,41 @@
+.rabbitContainer {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 350px;
+  overflow: hidden;
+}
+
+.rabbit1 {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  display: block;
+}
+
+.rabbit2 {
+  position: absolute;
+  width: 100%;
+  bottom: 9px;
+  left: -7px;
+  display: none;
+}
+
+.rabbit3 {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  left: -19px;
+  display: none;
+}
+
+.rabbit4 {
+  position: absolute;
+  width: 100%;
+  bottom: 8px;
+  left: -13px;
+  display: none;
+}
