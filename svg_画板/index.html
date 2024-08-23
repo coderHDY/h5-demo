@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SVG Free Drawing Tool</title>
+    <style>
+      #drawing-area {
+        border: 1px solid black;
+        cursor: crosshair;
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="drawing-area" width="500" height="500"></svg>
+    <br />
+    <button id="pencil-btn">Pencil</button>
+    <button id="eraser-btn">Eraser</button>
+    <button id="undo-btn">Undo</button>
+    <button id="export-svg-btn">Export as SVG</button>
+    <button id="export-png-btn">Export as PNG</button>
+
+    <script src="./index.js" />
+  </body>
+</html>
