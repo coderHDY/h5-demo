@@ -1,0 +1,34 @@
+.html {
+  width: 100vw;
+}
+
+.container {
+  position: fixed;
+  left: 20%;
+  top: 50%;
+  width: 100%;
+  height: 150px;
+}
+
+
+.tiger1 {
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.tiger2 {
+  display: none;
+  position: absolute;
+  transform: rotateY(180deg);
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.restart {
+  position: fixed;
+  top: 50px;
+  left: 200px;
+}
