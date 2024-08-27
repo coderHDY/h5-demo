@@ -1,0 +1,62 @@
+body {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  background-color: #1B1F29;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../public/stars.pic.jpg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(0deg) translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  transform-origin: center;
+  animation: rotateCircle 14s linear infinite;
+  animation-delay: calc(var(--i) * 2s);
+}
+
+.star {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform-origin: center;
+  transform: translate(-50%) rotate(0deg);
+  animation: rotateStar 14s linear infinite;
+  animation-delay: calc(var(--i) * 2s);
+}
+
+@keyframes rotateCircle {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes rotateStar {
+  0% {
+    transform: translate(-50%) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(-50%) rotate(-180deg);
+  }
+
+  100% {
+    transform: translate(-50%) rotate(-360deg);
+  }
+
+}
