@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.infinite-list-container {
+  height: 400px;
+  /* 设置容器高度 */
+  overflow-y: auto;
+  /* 允许垂直滚动 */
+  border: 1px solid #ccc;
+}
+
+.infinite-list {
+  display: flex;
+  /* 使用 Flexbox 布局 */
+  flex-direction: row;
+  /* 横向排列 */
+  flex-wrap: nowrap;
+  /* 不换行 */
+}
+
+.infinite-list-item {
+  min-width: 100px;
+  /* 每个项的最小宽度 */
+  height: 100px;
+  /* 每个项的高度 */
+  margin: 5px;
+  background-color: #4CAF50;
+  /* 背景颜色 */
+  color: white;
+  display: flex;
+  justify-content: center;
+  /* 内容居中 */
+  align-items: center;
+  /* 内容居中 */
+}

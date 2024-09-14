@@ -1,0 +1,32 @@
+body {
+  margin: 0;
+  overflow: hidden; /* 隐藏滚动条 */
+}
+
+.scroll-container {
+  width: 100vw; /* 容器宽度 */
+  overflow: hidden; /* 隐藏溢出内容 */
+  white-space: nowrap; /* 防止换行 */
+}
+
+.scroll-content {
+  display: inline-flex; /* 横向排列 */
+  animation: scroll 20s linear infinite; /* 设置动画 */
+}
+
+.scroll-item {
+  min-width: 200px; /* 每个项的最小宽度 */
+  height: 100px; /* 每个项的高度 */
+  background-color: #4CAF50; /* 背景颜色 */
+  color: white;
+  margin: 0 10px; /* 项之间的间距 */
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0); /* 初始位置 */
+  }
+  100% {
+      transform: translateX(-50%); /* 向左滚动一半的内容 */
+  }
+}
