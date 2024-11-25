@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>百度分享-基本</title>
+</head>
+
+<body>
+  <div class="bdsharebuttonbox bdshare-button-style0-32" data-tag="share_1" data-bd-bind="1732523326255">
+    <a class="bds_mshare" data-cmd="mshare" title="分享到一键分享"></a>
+    <a class="bds_qzone" data-cmd="qzone" href="http://code.wubin.work/code/js/baidu-share/share-http.html#"
+      title="分享到QQ空间"></a>
+    <a class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a>
+    <a class="bds_more" data-cmd="more">更多</a>
+  </div>
+
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": '这是分享的标题',
+        "bdComment": '我是通用分享设置,会出现在发送给QQ好友里的描述',
+        //"bdMini" : "2",//按钮排列2行
+        //"bdMiniList" : false,//按钮的数组
+        "bdPic": "https://www.wubin.work/assets/img/share.jpg",//分享的图像地址
+        "bdStyle": "0",//按钮样式
+        "bdSize": "32",//按钮大小
+        "bdUrl": 'https://www.wubin.work',//分享的地址
+        "bdDesc": '给你的好友留一句话吧',
+      },
+      "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body)
+      .appendChild(createElement('script'))
+      .src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=593.js?cdnversion=' + ~(-new Date() / 36e5)];
+  </script>
+</body>
+
+</html>
