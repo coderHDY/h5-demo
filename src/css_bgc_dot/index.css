@@ -1,0 +1,12 @@
+.topBar {
+  background-image: radial-gradient(transparent 1px, #ffffff 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 56px;
+}
+
+.content {}
