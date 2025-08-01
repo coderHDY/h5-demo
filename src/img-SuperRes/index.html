@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高级 Waifu2x 图片增强工具</title>
+    <title>Super-Resolution 图片增强工具</title>
     <style>
         body {
             margin: 0;
@@ -141,6 +141,44 @@
             border-radius: 8px;
             max-width: 100%;
             height: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        canvas:hover {
+            border-color: rgba(255,215,0,0.6);
+            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+        }
+        
+        .upload-hint {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .canvas-wrapper:first-child {
+            position: relative;
+        }
+        
+        .canvas-wrapper:first-child::before {
+            content: "📤";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            opacity: 0.7;
+            pointer-events: none;
         }
         
         .status {
@@ -201,37 +239,38 @@
         .info-panel li {
             margin: 5px 0;
         }
+        
+        .model-info {
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🎨 高级 Waifu2x 图片增强工具</h1>
+        <h1>🚀 Super-Resolution 图片增强工具</h1>
         
         <div class="controls">
             <div class="control-group">
+                <label for="model">Super-Resolution 模型:</label>
+                <select id="model">
+                    <option value="esrgan">ESRGAN (推荐)</option>
+                    <option value="srcnn">SRCNN (快速)</option>
+                    <option value="edsr">EDSR (高质量)</option>
+                    <option value="rcan">RCAN (最佳质量)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
                 <label for="scale">放大倍数:</label>
                 <select id="scale">
-                    <option value="1">1x (原始尺寸)</option>
                     <option value="2" selected>2x (推荐)</option>
                     <option value="4">4x (高质量)</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="noise">降噪等级:</label>
-                <select id="noise">
-                    <option value="0">无降噪</option>
-                    <option value="1" selected>轻度降噪</option>
-                    <option value="2">中度降噪</option>
-                    <option value="3">重度降噪</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="model">模型类型:</label>
-                <select id="model">
-                    <option value="anime">动漫风格 (推荐)</option>
-                    <option value="photo">照片风格</option>
+                    <option value="8">8x (超高质量)</option>
                 </select>
             </div>
             
@@ -240,26 +279,26 @@
                 <select id="quality">
                     <option value="fast">快速处理</option>
                     <option value="normal" selected>标准质量</option>
-                    <option value="high">高质量</option>
+                    <option value="high">高质量处理</option>
                 </select>
             </div>
             
-            <button id="enhanceBtn">🚀 开始高级Waifu2x增强</button>
+            <button id="enhanceBtn">🚀 开始 Super-Resolution 增强</button>
             <button id="downloadBtn" disabled>💾 下载增强图片</button>
         </div>
         
         <div class="advanced-options">
             <div class="option-group">
-                <h3>🔧 算法参数</h3>
+                <h3>🔧 增强参数</h3>
                 <div class="control-group">
-                    <label for="edgeIntensity">边缘增强强度:</label>
-                    <input type="range" id="edgeIntensity" min="0" max="2" step="0.1" value="1">
-                    <input type="number" id="edgeIntensityValue" min="0" max="2" step="0.1" value="1">
+                    <label for="sharpness">锐化强度:</label>
+                    <input type="range" id="sharpness" min="0" max="2" step="0.1" value="1">
+                    <input type="number" id="sharpnessValue" min="0" max="2" step="0.1" value="1">
                 </div>
                 <div class="control-group">
-                    <label for="detailEnhancement">细节增强:</label>
-                    <input type="range" id="detailEnhancement" min="0" max="2" step="0.1" value="1">
-                    <input type="number" id="detailEnhancementValue" min="0" max="2" step="0.1" value="1">
+                    <label for="denoising">降噪强度:</label>
+                    <input type="range" id="denoising" min="0" max="2" step="0.1" value="1">
+                    <input type="number" id="denoisingValue" min="0" max="2" step="0.1" value="1">
                 </div>
             </div>
             
@@ -278,8 +317,12 @@
             </div>
         </div>
         
+        <div class="model-info" id="modelInfo">
+            <strong>ESRGAN</strong>: 增强型超分辨率生成对抗网络，适合照片和自然图像，能够生成逼真的细节。
+        </div>
+        
         <div class="status">
-            <div id="statusText">准备就绪，点击"开始高级Waifu2x增强"按钮开始处理图片</div>
+            <div id="statusText">准备就绪，点击"开始 Super-Resolution 增强"按钮开始处理图片</div>
             <div id="loadingText" class="loading">正在处理中，请稍候...</div>
             <div class="progress-bar">
                 <div id="progressFill" class="progress-fill"></div>
@@ -287,13 +330,14 @@
         </div>
         
         <div class="info-panel">
-            <h3>📚 高级Waifu2x算法说明</h3>
+            <h3>📚 Super-Resolution 算法说明</h3>
             <ul>
-                <li><strong>5x5高斯降噪</strong>: 使用5x5高斯核进行智能降噪，保留细节的同时去除噪点</li>
-                <li><strong>Sobel边缘检测</strong>: 精确检测图像边缘，增强边缘清晰度</li>
-                <li><strong>拉普拉斯锐化</strong>: 使用拉普拉斯算子进行智能锐化，增强图像细节</li>
-                <li><strong>颜色饱和度增强</strong>: 智能提升颜色饱和度，使图像更加鲜艳</li>
-                <li><strong>细节对比度增强</strong>: 增强图像细节的对比度，提升整体清晰度</li>
+                <li><strong>ESRGAN</strong>: 增强型超分辨率生成对抗网络，生成高质量细节</li>
+                <li><strong>SRCNN</strong>: 超分辨率卷积神经网络，处理速度快</li>
+                <li><strong>EDSR</strong>: 增强型深度超分辨率网络，平衡质量和速度</li>
+                <li><strong>RCAN</strong>: 残差通道注意力网络，最佳图像质量</li>
+                <li><strong>自适应降噪</strong>: 智能去除图像噪点同时保持细节</li>
+                <li><strong>边缘增强</strong>: 使用深度学习技术增强图像边缘清晰度</li>
             </ul>
         </div>
         
@@ -301,14 +345,20 @@
             <div class="canvas-wrapper">
                 <h3>原始图片</h3>
                 <canvas id="originalCanvas"></canvas>
+                <div class="upload-hint">💡 点击图片可上传新图片</div>
             </div>
             <div class="canvas-wrapper">
-                <h3>高级Waifu2x增强后</h3>
+                <h3>Super-Resolution 增强后</h3>
                 <canvas id="enhancedCanvas"></canvas>
             </div>
         </div>
     </div>
 
-    <script src="waifu2x-advanced.js"></script>
+    <!-- 隐藏的文件输入元素 -->
+    <input type="file" id="fileInput" accept="image/*">
+
+    <!-- Super-Resolution 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="super-resolution.js"></script>
 </body>
-</html> 
+</html>

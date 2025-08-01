@@ -111,6 +111,44 @@
             border-radius: 8px;
             max-width: 100%;
             height: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        canvas:hover {
+            border-color: rgba(255,215,0,0.6);
+            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+        }
+        
+        .upload-hint {
+            font-size: 0.9em;
+            color: rgba(11, 4, 4, 0.7);
+            margin-top: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .canvas-wrapper:first-child {
+            position: relative;
+        }
+        
+        .canvas-wrapper:first-child::before {
+            content: "📤";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            opacity: 0.7;
+            pointer-events: none;
         }
         
         .status {
@@ -137,7 +175,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🎨 图片增强工具</h1>
+        <h1>🎨 Pixi 图片增强工具</h1>
         
         <div class="controls">
             <div class="control-group">
@@ -177,6 +215,7 @@
             <div class="canvas-wrapper">
                 <h3>原始图片</h3>
                 <canvas id="originalCanvas"></canvas>
+                <div class="upload-hint">💡 点击图片可上传新图片</div>
             </div>
             <div class="canvas-wrapper">
                 <h3>增强后图片</h3>
@@ -184,6 +223,9 @@
             </div>
         </div>
     </div>
+
+    <!-- 隐藏的文件输入元素 -->
+    <input type="file" id="fileInput" accept="image/*">
 
     <script src="https://pixijs.download/release/pixi.js"></script>
     <script src="enhancer.js"></script>
