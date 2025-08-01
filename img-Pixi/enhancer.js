@@ -7,6 +7,8 @@ class ImageEnhancer {
         this.enhancedSprite = null;
         this.originalCanvas = document.getElementById('originalCanvas');
         this.enhancedCanvas = document.getElementById('enhancedCanvas');
+        this.fileInput = document.getElementById('fileInput');
+        this.currentImage = null; // 存储当前图片
         
         this.init();
         this.setupEventListeners();
@@ -35,20 +37,62 @@ class ImageEnhancer {
             img.crossOrigin = 'anonymous';
             
             img.onload = () => {
+                this.currentImage = img; // 保存当前图片
                 // 显示原始图片
                 this.displayOriginalImage(img);
                 this.updateStatus('原始图片加载完成，可以开始增强处理', 'success');
             };
             
             img.onerror = () => {
-                this.updateStatus('图片加载失败，请检查图片路径', 'error');
+                // 如果默认图片加载失败，创建一个占位图片
+                this.createPlaceholderImage();
             };
             
             img.src = '1.jpg';
             
         } catch (error) {
             this.updateStatus('加载图片时发生错误: ' + error.message, 'error');
+            this.createPlaceholderImage();
         }
+    }
+
+    createPlaceholderImage() {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = 400;
+        canvas.height = 300;
+        
+        // 创建渐变背景
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, '#667eea');
+        gradient.addColorStop(1, '#764ba2');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 添加文字
+        ctx.fillStyle = 'white';
+        ctx.font = 'bold 24px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('点击上传图片', canvas.width / 2, canvas.height / 2 - 20);
+        
+        ctx.font = '16px Arial';
+        ctx.fillText('支持 JPG, PNG, GIF 等格式', canvas.width / 2, canvas.height / 2 + 20);
+        
+        // 将占位图片转换为Image对象
+        canvas.toBlob(blob => {
+            const url = URL.createObjectURL(blob);
+            const img = new Image();
+            img.onload = () => {
+                this.currentImage = null; // 占位图片不算作真实图片
+                this.displayOriginalImage(img);
+                this.updateStatus('请点击上方图片区域上传您要处理的图片', 'success');
+                URL.revokeObjectURL(url);
+            };
+            img.src = url;
+        });
     }
     
     displayOriginalImage(img) {
@@ -65,6 +109,65 @@ class ImageEnhancer {
         
         // 绘制图片
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        // 验证文件类型
+        if (!file.type.startsWith('image/')) {
+            this.updateStatus('请选择有效的图片文件！', 'error');
+            return;
+        }
+
+        // 验证文件大小（限制为10MB）
+        if (file.size > 10 * 1024 * 1024) {
+            this.updateStatus('图片文件过大，请选择小于10MB的图片！', 'error');
+            return;
+        }
+
+        this.updateStatus('正在加载上传的图片...', 'loading');
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+                this.currentImage = img; // 保存当前图片
+                this.displayOriginalImage(img);
+                this.updateStatus('图片上传成功，可以开始增强处理', 'success');
+                
+                // 清空增强画布
+                const enhancedCtx = this.enhancedCanvas.getContext('2d');
+                enhancedCtx.clearRect(0, 0, this.enhancedCanvas.width, this.enhancedCanvas.height);
+                this.enhancedCanvas.width = 0;
+                this.enhancedCanvas.height = 0;
+                
+                // 禁用下载按钮
+                document.getElementById('downloadBtn').disabled = true;
+                
+                // 清除Pixi纹理缓存
+                if (this.originalTexture) {
+                    this.originalTexture.destroy();
+                    this.originalTexture = null;
+                }
+                if (this.enhancedTexture) {
+                    this.enhancedTexture.destroy();
+                    this.enhancedTexture = null;
+                }
+            };
+            img.onerror = () => {
+                this.updateStatus('图片格式不支持或文件损坏！', 'error');
+            };
+            img.src = e.target.result;
+        };
+        reader.onerror = () => {
+            this.updateStatus('读取文件失败！', 'error');
+        };
+        reader.readAsDataURL(file);
+
+        // 清空input，允许重复选择同一文件
+        event.target.value = '';
     }
     
     setupEventListeners() {
@@ -98,10 +201,25 @@ class ImageEnhancer {
         document.getElementById('downloadBtn').addEventListener('click', () => {
             this.downloadEnhancedImage();
         });
+
+        // 添加原始画布点击事件，触发文件选择
+        this.originalCanvas.addEventListener('click', () => {
+            this.fileInput.click();
+        });
+
+        // 添加文件选择事件
+        this.fileInput.addEventListener('change', (event) => {
+            this.handleFileUpload(event);
+        });
     }
     
     async enhanceImage() {
         try {
+            if (!this.currentImage) {
+                this.updateStatus('请先上传或加载图片！', 'error');
+                return;
+            }
+
             this.updateStatus('正在处理图片增强...', 'loading');
             document.getElementById('enhanceBtn').disabled = true;
             
@@ -115,15 +233,8 @@ class ImageEnhancer {
             const tempCanvas = document.createElement('canvas');
             const tempCtx = tempCanvas.getContext('2d');
             
-            // 加载原始图片
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            
-            await new Promise((resolve, reject) => {
-                img.onload = resolve;
-                img.onerror = reject;
-                img.src = '1.jpg';
-            });
+            // 使用当前图片
+            const img = this.currentImage;
             
             // 设置canvas尺寸
             tempCanvas.width = img.width * scale;
@@ -135,6 +246,9 @@ class ImageEnhancer {
             
             // 绘制缩放后的图片
             tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+            
+            // 模拟处理时间，让用户看到进度
+            await this.simulateProcessing();
             
             // 获取图片数据
             const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
@@ -169,6 +283,23 @@ class ImageEnhancer {
             this.updateStatus('图片增强过程中发生错误: ' + error.message, 'error');
             document.getElementById('enhanceBtn').disabled = false;
         }
+    }
+
+    // 模拟处理进度
+    async simulateProcessing() {
+        return new Promise(resolve => {
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 20;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    resolve();
+                } else {
+                    this.updateStatus(`正在处理图片增强... ${Math.round(progress)}%`, 'loading');
+                }
+            }, 100);
+        });
     }
     
     applySharpness(data, width, height, intensity) {

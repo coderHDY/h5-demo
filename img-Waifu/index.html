@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级 Waifu2x 图片增强工具</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .controls {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .control-group {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+            min-width: 120px;
+        }
+        
+        select, input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        select option {
+            background: #333;
+            color: white;
+        }
+        
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .advanced-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .option-group {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .option-group h3 {
+            margin: 0 0 10px 0;
+            color: #ffd700;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .canvas-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .canvas-wrapper {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .canvas-wrapper h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        canvas {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        canvas:hover {
+            border-color: rgba(255,215,0,0.6);
+            box-shadow: 0 0 15px rgba(255,215,0,0.3);
+        }
+        
+        .upload-hint {
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.7);
+            margin-top: 5px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .canvas-wrapper:first-child {
+            position: relative;
+        }
+        
+        .canvas-wrapper:first-child::before {
+            content: "📤";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading {
+            display: none;
+            color: #ffd700;
+        }
+        
+        .success {
+            color: #00ff88;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .info-panel {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .info-panel h3 {
+            color: #ffd700;
+            margin: 0 0 10px 0;
+        }
+        
+        .info-panel ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .info-panel li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 高级 Waifu2x 图片增强工具</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="scale">放大倍数:</label>
+                <select id="scale">
+                    <option value="1">1x (原始尺寸)</option>
+                    <option value="2" selected>2x (推荐)</option>
+                    <option value="4">4x (高质量)</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="noise">降噪等级:</label>
+                <select id="noise">
+                    <option value="0">无降噪</option>
+                    <option value="1" selected>轻度降噪</option>
+                    <option value="2">中度降噪</option>
+                    <option value="3">重度降噪</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="model">模型类型:</label>
+                <select id="model">
+                    <option value="anime">动漫风格 (推荐)</option>
+                    <option value="photo">照片风格</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <label for="quality">处理质量:</label>
+                <select id="quality">
+                    <option value="fast">快速处理</option>
+                    <option value="normal" selected>标准质量</option>
+                    <option value="high">高质量</option>
+                </select>
+            </div>
+            
+            <button id="enhanceBtn">🚀 开始高级Waifu2x增强</button>
+            <button id="downloadBtn" disabled>💾 下载增强图片</button>
+        </div>
+        
+        <div class="advanced-options">
+            <div class="option-group">
+                <h3>🔧 算法参数</h3>
+                <div class="control-group">
+                    <label for="edgeIntensity">边缘增强强度:</label>
+                    <input type="range" id="edgeIntensity" min="0" max="2" step="0.1" value="1">
+                    <input type="number" id="edgeIntensityValue" min="0" max="2" step="0.1" value="1">
+                </div>
+                <div class="control-group">
+                    <label for="detailEnhancement">细节增强:</label>
+                    <input type="range" id="detailEnhancement" min="0" max="2" step="0.1" value="1">
+                    <input type="number" id="detailEnhancementValue" min="0" max="2" step="0.1" value="1">
+                </div>
+            </div>
+            
+            <div class="option-group">
+                <h3>🎨 颜色处理</h3>
+                <div class="control-group">
+                    <label for="saturation">饱和度增强:</label>
+                    <input type="range" id="saturation" min="0" max="2" step="0.1" value="1">
+                    <input type="number" id="saturationValue" min="0" max="2" step="0.1" value="1">
+                </div>
+                <div class="control-group">
+                    <label for="contrast">对比度调整:</label>
+                    <input type="range" id="contrast" min="0.5" max="2" step="0.1" value="1">
+                    <input type="number" id="contrastValue" min="0.5" max="2" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+        
+        <div class="status">
+            <div id="statusText">准备就绪，点击"开始高级Waifu2x增强"按钮开始处理图片</div>
+            <div id="loadingText" class="loading">正在处理中，请稍候...</div>
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+        </div>
+        
+        <div class="info-panel">
+            <h3>📚 高级Waifu2x算法说明</h3>
+            <ul>
+                <li><strong>5x5高斯降噪</strong>: 使用5x5高斯核进行智能降噪，保留细节的同时去除噪点</li>
+                <li><strong>Sobel边缘检测</strong>: 精确检测图像边缘，增强边缘清晰度</li>
+                <li><strong>拉普拉斯锐化</strong>: 使用拉普拉斯算子进行智能锐化，增强图像细节</li>
+                <li><strong>颜色饱和度增强</strong>: 智能提升颜色饱和度，使图像更加鲜艳</li>
+                <li><strong>细节对比度增强</strong>: 增强图像细节的对比度，提升整体清晰度</li>
+            </ul>
+        </div>
+        
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <h3>原始图片</h3>
+                <canvas id="originalCanvas"></canvas>
+                <div class="upload-hint">💡 点击图片可上传新图片</div>
+            </div>
+            <div class="canvas-wrapper">
+                <h3>高级Waifu2x增强后</h3>
+                <canvas id="enhancedCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- 隐藏的文件输入元素 -->
+    <input type="file" id="fileInput" accept="image/*">
+
+    <script src="waifu2x-advanced.js"></script>
+</body>
+</html> 
