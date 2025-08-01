@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片增强工具 - Pixi.js</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .controls {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .control-group {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        input[type="range"] {
+            width: 200px;
+            margin: 0 10px;
+        }
+        
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        button {
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .canvas-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .canvas-wrapper {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .canvas-wrapper h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        canvas {
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .loading {
+            display: none;
+            color: #ffd700;
+        }
+        
+        .success {
+            color: #00ff88;
+        }
+        
+        .error {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 图片增强工具</h1>
+        
+        <div class="controls">
+            <div class="control-group">
+                <label for="scale">放大倍数:</label>
+                <input type="range" id="scale" min="1" max="4" step="0.5" value="2">
+                <input type="number" id="scaleValue" min="1" max="4" step="0.5" value="2">
+            </div>
+            
+            <div class="control-group">
+                <label for="sharpness">锐化强度:</label>
+                <input type="range" id="sharpness" min="0" max="2" step="0.1" value="0.5">
+                <input type="number" id="sharpnessValue" min="0" max="2" step="0.1" value="0.5">
+            </div>
+            
+            <div class="control-group">
+                <label for="brightness">亮度调整:</label>
+                <input type="range" id="brightness" min="-0.5" max="0.5" step="0.1" value="0">
+                <input type="number" id="brightnessValue" min="-0.5" max="0.5" step="0.1" value="0">
+            </div>
+            
+            <div class="control-group">
+                <label for="contrast">对比度调整:</label>
+                <input type="range" id="contrast" min="0.5" max="2" step="0.1" value="1">
+                <input type="number" id="contrastValue" min="0.5" max="2" step="0.1" value="1">
+            </div>
+            
+            <button id="enhanceBtn">🚀 开始增强</button>
+            <button id="downloadBtn" disabled>💾 下载增强图片</button>
+        </div>
+        
+        <div class="status">
+            <div id="statusText">准备就绪，点击"开始增强"按钮开始处理图片</div>
+            <div id="loadingText" class="loading">正在处理中，请稍候...</div>
+        </div>
+        
+        <div class="canvas-container">
+            <div class="canvas-wrapper">
+                <h3>原始图片</h3>
+                <canvas id="originalCanvas"></canvas>
+            </div>
+            <div class="canvas-wrapper">
+                <h3>增强后图片</h3>
+                <canvas id="enhancedCanvas"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <script src="enhancer.js"></script>
+</body>
+</html> 
