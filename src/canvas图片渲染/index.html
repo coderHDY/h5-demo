@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Load</title>
+</head>
+
+<body>
+  <h1>Image Load</h1>
+
+  <canvas id="canvas" width="1000" height="1000"></canvas>
+
+  <style>
+    #canvas {
+      width: 1000px;
+      height: 1000px;
+      border: 1px solid #000;
+    }
+  </style>
+  <script>
+
+    const imageUrl = 'https://cdn.pixabay.com/photo/2024/07/25/15/37/beauty-8921625_1280.png';
+    // 终极方案
+    function isChromium() {
+      return Boolean(window.chrome);
+    }
+
+    function fastDrawImage() {
+      // 统一方案：createImageBitmap 在后台线程解码，不阻塞主线程
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const canvasWidth = canvas.width;
+      const canvasHeight = canvas.height;
+
+      // 绘制图片到 canvas 的辅助函数
+      function drawBitmapToCanvas(bitmap) {
+        ctx.drawImage(bitmap, 0, 0, canvasWidth, canvasHeight);
+      }
+
+      if (isChromium()) {
+        // Chromium: fetch + blob + createImageBitmap (后台线程解码)
+        fetch(imageUrl)
+          .then(image => image.blob())
+          .then(blob => createImageBitmap(blob))
+          .then(bitmap => {
+            console.log('图片尺寸:', bitmap.width, 'x', bitmap.height);
+            drawBitmapToCanvas(bitmap);
+          });
+      } else {
+        // 非 Chromium: 直接使用 createImageBitmap，避免 image.decode() 在主线程解码
+        fetch(imageUrl)
+          .then(response => response.blob())
+          .then(blob => createImageBitmap(blob))
+          .then(bitmap => {
+            console.log('图片尺寸:', bitmap.width, 'x', bitmap.height);
+            drawBitmapToCanvas(bitmap);
+          })
+          .catch(() => {
+            // 降级方案：如果 fetch 失败，使用 Image 对象
+            const image = new Image();
+            image.crossOrigin = 'anonymous';
+            image.onload = () => {
+              createImageBitmap(image)
+                .then(bitmap => {
+                  console.log('图片尺寸:', bitmap.width, 'x', bitmap.height);
+                  drawBitmapToCanvas(bitmap);
+                });
+            };
+            image.src = imageUrl;
+          });
+      }
+    }
+    fastDrawImage();
+
+    // 阻塞chrome
+    // function loadImage() {
+    //   const image = new Image();
+    //   image.decoding = "async";
+    //   image.onload = () => {
+    //     image.decode().then(() => {
+    //       const offscreen = new OffscreenCanvas(1000, 1000);
+    //       const offscreenCtx = offscreen.getContext("2d");
+    //       offscreenCtx.drawImage(image, 0, 0);
+
+    //       const canvas = document.getElementById('canvas');
+    //       const ctx = canvas.getContext('bitmaprenderer');
+    //       const bitmap = offscreen.transferToImageBitmap();
+    //       ctx.transferFromImageBitmap(bitmap, 0, 0, 1000, 1000);
+    //     })
+    //   };
+    //   image.src = imageUrl;
+    // }
+    // loadImage();
+  </script>
+</body>
+
+</html>
