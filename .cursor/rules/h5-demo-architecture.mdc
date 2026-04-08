@@ -1,0 +1,24 @@
+---
+description: 本仓库新增 H5 小案例/模版时必须遵守的目录、生成与路由约定
+alwaysApply: true
+---
+
+# h5-demo：追加新模版 / 新案例
+
+## 必须遵守
+
+1. **新案例放在 `src/<案例目录>/` 下**，该目录内**至少要有 `index.html`**。静态资源与 `index.css`、`index.js` 与 `index.html` 同目录，**统一用相对路径**（如 `./foo.css`、`./bar.js`）。
+2. **禁止**把可演示案例只写在 **`src/public/`**。`public` 只服务壳站（布局、侧边栏、`hash` + `iframe` 逻辑）；扫描脚本会**跳过** `public`，放在那里的页面**不会进左侧列表**。
+3. **追加或改侧边栏列表后**：必须执行根目录 **`node index.js`**（或 **`npm run serve`**，会先跑生成再启 Vite）。生成逻辑会读 **`src/public/index.html`**，**覆盖写入 `src/index.html`**，不要手改 `src/index.html` 里的侧边栏。
+4. **入口**：开发时 Vite 以 **`src` 为根**，真正被访问的壳页面是 **`src/index.html`**（由生成脚本产出）；根目录没有独立 `index.html` 作为入口。
+
+## 路由与运行方式（不要引入 SPA 路由框架硬套）
+
+- 多案例切换是 **`location.hash` + `<iframe src>`**，无服务端路由。
+- 侧边栏 `data-src` 为相对 `src/` 的编码路径（支持中文目录名）。子页在 **iframe** 内打开；子页脚本请用 **外部 `<script src="./index.js">`**，避免依赖易不执行的内联单标签 script。
+
+## 自检
+
+- [ ] 新文件在 `src/<新目录>/index.html`，且不在 `public` 下  
+- [ ] 已运行 `node index.js` 或 `npm run serve` 更新列表  
+- [ ] 资源路径为相对路径，在 iframe 中可加载  

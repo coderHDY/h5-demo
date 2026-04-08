@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>滚动 · 视频帧背景</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <main class="scroll-track">
+      <div class="sticky-view">
+        <canvas id="frame-canvas" aria-hidden="true"></canvas>
+        <div class="hud">
+          <p class="hint">向下滚动，画面随滚动逐帧推进</p>
+          <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <span class="progress-bar"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./index.js"></script>
+  </body>
+</html>
